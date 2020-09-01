@@ -48,9 +48,12 @@ class Race
     if race[race_name]["subraces"]
       subrace = weighted_random(race[race_name]["subraces"])
       subrace_name = subrace.keys[0]
-      race_abilities = spend_ability_points(race[race_name]["abilities"].merge(subrace[subrace_name]["abilities"]), adventurer_abilities)
+      race_abilities = spend_ability_points(race[race_name]["abilities"]
+                       .merge(subrace[subrace_name]["abilities"]), adventurer_abilities)
+                       .transform_keys(&:to_sym)
     else
       race_abilities = spend_ability_points(race[race_name]["abilities"], adventurer_abilities)
+                       .transform_keys(&:to_sym)
     end
     return race_name, subrace_name, race_abilities
   end
@@ -61,9 +64,11 @@ class Race
     if race[race_name]["subraces"]
       subrace = race[race_name]["subraces"].to_a.sample(1).to_h
       subrace_name = subrace.keys[0]
-      race_abilities = spend_ability_points(race[race_name]["abilities"].merge(subrace[subrace_name]["abilities"]))
+      race_abilities = spend_ability_points(race[race_name]["abilities"]
+                       .merge(subrace[subrace_name]["abilities"]))
+                       .transform_keys(&:to_sym)
     else
-      race_abilities = spend_ability_points(race[race_name]["abilities"])
+      race_abilities = spend_ability_points(race[race_name]["abilities"]).transform_keys(&:to_sym)
     end
     return race_name, subrace_name, race_abilities
   end
@@ -76,16 +81,14 @@ class Race
     abilities_chosen = []
     ability_points.each { |val|
       ability_weights = ABILITIES.collect { |ability|
-        if abilities_chosen.include? ability
-          puts "Already added: #{ability}"
+        if abilities_chosen.include? ability or race_abilities.include? ability.to_s
           [ability, {"weight" => 0}]
         else
           [ability, {"weight" => ability_score_weight(adventurer_abilities[ability] + val, val)}]
         end
       }.to_h
-      puts ability_weights.to_s
       chosen_ability = weighted_random(ability_weights).keys.first
-      puts "Choosing #{chosen_ability}"
+      log "Spending ability point on #{chosen_ability}"
       abilities_chosen << chosen_ability
       if abilities[chosen_ability]
         abilities[chosen_ability] += val

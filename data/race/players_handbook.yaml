@@ -37,3 +37,24 @@ races:
     weight: 15
     abilities:
       any: [1, 1]
+  dragonborn:
+    weight: 6
+    abilities:
+      strength: 2
+      charisma: 1
+  gnome:
+    weight: 8
+    abilities:
+      intelligence: 2
+    subraces:
+      forest gnome:
+        abilities:
+          dexterity: 1
+      rock gnome:
+        abilities:
+          constitution: 1
+  half-elf:
+    weight: 8
+    abilities:
+      charisma: 2
+      any: [1, 1]

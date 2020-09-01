@@ -87,13 +87,8 @@ module CharacterGeneratorHelper
   end
 
   def weighted_random(obj)
-    puts "---"
-    puts obj.to_s
-    puts obj.class
-    puts "---"
     arr = obj.kind_of?(Array) ? obj : obj.to_a
     weighted_arr = []
-    puts arr.to_s
     arr.each { |elem|
       if (elem.kind_of? Array) and (elem.length == 2) and ((elem[0].kind_of? String) or (elem[0].kind_of? Symbol)) and (elem[1].kind_of? Hash)
         elem_weight = elem[1]["weight"] if elem[1].kind_of? Hash
@@ -101,8 +96,6 @@ module CharacterGeneratorHelper
         elem_weight = elem["weight"] if elem.kind_of? Hash
       end
       probability = elem_weight ? elem_weight : 10
-      puts elem.to_s
-      puts "Probability for #{elem[0]}: #{probability} (#{elem_weight})"
       probability.times do
         weighted_arr << elem
       end
