@@ -81,7 +81,7 @@ class Race
     abilities_chosen = []
     ability_points.each { |val|
       ability_weights = ABILITIES.collect { |ability|
-        if abilities_chosen.include? ability or race_abilities.include? ability.to_s
+        if abilities_chosen.include? ability or race_abilities.include? ability
           [ability, {"weight" => 0}]
         else
           [ability, {"weight" => ability_score_weight(adventurer_abilities[ability] + val, val)}]
