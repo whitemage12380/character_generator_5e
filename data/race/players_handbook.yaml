@@ -1,0 +1,39 @@
+races:
+  dwarf:
+    abilities: 
+      constitution: 2
+    subraces:
+      hill dwarf:
+        abilities:
+          wisdom: 1
+      mountain dwarf:
+        abilities:
+          strength: 2
+  elf:
+    abilities: 
+      dexterity: 2
+    subraces:
+      high elf:
+        abilities:
+          intelligence: 1
+      wood elf:
+        abilities:
+          wisdom: 1
+      drow elf:
+        weight: 4
+        abilities: 
+          charisma: 1
+  halfling:
+    abilities:
+      dexterity: 2
+    subraces:
+      lightfoot halfling:
+        abilities:
+          charisma: 1
+      stout halfling:
+        abilities:
+          constitution: 1
+  human:
+    weight: 15
+    abilities:
+      any: [1, 1]
