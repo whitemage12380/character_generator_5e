@@ -1,2 +1,3 @@
 generation_style:
   race: weighted
+  class: random

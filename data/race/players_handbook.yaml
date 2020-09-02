@@ -58,3 +58,13 @@ races:
     abilities:
       charisma: 2
       any: [1, 1]
+  half-orc:
+    weight: 8
+    abilities:
+      strength: 2
+      constitution: 1
+  tiefling:
+    weight: 6
+    abilities:
+      charisma: 2
+      intelligence: 1

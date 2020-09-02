@@ -1,13 +1,15 @@
 require_relative 'character_generator_helper'
-require_relative 'race'
+require_relative 'adventurer_race'
+require_relative 'adventurer_class'
 
 class Adventurer
   include CharacterGeneratorHelper
-  attr_reader :base_abilities, :race
+  attr_reader :base_abilities, :race, :character_class
 
   def initialize()
     @base_abilities = roll_abilities()
-    @race = Race.new(@base_abilities)
+    @race = AdventurerRace.new(@base_abilities)
+    @character_class = AdventurerClass.new(@base_abilities)
   end
 
   def abilities()
@@ -73,7 +75,7 @@ class Adventurer
   def print_adventurer()
     puts "----------------------------"
     puts "Adventurer"
-    puts @race.pretty_name
+    puts "#{@race.pretty_name} #{@character_class.pretty_name}"
     puts "----------------------------"
     print_abilities()
     puts "----------------------------"

@@ -1,0 +1,30 @@
+classes:
+  barbarian:
+    weight: 8
+    hit_die: d12
+    ability_weights:
+      strength: 6
+      constitution: 3
+    saves: [strength, constitution]
+    skills: 2
+    skill_list: [animal handling, athletics, intimidation, nature, perception, survival]
+    subclass_level: 3
+    subclasses:
+
+  bard:
+    weight: 7
+    hit_die: d8
+    ability_weights:
+      charisma: 6
+      dexterity: 3
+    saves: [dexterity, charisma]
+    skills: 3
+    spells_known: 
+      bard: [4, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0]
+      any:  {10: 2, 14: 2, 18: 2}
+    subclass_level: 3
+    subclasses:
+      college of lore:
+        weight: 
+        spells_known:
+          any: {6: 2}

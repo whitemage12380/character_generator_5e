@@ -2,7 +2,7 @@ require_relative 'configuration'
 require_relative 'character_generator_helper'
 
 
-class Race
+class AdventurerRace
   include CharacterGeneratorHelper
   attr_reader :race_name, :subrace_name, :race_abilities
 
