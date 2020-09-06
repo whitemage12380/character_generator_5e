@@ -10,7 +10,19 @@ classes:
     skill_list: [animal handling, athletics, intimidation, nature, perception, survival]
     subclass_level: 3
     subclasses:
-
+      berserker:
+        weight: 10
+      totem warrior:
+        choices:
+          3:
+            totem spirit:
+              options: [bear, eagle, wolf]
+          6:
+            aspect of the beast:
+              options: [bear, eagle, wolf]
+          14:
+            totemic attunement:
+              options: [bear, eagle, wolf]
   bard:
     weight: 7
     hit_die: d8
@@ -19,12 +31,552 @@ classes:
       dexterity: 3
     saves: [dexterity, charisma]
     skills: 3
+    cantrips:
+      bard: {1: 2, 4: 1, 10: 1}
     spells_known: 
       bard: [4, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0]
       any:  {10: 2, 14: 2, 18: 2}
     subclass_level: 3
     subclasses:
       college of lore:
-        weight: 
         spells_known:
           any: {6: 2}
+        choices:
+          1:
+            bonus proficiencies:
+              skills: 3
+          3:
+            expertise:
+              expertises: 2
+          10:
+            expertise:
+              expertises: 2
+      college of valor:
+        weight: 10
+  cleric:
+    hit_die: d8
+    ability_weights:
+      wisdom: 6
+      strength: 2
+      constitution: 2
+    saves: [wisdom, charisma]
+    skills: 2
+    skill_list: [history, insight, medicine, persuasion, religion]
+    cantrips:
+      cleric: {1: 3, 4: 1, 10: 1}
+    spells_prepared:
+      ability: wisdom
+      class: cleric
+    subclass_level: 1
+    subclasses:
+      knowledge domain:
+        spells:
+          1: [command, identify]
+          3: [augury, suggestion]
+          5: [nondetection, speak with dead]
+          7: [arcane eye, confusion]
+          9: [legend lore, scrying]
+        choices:
+          1:
+            blessings of knowledge:
+              skills: 2
+              skill_list: [arcana, history, nature, religion]
+              # Not yet recorded: These proficiencies are essentially automatically expertise
+      life domain:
+        spells:
+          1: [bless, cure wounds]
+          3: [lesser restoration, spiritual weapon]
+          5: [beacon of hope, revivify]
+          7: [death ward, guardian of faith]
+          9: [mass cure wounds, raise dead]
+      light domain:
+        cantrips:
+          1: [light]
+        spells:
+          1: [burning hands, faerie fire]
+          3: [flaming sphere, scorching ray]
+          5: [daylight, fireball]
+          7: [guardian of faith, wall of fire]
+          9: [flame strike, scrying]
+      nature domain:
+        cantrips: {druid: 1}
+        spells:
+          1: [animal friendship, speak with animals]
+          3: [barkskin, spike growth]
+          5: [plant growth, wind wall]
+          7: [dominate beast, grasping vine]
+          9: [insect plague, tree stride]
+        choices:
+          1:
+            acolyte of nature:
+              skills: 1
+              skill_list: [animal handling, nature, survival]
+      tempest domain:
+        spells:
+          1: [fog cloud, thunderwave]
+          3: [gust of wind, shatter]
+          5: [call lightning, sleet storm]
+          7: [control water, ice storm]
+          9: [destructive wave, insect plague]
+      trickery domain:
+        spells:
+          1: [charm person, disguise self]
+          3: [mirror image, pass without trace]
+          5: [blink, dispel magic]
+          7: [dimension_door, polymorph]
+          9: [dominate person, modify memory]
+      war domain:
+        spells:
+          1: [divine favor, shield of faith]
+          3: [magic weapon, spiritual weapon]
+          5: [crusader's mantle, spirit guardians]
+          7: [freedom of movement, stoneskin]
+          9: [flame strike, hold monster]
+  druid:
+    weight: 8
+    hit_die: d8
+    ability_weights:
+      wisdom: 6
+      constitution: 2
+    saves: [intelligence, wisdom]
+    skills: 2
+    skill_list: [arcana, animal handling, insight, medicine, nature, perception, religion, survival]
+    cantrips:
+      druid: {1: 2, 4: 1, 10: 1}
+    spells_prepared:
+      ability: wisdom
+      class: druid
+    subclass_level: 2
+    subclasses:
+      circle of the land:
+        cantrips: {druid: 1}
+        choices:
+          3:
+            circle spells:
+              options:
+                arctic:
+                  spells:
+                    3: [hold person, spike growth]
+                    5: [sleet storm, slow]
+                    7: [freedom of movement, ice storm]
+                    9: [commune with nature, cone of cold]
+                coast:
+                  spells:
+                    3: [mirror image, misty step]
+                    5: [water breathing, water walk]
+                    7: [control water, freedom of movement]
+                    9: [conjure elemental, scrying]
+                desert:
+                  spells:
+                    3: [blur, silence]
+                    5: [create food and water, protection from energy]
+                    7: [blight, hallucinatory terrain]
+                    9: [insect plague, wall of stone]
+                forest:
+                  spells:
+                    3: [barkskin, spider climb]
+                    5: [call lightning, plant growth]
+                    7: [divination, freedom of movement]
+                    9: [commune with nature, tree stride]
+                grassland:
+                  spells:
+                    3: [invisibility, pass without trace]
+                    5: [daylight, haste]
+                    7: [divination, freedom of movement]
+                    9: [dream, insect plague]
+                mountain:
+                  spells:
+                    3: [spider climb, spike growth]
+                    5: [lightning bolt, meld into stone]
+                    7: [stone shape, stoneskin]
+                    9: [passwall, wall of stone]
+                swamp:
+                  spells:
+                    3: [darkness, melf's acid arrow]
+                    5: [water walk, stinking cloud]
+                    7: [freedom of movement, locate creature]
+                    9: [insect plague, scrying]
+                underdark:
+                  spells:
+                    3: [spider climb, web]
+                    5: [gaseous form, stinking cloud]
+                    7: [greater invisibility, stone shape]
+                    9: [cloudkill, insect plague]
+      circle of the moon:
+        weight: 10
+  fighter:
+    hit_die: d10
+    ability_weights:
+      strength: 4
+      dexterity: 4
+      constitution: 2
+      intelligence: 2
+    saves: [strength, constitution]
+    skills: 2
+    skill_list: [acrobatics, animal handling, athletics, history, insight, intimidation, perception, survival]
+    ability_score_increases: [6, 8, 12, 14, 16, 19]
+    lists:
+      fighting styles: [archery, defense, dueling, great weapon fighting, protection, two-weapon fighting]
+    choices:
+      1:
+        fighting style:
+          fighting styles: 1
+    subclass_level: 3
+    subclasses:
+      champion:
+        choices:
+          10:
+            additional fighting style:
+              fighting styles: 1
+      battle master:
+        lists:
+          maneuvers: [commander's strike, disarming attack, distracting strike, evasive footwork, feinting attack, goading attack, lunging attack, maneuvering attack, menacing attack, parry, precision attack, pushing attack, rally, riposte, sweeping attack, trip attack]
+        choices:
+          3: {combat superiority: {maneuvers: 3}} # Not codified: Student of War (artisan's tools of your choice)
+          7: {combat superiority: {maneuvers: 2}}
+          10: {combat superiority: {maneuvers: 2}}
+          15: {combat superiority: {maneuvers: 2}}
+      eldritch knight:
+        cantrips:
+          wizard: {1: 2, 10: 1}
+        spells_known:
+          eldritch knight: [0, 0, 2, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0] # Abjuration and Evocation
+          wizard: {3: 1, 8: 1, 14: 1, 20: 1}
+        # Choice not codified: Weapon Bond (which weapon gets the bond)
+  monk:
+    hit_die: d8
+    ability_weights:
+      dexterity: 6
+      wisdom: 3
+    saves: [strength, dexterity]
+    skills: 2
+    skill_list: [acrobatics, athletics, history, insight, religion, stealth]
+    subclass_level: 3
+    subclasses:
+      way of the open hand:
+        weight: 10
+      way of shadow:
+        weight: 10
+      way of the four elements:
+        lists:
+          elemental disciplines:
+            3:
+              - fangs of the fire snake
+              - fist of four thunders
+              - fist of unbroken air
+              - rush of the gale spirits
+              - shape of the flowing river
+              - sweeping cinder strike
+              - water whip
+            6:
+              - clench of the north wind
+              - gong of the summit
+            11:
+              - flames of the phoenix
+              - mist stance
+              - ride the wind
+            17:
+              - breath of winter
+              - eternal mountain defense
+              - river of hungry flame
+              - wave of rolling earth
+        choices:
+          3: {disciple of the elements: {elemental disciplines: 1}}
+          6: {disciple of the elements: {elemental disciplines: 1}}
+          11: {disciple of the elements: {elemental disciplines: 1}}
+          17: {disciple of the elements: {elemental disciplines: 1}}
+  paladin:
+    hit_die: d10
+    ability_weights:
+      strength: 4
+      charisma: 3
+    saves: [wisdom, charisma]
+    skills: 2
+    skill_list: [athletics, insight, intimidation, medicine, persuasion, religion]
+    spells_prepared:
+      ability: charisma
+      class: paladin
+      level_multiplier: 0.5
+    choices:
+      2:
+        fighting style:
+          options: [defense, dueling, great weapon fighting, protection]
+    subclass_level: 3
+    subclasses:
+      oath of devotion:
+        spells:
+          3: [protection from evil and good, sanctuary]
+          5: [lesser restoration, zone of truth]
+          9: [beacon of hope, dispel magic]
+          13: [freedom of movement, guardian of faith]
+          17: [commune, flame strike]
+      oath of the ancients:
+        spells:
+          3: [ensnaring strike, speak with animals]
+          5: [misty step, moonbeam]
+          9: [plant growth, protection from energy]
+          13: [ice storm, stoneskin]
+          17: [commune with nature, tree stride]
+      oath of vengeance:
+        spells:
+          3: [bane, hunter's mark]
+          5: [hold person, misty step]
+          9: [haste, protection from energy]
+          13: [banishment, dimension door]
+          17: [hold monster, scrying]
+  ranger:
+    hit_die: d10
+    ability_weights:
+      dexterity: 6
+      wisdom: 3
+    saves: [strength, dexterity]
+    skills: 3
+    skill_list: [animal handling, athletics, insight, investigation, nature, perception, stealth, survival]
+    spells_known:
+      ranger: [0, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+    lists:
+      favored enemies: [aberrations, beasts, celestials, constructs, dragons, elementals, fey, fiends, giants, monstrosities, oozes, plants, undead, humanoids (pick 2)]
+      favored terrains: [arctic, coast, desert, forest, grassland, mountain, swamp, underdark]
+    choices:
+      1:
+        favored enemy: {favored enemies: 1}
+        natural explorer: {favored terrains: 1}
+      2:
+        fighting style:
+          options: [archery, defense, dueling, two-weapon fighting]
+      6:
+        favored enemy: {favored enemies: 1}
+        natural explorer: {favored terrains: 1}
+      10:
+        natural explorer: {favored terrains: 1}
+      14:
+        favored enemy: {favored enemies: 1}
+    subclass_level: 3
+    subclasses:
+      hunter:
+        choices:
+          3:
+            hunter's prey:
+              options: [colossus slayer, giant killer, horder breaker]
+          7:
+            defensive tactics:
+              options: [escape the horde, multiattack defense, steel will]
+          11:
+            multiattack:
+              options: [volley, whirlwind attack]
+          15:
+            superior hunter's defense:
+              options: [evasion, stand against the tide, uncanny dodge]
+      beast master:
+        weight: 5
+        # Not codified: Choice of ranger's companion
+  rogue:
+    hit_die: d8
+    ability_weights:
+      dexterity: 6
+      intelligence: 2
+      charisma: 2
+    saves: [dexterity, intelligence]
+    skills: 4
+    skill_list: [acrobatics, athletics, deception, insight, intimidation, investigation, perception, performance, persuasion, sleight of hand, stealth]
+    choices:
+      1:
+        expertise:
+          expertises: 2
+      6:
+        expertise:
+          expertises: 2
+    subclass_level: 3
+    subclasses:
+      thief:
+        weight: 10
+      assassin:
+        weight: 10
+      arcane trickster:
+        spells: [mage hand]
+        cantrips:
+          wizard: {3: 3, 10: 1}
+        spells_known:
+          arcane trickster: [0, 0, 2, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0]
+          wizard: {3: 1, 8: 1, 14: 1, 20: 1}
+  sorcerer:
+    weight: 9
+    hit_die: d8
+    ability_weights:
+      charisma: 6
+      constitution: 2
+    saves: [constitution, charisma]
+    skills: 2
+    skill_list: [arcana, deception, insight, intimidation, persuasion, religion]
+    cantrips:
+      sorcerer: {1: 4, 4: 1, 10: 1}
+    spells_known:
+      sorcerer: [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0]
+    lists:
+      metamagic options: [careful spell, distant spell, empowered spell, extended spell, heightened spell, quickened spell, subtle spell, twinned spell]
+    choices:
+      3: {metamagic: {metamagic options: 2}}
+      10: {metamagic: {metamagic options: 1}}
+      17: {metamagic: {metamagic options: 1}}
+    subclass_level: 1
+    subclasses:
+      draconic bloodline:
+        choices:
+          1:
+            dragon ancestor:
+              options: [black, blue, brass, bronze, copper, gold, green, red, silver, white]
+      wild magic:
+        weight: 10
+  warlock:
+    weight: 6
+    hit_die: d8
+    ability_weights:
+      charisma: 6
+      constitution: 2
+    saves: [wisdom, charisma]
+    skills: 2
+    skill_list: [arcana, deception, history, intimidation, investigation, nature, religion]
+    cantrips:
+      warlock: {1: 2, 4: 1, 10: 1}
+    spells_known:
+      warlock:  [2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+    lists:
+      invocations:
+        - agonizing blast
+        - armor of shadows
+        - ascendant step
+        - beast speech
+        - beguiling influence
+        - bewitching whispers
+        - book of ancient secrets
+        - chains of carceri
+        - devil's sight
+        - dreadful word
+        - eldritch sight
+        - eldritch spear
+        - eyes of the rune keeper
+        - fiendish vigor
+        - gaze of two minds
+        - lifedrinker
+        - mask of many faces
+        - master of myriad forms
+        - minions of chaos
+        - mire the mind
+        - misty visions
+        - one with shadows
+        - otherworldly leap
+        - repelling blast
+        - sculptor of flesh
+        - sign of ill omen
+        - thief of five fates
+        - thirsting blade
+        - visions of distant realms
+        - voice of the chain master
+        - whispers of the grave
+        - witch sight
+    list_prerequisites:
+      invocations:
+        agonizing blast:
+          cantrips: [eldritch blast]
+        ascendant step:
+          level: 9
+        bewitching whispers:
+          level: 7
+        book of ancient secrets:
+          pact boon: pact of the tome
+        chains of carceri:
+          level: 15
+          pact boon: pact of the chain
+        dreadful word:
+          level: 7
+        eldritch spear:
+          cantrips: [eldritch blast]
+        lifedrinker:
+          level: 12
+          pact boon: pact of the blade
+        master of myriad forms:
+          level: 15
+        one with shadows:
+          level: 5
+        otherworldly leap:
+          level: 9
+        repelling blast:
+          cantrips: [eldritch blast]
+        sculptor of flesh:
+          level: 7
+        sign of ill omen:
+          level: 5
+        thirsting blade:
+          level: 5
+          pact boon: pact of the blade
+        visions of distant realms:
+          level: 15
+        voice of the chain master:
+          pact boon: pact of the chain
+        whispers of the grave:
+          level: 9
+        witch sight:
+          level: 15
+    choices:
+      2: {eldritch invocations: {invocations: 2}}
+      3:
+        pact boon:
+          options: [pact of the chain, pact of the blade, pact of the tome]
+      5: {eldritch invocations: {invocations: 1}}
+      7: {eldritch invocations: {invocations: 1}}
+      9: {eldritch invocations: {invocations: 1}}
+      11: {mystic arcanum: {arcanums: 1}}
+      12: {eldritch invocations: {invocations: 1}}
+      13: {mystic arcanum: {arcanums: 1}}
+      15:
+        eldritch invocations: {invocations: 1}
+        mystic arcanum: {arcanums: 1}
+      17: {mystic arcanum: {arcanums: 1}}
+      18: {eldritch invocations: {invocations: 1}}
+    subclass_level: 1
+    subclasses:
+      the archfey:
+        spell_list: [faerie fire, sleep, calm emotions, phantasmal force, blink, plant growth, dominate beast, greater invisibility, dominate person, seeming]
+      the fiend:
+        spell_list: [burning hands, command, blindness/deafness, scorching ray, fireball, stinking cloud, fire shield, wall of fire, flame strike, hallow]
+      the great old one:
+        spell_list: [dissonant whispers, tasha's hideous laughter, detect thoughts, phantasmal force, clairvoyance, sending, dominate beast, evard's black tentacles, dominate person, telekinesis]
+  wizard:
+    hit_die: d6
+    ability_weights:
+      intelligence: 6
+      constitution: 2
+      dexterity: 2
+      charisma: 2
+    saves: [intelligence, wisdom]
+    skills: 2
+    skill_list: [arcana, history, insight, investigation, medicine, religion]
+    cantrips:
+      wizard: {1: 3, 4: 1, 10: 1}
+    spells_prepared:
+      ability: intelligence
+      class: wizard
+      spellbook: true
+    spellbook:
+      wizard: [6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+    # Not codified: spell mastery (can change in 8 hours anyway), signature spells (level 20)
+    subclass_level: 2
+    subclasses:
+      school of abjuration:
+        weight: 10
+      school of conjuration:
+        weight: 10
+      school of divination:
+        weight: 10
+      school of enchantment:
+        weight: 10
+      school of evocation:
+        weight: 10
+      school of illusion:
+        cantrips: [minor illusion]
+      school of necromancy:
+        spellbook_spells:
+          6: [animate dead]
+      school of transmutation:
+        spellbook_spells:
+          10: [polymorph]

@@ -1,4 +1,3 @@
-require_relative 'configuration'
 require_relative 'character_generator_helper'
 
 class AdventurerClass
@@ -11,7 +10,7 @@ class AdventurerClass
   end
 
   def name()
-    @subclass_name ? @subclass_name : @class_name
+    @subclass_name ? "#{class_name} (#{subclass_name})" : @class_name
   end
 
   def pretty_name()

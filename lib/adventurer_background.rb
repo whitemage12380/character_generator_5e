@@ -1,0 +1,4 @@
+require_relative 'character_generator_helper'
+
+class AdventurerBackground
+end

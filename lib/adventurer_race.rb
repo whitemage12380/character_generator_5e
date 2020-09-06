@@ -1,4 +1,3 @@
-require_relative 'configuration'
 require_relative 'character_generator_helper'
 
 
