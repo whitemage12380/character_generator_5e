@@ -2,6 +2,9 @@ races:
   dwarf:
     abilities: 
       constitution: 2
+    tools: 1
+    tool_list: [smith's tools, brewer's supplies, mason's tools]
+    languages: [common, dwarvish]
     subraces:
       hill dwarf:
         abilities:
@@ -12,10 +15,15 @@ races:
   elf:
     abilities: 
       dexterity: 2
+    skills: [perception]
+    languages: [common, elvish]
     subraces:
       high elf:
         abilities:
           intelligence: 1
+        cantrips:
+          wizard: 1
+        languages: 1
       wood elf:
         abilities:
           wisdom: 1
@@ -23,9 +31,11 @@ races:
         weight: 4
         abilities: 
           charisma: 1
+        cantrips: [dancing lights]
   halfling:
     abilities:
       dexterity: 2
+    languages: [common, halfling]
     subraces:
       lightfoot halfling:
         abilities:
@@ -37,19 +47,36 @@ races:
     weight: 15
     abilities:
       any: [1, 1]
+    skills: 1
+    feats: 1
+    languages: [common, any]
   dragonborn:
     weight: 6
     abilities:
       strength: 2
       charisma: 1
+    languages: [common, draconic]
+    subraces:
+      dragonborn (black): {weight: 10}
+      dragonborn (blue): {weight: 10}
+      dragonborn (brass): {weight: 10}
+      dragonborn (bronze): {weight: 10}
+      dragonborn (copper): {weight: 10}
+      dragonborn (gold): {weight: 10}
+      dragonborn (green): {weight: 10}
+      dragonborn (red): {weight: 10}
+      dragonborn (silver): {weight: 10}
+      dragonborn (white): {weight: 10}
   gnome:
     weight: 8
     abilities:
       intelligence: 2
+    languages: [common, gnomish]
     subraces:
       forest gnome:
         abilities:
           dexterity: 1
+        cantrips: [minor illusion]
       rock gnome:
         abilities:
           constitution: 1
@@ -58,13 +85,19 @@ races:
     abilities:
       charisma: 2
       any: [1, 1]
+    skills: 2
+    languages: [common, elvish, any]
   half-orc:
     weight: 8
     abilities:
       strength: 2
       constitution: 1
+    skills: [intimidation]
+    languages: [common, orc]
   tiefling:
     weight: 6
     abilities:
       charisma: 2
       intelligence: 1
+    cantrips: [thaumaturgy]
+    languages: [common, infernal]

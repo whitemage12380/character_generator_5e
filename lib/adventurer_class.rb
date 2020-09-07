@@ -2,7 +2,7 @@ require_relative 'character_generator_helper'
 
 class AdventurerClass
   include CharacterGeneratorHelper
-  attr_reader :class_name, :subclass_name, :level
+  attr_reader :class_name, :subclass_name, :level, :skills
 
   def initialize(adventurer_abilities, level = 1)
     @level = level

@@ -24,6 +24,13 @@ class Adventurer
     a
   end
 
+  def skills()
+    race_skills = race.skills ? race.skills : []
+    class_skills = character_class.skills ? character_class.skills : []
+    background_skills = background.skills ? background.skills : []
+    race_skills + class_skills + background_skills
+  end
+
   def roll_abilities()
     Hash[ABILITIES.zip(Array.new(6) {roll_ability})]
   end
@@ -78,10 +85,16 @@ class Adventurer
     puts "----------------------------"
     puts "Adventurer"
     puts "#{@race.name.pretty} #{@character_class.name.pretty}"
+    puts "Level #{character_class.level}"
     puts "----------------------------"
     @background.print()
     puts "----------------------------"
     print_abilities()
+    puts "----------------------------"
+    unless skills.empty?
+      puts "Skills:"
+      puts skills.map { |s| s.pretty }.join("\n")
+    end
     puts "----------------------------"
   end
 end

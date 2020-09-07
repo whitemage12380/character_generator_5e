@@ -23,6 +23,8 @@ class AdventurerBackground
     background = background_hash[@background_name]
     @choices = random_choices(background)
     @personality_traits, @ideals, @bonds, @flaws = random_personality(background_hash)
+    @skills = background["skills"]
+    @tools = background["tools"]
   end
 
   def random_background(backgrounds)
@@ -60,8 +62,6 @@ class AdventurerBackground
   end
 
   def print()
-    #if @choices.keys.length == 1 and @choices.values.first.split.length < 5
-   #   puts "#{background_name.pretty} (#{@choices.values.first.pretty})"
     puts background_name.pretty
     @choices.each_pair { |name, option| puts "   #{name.pretty}: #{option.pretty}" }
     @personality_traits.each { |t| puts "Personality: #{t}"}

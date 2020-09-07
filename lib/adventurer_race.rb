@@ -3,7 +3,7 @@ require_relative 'character_generator_helper'
 
 class AdventurerRace
   include CharacterGeneratorHelper
-  attr_reader :race_name, :subrace_name, :race_abilities
+  attr_reader :race_name, :subrace_name, :race_abilities, :skills, :tools, :cantrips, :languages
 
   def initialize(adventurer_abilities)
     # There are the weights, but also weight bonuses if:
@@ -19,10 +19,6 @@ class AdventurerRace
 
   def name()
     @subrace_name ? @subrace_name : @race_name
-  end
-
-  def pretty_name()
-    name.split(/ |\_/).map(&:capitalize).join(" ")
   end
 
   def generate_race(adventurer_abilities)
