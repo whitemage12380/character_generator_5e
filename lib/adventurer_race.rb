@@ -26,46 +26,44 @@ class AdventurerRace
     races = read_yaml_files("race")
     case $configuration["generation_style"]["race"]
     when "weighted"
-      @race_name, @subrace_name, @race_abilities = random_race_weighted(races, adventurer_abilities)
+      @race_name, race, @subrace_name, subrace = random_race_weighted(races)
     when "random"
-      @race_name, @subrace_name, @race_abilities = random_race_true(races, adventurer_abilities)
+      @race_name, race, @subrace_name, subrace = random_race_true(races)
     else
       raise "Unrecognized generation style: #{$configuration['generation_style']['race']}"
     end
+    @race_abilities = random_race_abilities(race, subrace, adventurer_abilities)
   end
 
   #def random_race_smart(races)
   #end
 
-  def random_race_weighted(races, adventurer_abilities)
-    race = weighted_random(races)
-    race_name = race.keys[0]
-    if race[race_name]["subraces"]
-      subrace = weighted_random(race[race_name]["subraces"])
-      subrace_name = subrace.keys[0]
-      race_abilities = spend_ability_points(race[race_name]["abilities"]
-                       .merge(subrace[subrace_name]["abilities"]), adventurer_abilities)
-                       .transform_keys(&:to_sym)
-    else
-      race_abilities = spend_ability_points(race[race_name]["abilities"], adventurer_abilities)
-                       .transform_keys(&:to_sym)
+  def random_race_weighted(races)
+    race_hash = weighted_random(races)
+    race_name, race = race_hash.first
+    if race["subraces"]
+      subrace_hash = weighted_random(race["subraces"])
+      subrace_name, subrace = subrace_hash.first
     end
-    return race_name, subrace_name, race_abilities
+    return race_name, race, subrace_name, subrace
   end
 
-  def random_race_true(races, adventurer_abilities)
-    race = races.to_a.sample(1).to_h
-    race_name = race.keys[0]
-    if race[race_name]["subraces"]
-      subrace = race[race_name]["subraces"].to_a.sample(1).to_h
-      subrace_name = subrace.keys[0]
-      race_abilities = spend_ability_points(race[race_name]["abilities"]
-                       .merge(subrace[subrace_name]["abilities"]))
-                       .transform_keys(&:to_sym)
-    else
-      race_abilities = spend_ability_points(race[race_name]["abilities"]).transform_keys(&:to_sym)
+  def random_race_true(races)
+    race_hash = races.to_a.sample(1).to_h
+    race_name, race = race_hash.first
+    if race["subraces"]
+      subrace_hash = race["subraces"].to_a.sample(1).to_h
+      subrace_name, subrace = subrace_hash.first
     end
-    return race_name, subrace_name, race_abilities
+    return race_name, race, subrace_name, subrace
+  end
+
+  def random_race_abilities(race, subrace, adventurer_abilities)
+    race_abilities = race.fetch("abilities", {})
+    subrace_abilities = subrace ? subrace.fetch("abilities", {}) : {}
+    return spend_ability_points(race_abilities
+          .merge(subrace_abilities), adventurer_abilities)
+          .transform_keys(&:to_sym)
   end
 
   def spend_ability_points(race_abilities, adventurer_abilities)
