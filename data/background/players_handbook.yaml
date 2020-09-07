@@ -448,7 +448,7 @@ backgrounds:
     choices:
       origin:
         - forester
-        -trapper
+        - trapper
         - homesteader
         - guide
         - exile or outcast

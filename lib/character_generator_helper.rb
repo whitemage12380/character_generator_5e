@@ -11,6 +11,17 @@ end
 
 # Stole from https://stackoverflow.com/questions/1489183/colorized-ruby-output-to-the-terminal
 class String
+
+  def pretty()
+
+    output = split(/ |\_/).map(&:capitalize).join(" ")
+            .split("-").map(&:capitalize).join("-")
+            .split("(").map(&:capitalize).join("(")
+    output = capitalize.gsub(/_/, " ")
+            .gsub(/\b(?<!\w['])[a-z]/) { |match| match.capitalize }
+    return output
+  end
+
   # colorization
   def colorize(color_code)
     "\e[#{color_code}m#{self}\e[0m"

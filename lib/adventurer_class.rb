@@ -14,7 +14,7 @@ class AdventurerClass
   end
 
   def pretty_name()
-    name.split(/ |\_/).map(&:capitalize).join(" ")
+    name.split(/ |\_|/).map(&:capitalize).join(" ") # TODO: Doesn't play nice with the parentheses
   end
 
   def generate_class(adventurer_abilities)
