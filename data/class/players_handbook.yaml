@@ -138,6 +138,7 @@ classes:
     ability_weights:
       wisdom: 6
       constitution: 2
+      dexterity: 1
     saves: [intelligence, wisdom]
     skills: 2
     skill_list: [arcana, animal handling, insight, medicine, nature, perception, religion, survival]
@@ -290,6 +291,8 @@ classes:
     ability_weights:
       strength: 4
       charisma: 3
+      constitution: 2
+      dexterity: 1
     saves: [wisdom, charisma]
     skills: 2
     skill_list: [athletics, insight, intimidation, medicine, persuasion, religion]
@@ -329,6 +332,7 @@ classes:
     ability_weights:
       dexterity: 6
       wisdom: 3
+      constitution: 1
     saves: [strength, dexterity]
     skills: 3
     skill_list: [animal handling, athletics, insight, investigation, nature, perception, stealth, survival]
@@ -433,6 +437,7 @@ classes:
     ability_weights:
       charisma: 6
       constitution: 2
+      dexterity: 1
     saves: [wisdom, charisma]
     skills: 2
     skill_list: [arcana, deception, history, intimidation, investigation, nature, religion]
@@ -547,7 +552,7 @@ classes:
       intelligence: 6
       constitution: 2
       dexterity: 2
-      charisma: 2
+      charisma: 1
     saves: [intelligence, wisdom]
     skills: 2
     skill_list: [arcana, history, insight, investigation, medicine, religion]

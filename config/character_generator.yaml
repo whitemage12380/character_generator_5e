@@ -1,3 +1,4 @@
 generation_style:
   race: weighted
-  class: random
+  class: smart
+log_level: debug
