@@ -2,7 +2,7 @@ require_relative 'character_generator_helper'
 
 class AdventurerBackground
   include CharacterGeneratorHelper
-  attr_reader :background_name, :skills, :tools, :languages, :personality_traits, :ideals, :bonds, :flaws
+  attr_reader :background_name, :skills, :tools, :languages, :choices, :personality_traits, :ideals, :bonds, :flaws
 
   def name()
     background_name
@@ -21,15 +21,19 @@ class AdventurerBackground
     background_hash = random_background(backgrounds)
     @background_name = background_hash.keys[0]
     background = background_hash[@background_name]
+    @choices = random_choices(background)
     @personality_traits, @ideals, @bonds, @flaws = random_personality(background_hash)
-    puts @personality_traits.to_s
-    puts @ideals.to_s
-    puts @bonds.to_s
-    puts @flaws.to_s
   end
 
   def random_background(backgrounds)
     backgrounds.to_a.sample(1).to_h
+  end
+
+  def random_choices(background)
+    return Hash.new unless background["choices"]
+    choices = Hash.new
+    background["choices"].each_pair { |name, options| choices[name] = options.sample }
+    return choices
   end
 
   def random_personality(backgrounds)
@@ -56,7 +60,10 @@ class AdventurerBackground
   end
 
   def print()
-    puts "#{background_name.pretty}"
+    #if @choices.keys.length == 1 and @choices.values.first.split.length < 5
+   #   puts "#{background_name.pretty} (#{@choices.values.first.pretty})"
+    puts background_name.pretty
+    @choices.each_pair { |name, option| puts "   #{name.pretty}: #{option.pretty}" }
     @personality_traits.each { |t| puts "Personality: #{t}"}
     @ideals.each             { |t| puts "Ideal:       #{ideal_string(t)}"}
     @bonds.each              { |t| puts "Bond:        #{t}"}

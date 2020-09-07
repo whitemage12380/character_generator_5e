@@ -20,27 +20,25 @@ class AdventurerClass
   def generate_class(adventurer_abilities)
     classes = read_yaml_files("class")
     case $configuration["generation_style"]["class"]
-    when "weighted"
-      @class_name, @subclass_name = random_class_weighted(classes)
-    when "random"
-      @class_name, @subclass_name = random_class_true(classes)
+    when "weighted", "random"
+      @class_name, character_class, @subclass_name, subclass = random_class(classes)
     else
       raise "Unrecognized generation style: #{$configuration['generation_style']['class']}"
     end
   end
 
-  def random_class_weighted(classes)
-  end
-
-  def random_class_true(classes)
-    character_class = classes.to_a.sample(1).to_h
-    class_name = character_class.keys[0]
-    if @level >= character_class[class_name]["subclass_level"]
-      subclass = character_class[class_name]["subclasses"].to_a.sample(1).to_h
+  def random_class(classes)
+    weighted = $configuration["generation_style"]["class"] == "weighted"
+    character_class_hash = weighted ? weighted_random(classes) : classes.to_a.sample(1).to_h
+    class_name, character_class = character_class_hash.first
+    if @level >= character_class["subclass_level"]
+      subclass = weighted ? weighted_random(character_class["subclasses"]) : character_class["subclasses"].to_a.sample(1).to_h
       subclass_name = subclass.keys[0]
+      subclass = subclass[subclass_name]
     else
       subclass_name = nil
+      subclass = nil
     end
-    return class_name, subclass_name
+    return class_name, character_class, subclass_name, subclass
   end
 end
