@@ -2,16 +2,19 @@ require_relative 'character_generator_helper'
 require_relative 'adventurer_race'
 require_relative 'adventurer_class'
 require_relative 'adventurer_background'
+require_relative 'skill'
 
 class Adventurer
   include CharacterGeneratorHelper
   attr_reader :base_abilities, :race, :character_class, :background
 
-  def initialize()
+  def initialize(level = 1)
     @base_abilities = roll_abilities()
     @race = AdventurerRace.new(@base_abilities)
     @character_class = AdventurerClass.new(@base_abilities)
     @background = AdventurerBackground.new()
+    generate_skills(skills)
+    level_up(level)
   end
 
   def abilities()
@@ -37,6 +40,14 @@ class Adventurer
 
   def roll_ability()
     Array.new(4) {rand(1..6)}.sort.reverse[0..2].sum
+  end
+
+  def level_up(level)
+    return if level < 2
+    for l in 2..level
+      character_class.apply_level(l)
+      generate_skills(skills)
+    end
   end
 
   def modifier(ability_score)
@@ -69,6 +80,10 @@ class Adventurer
     end
   end
 
+  def skill_strings(skills_to_display = skills)
+    skills_to_display.map { |skill| skill.to_s }.sort
+  end
+
   def print_abilities
     ability_score_strings = []
     ability_modifier_strings = []
@@ -85,7 +100,7 @@ class Adventurer
     puts "----------------------------"
     puts "Adventurer"
     puts "#{@race.name.pretty} #{@character_class.name.pretty}"
-    puts "Level #{character_class.level}"
+    puts "Level #{@character_class.level}"
     puts "----------------------------"
     @background.print()
     puts "----------------------------"
@@ -93,12 +108,12 @@ class Adventurer
     puts "----------------------------"
     unless skills.empty?
       puts "Skills:"
-      puts skills.map { |s| s.pretty }.join("\n")
+      puts skill_strings.join("\n")
     end
     puts "----------------------------"
   end
 end
 
 ### Testing only
-adventurer = Adventurer.new()
+adventurer = Adventurer.new(3)
 adventurer.print_adventurer

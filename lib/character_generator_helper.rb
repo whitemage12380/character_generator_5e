@@ -13,7 +13,6 @@ end
 class String
 
   def pretty()
-
     output = split(/ |\_/).map(&:capitalize).join(" ")
             .split("-").map(&:capitalize).join("-")
             .split("(").map(&:capitalize).join("(")
@@ -113,5 +112,27 @@ module CharacterGeneratorHelper
     }
     return [weighted_arr.sample].to_h if obj.kind_of? Hash
     return weighted_arr.sample
+  end
+
+  def generate_skills(skills)
+    skills = [] unless skills
+    # Limited options first
+    skills.select { |s| s.skill_list and not s.skill_name }.each     { |s| s.generate(skills) }
+    # General-purpose options
+    skills.select { |s| not s.skill_list and not s.skill_name }.each { |s| s.generate(skills) }
+  end
+
+  def all_skills()
+    $all_skills = read_yaml_files("skill") unless $all_skills
+    $all_skills.keys
+  end
+
+  def all_skills_hash()
+    all_skills
+    $all_skills
+  end
+
+  def random_skills(adventurer_skills, skill_list = all_skills, num = 1)
+    skill_list.difference(adventurer_skills).sample(num)
   end
 end

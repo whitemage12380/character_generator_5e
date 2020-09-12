@@ -33,6 +33,11 @@ class AdventurerRace
       raise "Unrecognized generation style: #{$configuration['generation_style']['race']}"
     end
     @race_abilities = random_race_abilities(race, subrace, adventurer_abilities)
+    race_skills = race.fetch("skills", [])
+    subrace_skills = subrace ? subrace.fetch("skills", []) : []
+    race_skills = Array.new(race_skills, "any") if race_skills.kind_of? Integer
+    subrace_skills = Array.new(subrace_skills, "any") if subrace_skills.kind_of? Integer
+    @skills = (race_skills + subrace_skills).map { |s| Skill.new(s, source: name) }
   end
 
   #def random_race_smart(races)

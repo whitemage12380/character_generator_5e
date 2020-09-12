@@ -23,7 +23,7 @@ class AdventurerBackground
     background = background_hash[@background_name]
     @choices = random_choices(background)
     @personality_traits, @ideals, @bonds, @flaws = random_personality(background_hash)
-    @skills = background["skills"]
+    @skills = background["skills"].map { |s| Skill.new(s, source: name) }
     @tools = background["tools"]
   end
 
