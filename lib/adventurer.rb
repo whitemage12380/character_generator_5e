@@ -13,7 +13,7 @@ class Adventurer
     @race = AdventurerRace.new(@base_abilities)
     @character_class = AdventurerClass.new(@base_abilities)
     @background = AdventurerBackground.new()
-    generate_skills(skills)
+    generate_skills(skills, character_class.expertises)
     level_up(level)
   end
 
@@ -46,7 +46,7 @@ class Adventurer
     return if level < 2
     for l in 2..level
       character_class.apply_level(l)
-      generate_skills(skills)
+      generate_skills(skills, character_class.expertises)
     end
   end
 
@@ -105,10 +105,15 @@ class Adventurer
     @background.print()
     puts "----------------------------"
     print_abilities()
-    puts "----------------------------"
     unless skills.empty?
+      puts "----------------------------"
       puts "Skills:"
       puts skill_strings.join("\n")
+    end
+    unless @character_class.decisions.nil? or @character_class.decisions.empty?
+      puts "----------------------------"
+      puts "Class Features:"
+      puts @character_class.decision_strings.join("\n")
     end
     puts "----------------------------"
   end

@@ -1,8 +1,12 @@
 require_relative 'character_generator_helper'
+require_relative 'class_decision_list'
+require_relative 'class_decision'
+require_relative 'class_feature'
+require_relative 'skill'
 
 class AdventurerClass
   include CharacterGeneratorHelper
-  attr_reader :class_name, :subclass_name, :level, :skills, :class_data, :subclass_data
+  attr_reader :class_name, :subclass_name, :level, :skills, :expertises, :decision_lists, :decisions, :class_data, :subclass_data
 
   def initialize(adventurer_abilities, level = 1)
     @level = level
@@ -23,12 +27,24 @@ class AdventurerClass
     else
       raise "Unrecognized generation style: #{$configuration['generation_style']['class']}"
     end
+    create_decision_lists(character_class["lists"], character_class.fetch("list_prerequisites", nil)) if character_class["lists"]
     @class_data = character_class
     @subclass_data = subclass
     class_skills = character_class.fetch("skills", [])
     class_skills = Array.new(class_skills, character_class.fetch("skill_list", "any")) if class_skills.kind_of? Integer
     @skills = class_skills.map { |s| Skill.new(s, source: @class_name) }
+    @expertises = []
     apply_level(1, character_class, subclass)
+  end
+
+  def create_decision_lists(lists, list_prerequisites = nil)
+    @decision_lists = [] unless @decision_lists
+    lists.each_pair { |list_name, list|
+      if @decision_lists.none? { |l| l.list_name == list_name}
+        prerequisites = list_prerequisites and list_prerequisites[list_name] ? list_prerequisites[list_name] : nil
+        @decision_lists << ClassDecisionList.new(list_name, list, prerequisites)
+      end
+    }
   end
 
   def apply_level(level, character_class = @class_data, subclass = @subclass_data)
@@ -38,9 +54,11 @@ class AdventurerClass
       @subclass_name, subclass = random_subclass(character_class) # TODO: weighted parameter should be set appropriately
       @subclass_data = subclass
       log "Chose Subclass: #{@subclass_name.pretty}"
+      create_decision_lists(subclass["lists"], subclass.fetch("list_prerequisites", nil)) if subclass["lists"]
     end
     # Resolve Class Choices
     decisions = {}
+    @decisions = Array.new unless @decisions
     class_choices = character_class["choices"] ? character_class["choices"].fetch(level, {}) : {}
     subclass_choices = (subclass and subclass["choices"]) ? subclass["choices"].fetch(level, {}) : {}
     choices = class_choices.merge(subclass_choices)
@@ -62,22 +80,40 @@ class AdventurerClass
         when "skill_list"
           next
         when "expertises"
-        when "options"
           case choice_content
-          when Array
-            decisions[choice_name] = choice_content.sample(1).first
-            log "Chose #{choice_name.pretty}: #{decisions[choice_name].pretty}"
-          when Hash
-            decisions[choice_name] = choice_content.to_a.sample(1).to_h
-            log "Chose #{choice_name.pretty}: #{decisions[choice_name].keys[0].pretty}"
+          when Integer
+            choice_content.times { @expertises << "any" }
           else
-            raise "Unsupported type of value for options: #{choice_content}"
+            # Expertise list not currently supported because no class currently requires it
+            raise "Unsupported type of value for expertises: #{choice_content}"
           end
-
+        when "spells_known"
+          log "Spell choices not yet supported"
+        when "options"
+          @decisions << ClassFeature.new(choice_name, choices: choice_content)
         else
+          list = @decision_lists.select { |dl| dl.list_name == choice_type }.first
+          raise "Could not find list for #{choice_content}" unless list
+          case choice_content
+          when Integer
+            decision = @decisions.select { |d| d.feature_name == choice_name }.first
+            if decision.nil?
+              @decisions << ClassFeature.new(choice_name, list: list, decisions_available: choice_content)
+            else
+              raise "This feature already exists with a different list" if decision.list_name != list.list_name
+              decision.add_decisions(choice_content)
+            end
+          else
+            raise "Unsupported type of value for #{choice_type}: #{choice_content}"
+          end
         end
       }
     }
+    generate_decisions()
+  end
+
+  def generate_decisions()
+    @decisions.each { |d| d.make_decisions() }
   end
 
   def random_class(classes)
@@ -112,6 +148,10 @@ class AdventurerClass
       character_class["weight"] = [class_weight, 0].max
       debug "#{class_name}: #{classes[class_name]["weight"]}"
     }
+    if classes.values.select { |c| c["weight"] > 0}.count == 0
+      log "There is no recommended class based on ability scores! Allowing class to be entirely random."
+      return random_class(classes)
+    end
     chosen_class = weighted_random(classes)
     class_name, character_class = chosen_class.first
     if character_class["subclass_level"] == 1
@@ -120,5 +160,9 @@ class AdventurerClass
     else
       return class_name, character_class, nil, nil
     end
+  end
+
+  def decision_strings()
+    @decisions.map { |d| d.feature_lines }.flatten
   end
 end

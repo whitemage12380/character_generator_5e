@@ -114,17 +114,28 @@ module CharacterGeneratorHelper
     return weighted_arr.sample
   end
 
-  def generate_skills(skills)
+  def generate_skills(skills, expertises = [])
     skills = [] unless skills
-    # Limited options first
-    skills.select { |s| s.skill_list and not s.skill_name }.each     { |s| s.generate(skills) }
-    # General-purpose options
+    # Restriect options, in ascending order of options available
+    skills.select { |s| s.skill_list and not s.skill_name }.sort_by { |s| s.skill_list.length }.each { |s| s.generate(skills) }
+    # Unrestricted options
     skills.select { |s| not s.skill_list and not s.skill_name }.each { |s| s.generate(skills) }
+    # Expertises
+    expertises.each { |e|
+      puts expertises
+      skills.select { |s| not s.expertise? }.sample.make_expertise()
+      expertises.delete_at(expertises.index(e))
+    }
   end
 
   def all_skills()
     $all_skills = read_yaml_files("skill") unless $all_skills
     $all_skills.keys
+  end
+
+  def all_skills_without_expertise()
+    $all_skills = read_yaml_files("skill") unless $all_skills
+    $all_skills.select { |s| not s.expertise }.keys
   end
 
   def all_skills_hash()

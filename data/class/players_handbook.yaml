@@ -265,26 +265,33 @@ classes:
       way of the four elements:
         lists:
           elemental disciplines:
-            3:
-              - fangs of the fire snake
-              - fist of four thunders
-              - fist of unbroken air
-              - rush of the gale spirits
-              - shape of the flowing river
-              - sweeping cinder strike
-              - water whip
-            6:
-              - clench of the north wind
-              - gong of the summit
-            11:
-              - flames of the phoenix
-              - mist stance
-              - ride the wind
-            17:
-              - breath of winter
-              - eternal mountain defense
-              - river of hungry flame
-              - wave of rolling earth
+            - breath of winter
+            - clench of the north wind
+            - eternal mountain defense
+            - fangs of the fire snake
+            - fist of four thunders
+            - fist of unbroken air
+            - flames of the phoenix
+            - gong of the summit
+            - mist stance
+            - ride the wind
+            - river of hungry flame
+            - rush of the gale spirits
+            - shape of the flowing river
+            - sweeping cinder strike
+            - water whip
+            - wave of rolling earth
+        list_prerequisites:
+          elemental disciplines:
+            clench of the north wind: {level: 6}
+            gong of the summit: {level: 6}
+            flames of the phoenix: {level: 11}
+            mist stance: {level: 11}
+            ride the wind: {level: 11}
+            breath of winter: {level: 17}
+            eternal mountain defense: {level: 17}
+            river of hungry flame: {level: 17}
+            wave of rolling earth: {level: 17}
         choices:
           3: {disciple of the elements: {elemental disciplines: 1}}
           6: {disciple of the elements: {elemental disciplines: 1}}
