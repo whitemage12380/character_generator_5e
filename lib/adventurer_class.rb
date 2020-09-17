@@ -6,7 +6,7 @@ require_relative 'skill'
 
 class AdventurerClass
   include CharacterGeneratorHelper
-  attr_reader :class_name, :subclass_name, :level, :skills, :expertises, :decision_lists, :decisions, :class_data, :subclass_data
+  attr_reader :class_name, :subclass_name, :level, :hit_die, :hp_rolls, :skills, :expertises, :decision_lists, :decisions, :class_data, :subclass_data
 
   def initialize(adventurer_abilities, level = 1)
     @level = level
@@ -27,9 +27,13 @@ class AdventurerClass
     else
       raise "Unrecognized generation style: #{$configuration['generation_style']['class']}"
     end
+    log "Chose Class: #{@class_name}"
+    log "Chose Subclass: #{@subclass_name}" if @subclass_name
     create_decision_lists(character_class["lists"], character_class.fetch("list_prerequisites", nil)) if character_class["lists"]
     @class_data = character_class
     @subclass_data = subclass
+    @hit_die = character_class["hit_die"].delete('Dd').to_i
+    @hp_rolls = [@hit_die.clone]
     class_skills = character_class.fetch("skills", [])
     class_skills = Array.new(class_skills, character_class.fetch("skill_list", "any")) if class_skills.kind_of? Integer
     @skills = class_skills.map { |s| Skill.new(s, source: @class_name) }
@@ -41,7 +45,7 @@ class AdventurerClass
     @decision_lists = [] unless @decision_lists
     lists.each_pair { |list_name, list|
       if @decision_lists.none? { |l| l.list_name == list_name}
-        prerequisites = list_prerequisites and list_prerequisites[list_name] ? list_prerequisites[list_name] : nil
+        prerequisites = (list_prerequisites and list_prerequisites[list_name]) ? list_prerequisites[list_name] : nil
         @decision_lists << ClassDecisionList.new(list_name, list, prerequisites)
       end
     }
@@ -49,6 +53,13 @@ class AdventurerClass
 
   def apply_level(level, character_class = @class_data, subclass = @subclass_data)
     log "Applying level #{level}"
+    @level = level
+    # Roll HP
+    if level > 1
+      hp_roll = rand(@hit_die - 1) + 1
+      log "Rolled #{hp_roll} on a d#{@hit_die} for hit points"
+      @hp_rolls << hp_roll
+    end
     # Add Subclass
     if level == character_class["subclass_level"] and not subclass
       @subclass_name, subclass = random_subclass(character_class) # TODO: weighted parameter should be set appropriately
@@ -109,11 +120,11 @@ class AdventurerClass
         end
       }
     }
-    generate_decisions()
+    generate_decisions(level)
   end
 
-  def generate_decisions()
-    @decisions.each { |d| d.make_decisions() }
+  def generate_decisions(level)
+    @decisions.each { |d| d.make_decisions(level: level, cantrips: nil, class_features: @decisions) }
   end
 
   def random_class(classes)

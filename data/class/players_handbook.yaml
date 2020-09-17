@@ -53,8 +53,9 @@ classes:
             bonus proficiencies:
               skills: 3
           6:
-            spells_known:
-              any: {6: 2}
+            additional magical secrets:
+              spells_known:
+                any: {6: 2}
       college of valor:
         weight: 10
   cleric:

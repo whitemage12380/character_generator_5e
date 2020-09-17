@@ -32,6 +32,8 @@ class AdventurerRace
     else
       raise "Unrecognized generation style: #{$configuration['generation_style']['race']}"
     end
+    log "Chose Race: #{@race_name.pretty}"
+    log "Chose Subrace: #{@subrace_name.pretty}" if @subrace_name
     @race_abilities = random_race_abilities(race, subrace, adventurer_abilities)
     race_skills = race.fetch("skills", [])
     subrace_skills = subrace ? subrace.fetch("skills", []) : []

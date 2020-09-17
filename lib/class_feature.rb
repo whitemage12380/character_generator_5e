@@ -2,7 +2,7 @@ require_relative 'character_generator_helper'
 
 class ClassFeature
   include CharacterGeneratorHelper
-  attr_reader :feature_name, :list, :choices, :prerequisites, :decisions, :decisions_available
+  attr_reader :feature_name, :list, :choices, :decisions, :decisions_available
 
   def initialize(feature_name, list: nil, choices: nil, decisions_available: 1)
     raise "Class features cannot include both a DecisionList object and an arbitrary list of choices" if list and choices
@@ -20,12 +20,11 @@ class ClassFeature
     end
   end
 
-  def make_decisions()
+  def make_decisions(level: nil, cantrips: nil, class_features: nil)
     if @list
       @decisions_available.times do
-        chosen_decision = @list.random_decision(@decisions)
+        chosen_decision = @list.random_decision(@decisions, level: level, cantrips: cantrips, class_features: class_features)
         @decisions << chosen_decision
-        puts chosen_decision.to_s
         log "Chose #{@feature_name.pretty}: #{chosen_decision.decision_name.pretty}"
       end
     elsif @choices

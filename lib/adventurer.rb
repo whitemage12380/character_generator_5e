@@ -27,6 +27,10 @@ class Adventurer
     a
   end
 
+  def hp()
+    @character_class.hp_rolls.collect { |hr| hr + modifier(:constitution) >= 1 ? hr + modifier(:constitution) : 1 }.sum
+  end
+
   def skills()
     race_skills = race.skills ? race.skills : []
     class_skills = character_class.skills ? character_class.skills : []
@@ -39,7 +43,9 @@ class Adventurer
   end
 
   def roll_ability()
-    Array.new(4) {rand(1..6)}.sort.reverse[0..2].sum
+    rolls = Array.new(4) {rand(1..6)}
+    log "Rolling ability score: (#{rolls.join(",")})"
+    return rolls.sort.reverse[0..2].sum
   end
 
   def level_up(level)
@@ -51,6 +57,7 @@ class Adventurer
   end
 
   def modifier(ability_score)
+    ability_score = abilities[ability_score] if ability_score.kind_of? Symbol
     (ability_score - 10) / 2
   end
 
@@ -96,15 +103,48 @@ class Adventurer
     puts ability_modifier_strings.join("  ")
   end
 
+  def abilities_summary()
+    score = abilities.to_a.reduce(0) { |m, a|
+      m += case modifier(a[1])
+      when -4; -10
+      when -3; -7
+      when -2; -3
+      when -1; -1
+      when 0;   0
+      when 1;   2
+      when 2;   6
+      when 3;   12
+      when 4;   20
+      when 5;   30
+      else
+        raise "Failed to determine modifier (#{modifier(a[1])}"
+      end
+    }
+    summary_word = case score
+    when -999..0; "Worthless".red
+    when 1..10;   "Terrible".red
+    when 11..17;  "Poor".red
+    when 18..21;  "Decent"
+    when 22..27;  "Good".green
+    when 28..33;  "Great".green
+    when 34..44;  "Fantastic".green
+    when 45..999; "Godlike".green
+    end
+    return "#{summary_word} (#{score})"
+  end
+
   def print_adventurer()
     puts "----------------------------"
     puts "Adventurer"
     puts "#{@race.name.pretty} #{@character_class.name.pretty}"
     puts "Level #{@character_class.level}"
+    puts "HP: #{hp}"
     puts "----------------------------"
     @background.print()
     puts "----------------------------"
     print_abilities()
+    puts "----------------------------"
+    puts "Ability Outlook: #{abilities_summary()}"
     unless skills.empty?
       puts "----------------------------"
       puts "Skills:"
@@ -118,7 +158,3 @@ class Adventurer
     puts "----------------------------"
   end
 end
-
-### Testing only
-adventurer = Adventurer.new(3)
-adventurer.print_adventurer
