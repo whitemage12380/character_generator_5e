@@ -133,6 +133,21 @@ class Adventurer
     return "#{summary_word} (#{score})"
   end
 
+  def class_abilities_summary()
+    score = @character_class.class_weight(abilities)
+    summary_word = case score
+    when 0;       "Worthless".red
+    when 1..10;   "Terrible".red
+    when 11..17;  "Poor".red
+    when 18..21;  "Decent"
+    when 22..27;  "Good".green
+    when 28..33;  "Great".green
+    when 34..44;  "Fantastic".green
+    when 45..999; "Godlike".green
+    end
+    return "#{summary_word} (#{score})"
+  end
+
   def print_adventurer()
     puts "----------------------------"
     puts "Adventurer"
@@ -144,7 +159,9 @@ class Adventurer
     puts "----------------------------"
     print_abilities()
     puts "----------------------------"
-    puts "Ability Outlook: #{abilities_summary()}"
+    puts "Ability Outlook:"
+    puts "          Class:  #{class_abilities_summary()}"
+    puts "        Overall:  #{abilities_summary()}"
     unless skills.empty?
       puts "----------------------------"
       puts "Skills:"

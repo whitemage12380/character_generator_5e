@@ -148,15 +148,7 @@ class AdventurerClass
   def random_class_smart(classes, adventurer_abilities)
     debug "Class probabilities:"
     classes.each_pair { |class_name, character_class|
-      class_weight = 0
-      character_class["ability_weights"].each_pair { |ability, weight|
-        ability_modifier = (adventurer_abilities[ability.to_sym] - 10) / 2
-        class_weight +=  ability_modifier * weight
-        class_weight += weight if ability_modifier >= 3
-        class_weight += weight if ability_modifier >= 4
-        class_weight += weight if ability_modifier >= 5
-      }
-      character_class["weight"] = [class_weight, 0].max
+      character_class["weight"] = class_weight(adventurer_abilities, character_class["ability_weights"])
       debug "#{class_name}: #{classes[class_name]["weight"]}"
     }
     if classes.values.select { |c| c["weight"] > 0}.count == 0
@@ -171,6 +163,18 @@ class AdventurerClass
     else
       return class_name, character_class, nil, nil
     end
+  end
+
+  def class_weight(adventurer_abilities, ability_weights = @class_data["ability_weights"])
+    total_weight = 0
+    ability_weights.each_pair { |ability, weight|
+      ability_modifier = (adventurer_abilities[ability.to_sym] - 10) / 2
+      total_weight +=  ability_modifier * weight
+      total_weight += weight if ability_modifier >= 3
+      total_weight += weight if ability_modifier >= 4
+      total_weight += weight if ability_modifier >= 5
+    }
+    return [total_weight, 0].max
   end
 
   def decision_strings()
