@@ -100,6 +100,8 @@ class AdventurerClass
           end
         when "spells_known"
           log "Spell choices not yet supported"
+        when "arcanums"
+          log "Spell choices for Mystic Arcanum not supported yet"
         when "options"
           @decisions << ClassFeature.new(choice_name, choices: choice_content)
         else
