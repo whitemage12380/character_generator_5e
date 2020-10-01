@@ -95,8 +95,7 @@ classes:
           7: [death ward, guardian of faith]
           9: [mass cure wounds, raise dead]
       light domain:
-        cantrips:
-          1: [light]
+        cantrips: {cleric: [light]}
         spells:
           1: [burning hands, faerie fire]
           3: [flaming sphere, scorching ray]
@@ -248,6 +247,7 @@ classes:
         spells_known:
           eldritch knight: [0, 0, 2, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0] # Abjuration and Evocation
           wizard: {3: 1, 8: 1, 14: 1, 20: 1}
+        spell_levels: {3: 1, 7: 2, 13: 3, 19: 4}
         # Choice not codified: Weapon Bond (which weapon gets the bond)
   monk:
     hit_die: d8
@@ -312,6 +312,7 @@ classes:
       ability: charisma
       class: paladin
       level_multiplier: 0.5
+    spell_levels: {2: 1, 5: 2, 9: 3, 13: 4, 17: 5}
     choices:
       2:
         fighting style:
@@ -350,6 +351,7 @@ classes:
     skill_list: [animal handling, athletics, insight, investigation, nature, perception, stealth, survival]
     spells_known:
       ranger: [0, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+    spell_levels: {2: 1, 5: 2, 9: 3, 13: 4, 17: 5}
     lists:
       favored enemies: [aberrations, beasts, celestials, constructs, dragons, elementals, fey, fiends, giants, monstrosities, oozes, plants, undead, humanoids (pick 2)]
       favored terrains: [arctic, coast, desert, forest, grassland, mountain, swamp, underdark]
@@ -415,6 +417,7 @@ classes:
         spells_known:
           arcane trickster: [0, 0, 2, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0]
           wizard: {3: 1, 8: 1, 14: 1, 20: 1}
+        spell_levels: {3: 1, 7: 2, 13: 3, 19: 4}
   sorcerer:
     weight: 9
     hit_die: d8
@@ -590,7 +593,7 @@ classes:
       school of evocation:
         weight: 10
       school of illusion:
-        cantrips: [minor illusion]
+        cantrips: {wizard: [minor illusion]}
       school of necromancy:
         spellbook_spells:
           6: [animate dead]

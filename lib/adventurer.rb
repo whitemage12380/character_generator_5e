@@ -11,7 +11,7 @@ class Adventurer
   def initialize(level = 1)
     @base_abilities = roll_abilities()
     @race = AdventurerRace.new(@base_abilities)
-    @character_class = AdventurerClass.new(@base_abilities)
+    @character_class = AdventurerClass.new(abilities)
     @background = AdventurerBackground.new()
     generate_skills(skills, character_class.expertises)
     level_up(level)

@@ -3,10 +3,13 @@ require_relative 'class_decision_list'
 require_relative 'class_decision'
 require_relative 'class_feature'
 require_relative 'skill'
+require_relative 'spell_list'
+require_relative 'spell'
 
 class AdventurerClass
   include CharacterGeneratorHelper
-  attr_reader :class_name, :subclass_name, :level, :hit_die, :hp_rolls, :skills, :expertises, :decision_lists, :decisions, :class_data, :subclass_data
+  attr_reader :class_name, :subclass_name, :level, :hit_die, :hp_rolls, :skills, :expertises, :cantrips, :spells_known, :spells_prepared,
+              :spellbook, :spell_lists, :decision_lists, :decisions, :class_data, :subclass_data
 
   def initialize(adventurer_abilities, level = 1)
     @level = level
@@ -38,7 +41,13 @@ class AdventurerClass
     class_skills = Array.new(class_skills, character_class.fetch("skill_list", "any")) if class_skills.kind_of? Integer
     @skills = class_skills.map { |s| Skill.new(s, source: @class_name) }
     @expertises = []
+    @spell_lists = []
     apply_level(1, character_class, subclass)
+    # TODO: Spells need to have info about what source it's from
+    generate_cantrips()
+    generate_spellbook()
+    generate_spells_known()
+    generate_spells_prepared()
   end
 
   def create_decision_lists(lists, list_prerequisites = nil)
@@ -127,6 +136,54 @@ class AdventurerClass
 
   def generate_decisions(level)
     @decisions.each { |d| d.make_decisions(level: level, cantrips: nil, class_features: @decisions) }
+  end
+
+  def generate_cantrips(cantrip_data = @class_data["cantrips"])
+    return if cantrip_data.nil?
+    @cantrips = [] if @cantrips.nil?
+    cantrip_data.each_pair { |list_name, list_data|
+      spell_list = find_or_create_spell_list(list_name)
+      case list_data
+      when Hash
+        list_data.each_pair { |spell_level, spell_count|
+          spell_count.times { Spell.random_spell("cantrip", spell_list, @cantrips) }
+        }
+      when Array
+        raise "Cantrip array must have exact 20 values" unless list_data.length == 20
+      end
+    }
+  end
+
+  def generate_spells_known(level, spells_known_data = @class_data["spells_known"])
+    return if spells_known_data.nil?
+    @spells_known = [] if @spells_known.nil?
+    spells_known_data.each_pair { |list_name, list_data|
+      spell_list = find_or_create_spell_list(list_name)
+      case list_data
+      when Hash
+        list_data.each_pair { |spell_level, spell_count|
+          spell_count.times { Spell.random_spell("cantrip", spell_list, @cantrips) }
+        }
+      when Array
+        raise "Cantrip array must have exact 20 values" unless list_data.length == 20
+      end
+    }
+  end
+
+  def generate_spells_prepared(spells_prepared_data = @class_data["spells_prepared"])
+  end
+
+  def generate_spellbook()
+  end
+
+  def find_or_create_spell_list(list_name)
+    if @spell_lists.one? { |sl| sl.name == list_name }
+      spell_list = @spell_lists.select { |sl| sl.name == list_name }.first
+    else
+      spell_list = SpellList.new(list_name)
+      @spell_lists << spell_list
+    end
+    return spell_list
   end
 
   def random_class(classes)
