@@ -99,7 +99,7 @@ classes:
           7: [guardian of faith, wall of fire]
           9: [flame strike, scrying]
       nature domain:
-        cantrips: {druid: 1}
+        cantrips: {druid: {1:1}}
         spells:
           1: [animal friendship, speak with animals]
           3: [barkskin, spike growth]
@@ -150,7 +150,7 @@ classes:
     subclass_level: 2
     subclasses:
       circle of the land:
-        cantrips: {druid: 1}
+        cantrips: {druid: {2: 1}}
         choices:
           3:
             circle spells:
@@ -239,7 +239,7 @@ classes:
           15: {combat superiority: {maneuvers: 2}}
       eldritch knight:
         cantrips:
-          wizard: {1: 2, 10: 1}
+          wizard: {3: 2, 10: 1}
         spells_known:
           eldritch knight: [0, 0, 2, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0] # Abjuration and Evocation
           wizard: {3: 1, 8: 1, 14: 1, 20: 1}
@@ -407,7 +407,7 @@ classes:
       assassin:
         weight: 10
       arcane trickster:
-        spells: [mage hand]
+        spells: [mage hand] # TODO: Wrong, this is a cantrip so belongs under cantrips, but the structure may not support it yet!
         cantrips:
           wizard: {3: 3, 10: 1}
         spells_known:
@@ -418,7 +418,7 @@ classes:
     weight: 9
     hit_die: d8
     ability_weights:
-      charisma: 600
+      charisma: 6
       constitution: 2
     saves: [constitution, charisma]
     skills: 2
@@ -456,6 +456,7 @@ classes:
       warlock: {1: 2, 4: 1, 10: 1}
     spells_known:
       warlock:  [2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+    spell_levels: {1: 1, 3: 2, 5: 3, 7: 4, 9: 5}
     lists:
       invocations:
         - agonizing blast

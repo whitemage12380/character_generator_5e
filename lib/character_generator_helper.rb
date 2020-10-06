@@ -103,7 +103,7 @@ module CharacterGeneratorHelper
       if (elem.kind_of? Array) and (elem.length == 2) and ((elem[0].kind_of? String) or (elem[0].kind_of? Symbol)) and (elem[1].kind_of? Hash)
         elem_weight = elem[1]["weight"] if elem[1].kind_of? Hash
       else
-        elem_weight = elem["weight"] if elem.kind_of? Hash
+        elem_weight = elem.fetch("weight", elem[:weight]) if elem.kind_of? Hash
       end
       probability = elem_weight ? elem_weight : 10
       probability.times do
@@ -139,7 +139,7 @@ module CharacterGeneratorHelper
   end
 
   def all_skills_hash()
-    all_skills
+    all_skills() # Populate $all_skills if it hasn't been populated
     $all_skills
   end
 

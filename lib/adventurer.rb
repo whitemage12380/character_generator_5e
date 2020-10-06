@@ -172,6 +172,16 @@ class Adventurer
       puts "Class Features:"
       puts @character_class.decision_strings.join("\n")
     end
+    unless @character_class.cantrips.nil? or @character_class.cantrips.empty?
+      puts "----------------------------"
+      puts "Cantrips:"
+      puts @character_class.spell_strings(@character_class.cantrips).join("\n")
+    end
+    unless @character_class.spells_known.nil? or @character_class.spells_known.empty?
+      puts "----------------------------"
+      puts "Spells Known:"
+      puts @character_class.spell_strings(@character_class.spells_known).join("\n")
+    end
     puts "----------------------------"
   end
 end

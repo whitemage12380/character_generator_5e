@@ -75,9 +75,22 @@ class Spell
       # RULE 2: Levels with no spell slots get an additional 300 weight
       # RULE 3: Otherwise, add additional weight for each spell fewer than the maximum number of spells for a given level
       #         this level has (e.g. if there are 5 lvl 1 spells and 1 lvl 2 spell, add 0 to lvl 1 and 4 * multiplier to lvl 2)
-      weight += (spell_count == 0) ? 300 : (max_spell_count - spell_count) * weight_multiplier_count
+      weight += (spell_count == 0) ? 600 : (max_spell_count - spell_count) * weight_multiplier_count
       {level: lvl, weight: weight}
     }
+    debug "Spell level weights: (#{min_spell_level}) #{level_weights.collect { |l| l[:weight] }} (#{max_spell_level})"
     return weighted_random(level_weights)[:level]
+  end
+
+  def to_s()
+    source_str = @source ? @source.pretty : "<Source not provided>"
+    name_str = @name ? @name.pretty : "<Name not provided>"
+    book_str = @book ? @book.pretty : ""
+    level_str = @level ? @level.to_s : "?"
+    if @level == "cantrip"
+      "#{name_str.ljust(40)}#{source_str.ljust(30)}#{book_str}"
+    else
+      "#{name_str.ljust(36)}#{level_str.ljust(4)}#{source_str.ljust(30)}#{book_str}"
+    end
   end
 end

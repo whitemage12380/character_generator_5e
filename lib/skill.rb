@@ -51,6 +51,6 @@ class Skill
 
   def to_s()
     expertise_string = expertise? ? "*" : ""
-    @source ? "#{(name + expertise_string).ljust(30)}#{@source.pretty}" : name + expertise_string
+    @source ? "#{(name + expertise_string).ljust(40)}#{@source.pretty}" : name + expertise_string
   end
 end

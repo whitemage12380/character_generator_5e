@@ -53,7 +53,7 @@ class ClassFeature
       return ["#{feature_name.pretty}: #{decisions.first.decision_name.pretty}"]
     else
       output = ["#{feature_name.pretty}"]
-      output.concat(@decisions.map { |d| "  - #{d.decision_name.pretty}"})
+      output.concat(@decisions.map { |d| "  - #{d.decision_name.pretty}"}.sort)
       return output
     end
   end

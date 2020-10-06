@@ -22,7 +22,10 @@ class ClassDecision
       return false
     end
     # Cantrip Check
-    # return false if @prerequisites["cantrips"] and cantrips.none? { |c|  } # Uncommment and finish when spells are implemented
+    if @prerequisites["cantrips"] and (cantrips.nil? or cantrips.none? { |c| @prerequisites["cantrips"].include? c.name })
+      debug "Cannot select #{decision_name.pretty} due to not meeting cantrip prerequisites: #{@prerequisites["cantrips"].to_s}"
+      return false
+    end
     # Each key under prerequisites other than those with specific meaning above are assumed to be class feature requirements
     # Class Feature Check
     class_feature_prerequisites = @prerequisites.select { |name, v| ["level", "cantrips"].none? name }
