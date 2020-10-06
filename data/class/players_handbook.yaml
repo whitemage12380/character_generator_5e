@@ -52,10 +52,6 @@ classes:
           3:
             bonus proficiencies:
               skills: 3
-          6:
-            additional magical secrets:
-              spells_known:
-                any: {6: 2}
       college of valor:
         weight: 10
   cleric:
@@ -422,7 +418,7 @@ classes:
     weight: 9
     hit_die: d8
     ability_weights:
-      charisma: 6
+      charisma: 600
       constitution: 2
     saves: [constitution, charisma]
     skills: 2

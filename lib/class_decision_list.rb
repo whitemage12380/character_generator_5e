@@ -30,7 +30,8 @@ class ClassDecisionList
 
   def random_decision(adventurer_decisions, level: nil, cantrips: nil, class_features: nil)
     @decisions = [] unless @decisions
-    decision = allowed_choices(level: level, cantrips: cantrips, class_features: class_features).difference(@decisions.union(adventurer_decisions)).sample
+    decision = allowed_choices(level: level, cantrips: cantrips, class_features: class_features)
+               .difference(@decisions.union(adventurer_decisions)).sample
     @decisions << decision
     # TODO: Choices should be weighted based on their prerequisities; choices with met prereqs should come up more often than choices
     # with no prereqs. Ideally higher-level prereqs should be more frequent than lower-level ones.

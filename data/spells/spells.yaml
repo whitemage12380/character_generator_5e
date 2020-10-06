@@ -1,6 +1,6 @@
 spells:
 - name: Abi-Dalzim's Horrid Wilting
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 8
   range: 150 feet
   duration: instantaneous
@@ -16,7 +16,7 @@ spells:
   - sorcerer
   - wizard
 - name: Absorb Elements
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 1
   range: self
   duration: 1 round
@@ -31,7 +31,7 @@ spells:
   - ranger
   - wizard
 - name: Acid Splash
-  source: Player's Handbook
+  book: Player's Handbook
   page: '211'
   level: cantrip
   range: 60 feet
@@ -47,7 +47,7 @@ spells:
   - sorcerer
   - wizard
 - name: Aganazzar's Scorcher
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 2
   range: 30 feet
   duration: instantaneous
@@ -63,7 +63,7 @@ spells:
   - sorcerer
   - wizard
 - name: Aid
-  source: Player's Handbook
+  book: Player's Handbook
   page: '211'
   level: 2
   range: 30 feet
@@ -80,7 +80,7 @@ spells:
   - cleric
   - paladin
 - name: Alarm
-  source: Player's Handbook
+  book: Player's Handbook
   page: '211'
   level: 1
   range: 30 feet
@@ -98,7 +98,7 @@ spells:
   - ritual caster
   - wizard
 - name: Alter Self
-  source: Player's Handbook
+  book: Player's Handbook
   page: '211'
   level: 2
   range: self
@@ -114,7 +114,7 @@ spells:
   - sorcerer
   - wizard
 - name: Animal Friendship
-  source: Player's Handbook
+  book: Player's Handbook
   page: '212'
   level: 1
   range: 30 feet
@@ -133,7 +133,7 @@ spells:
   - druid
   - ranger
 - name: Animal Messenger
-  source: Player's Handbook
+  book: Player's Handbook
   page: '212'
   level: 2
   range: 30 feet
@@ -152,7 +152,7 @@ spells:
   - ranger
   - ritual caster
 - name: Animal Shapes
-  source: Player's Handbook
+  book: Player's Handbook
   page: '212'
   level: 8
   range: 30 feet
@@ -167,7 +167,7 @@ spells:
   classes:
   - druid
 - name: Animate Dead
-  source: Player's Handbook
+  book: Player's Handbook
   page: '212'
   level: 3
   range: 10 feet
@@ -184,7 +184,7 @@ spells:
   - cleric
   - wizard
 - name: Animate Objects
-  source: Player's Handbook
+  book: Player's Handbook
   page: '213'
   level: 5
   range: 120 feet
@@ -201,7 +201,7 @@ spells:
   - sorcerer
   - wizard
 - name: Antilife Shell
-  source: Player's Handbook
+  book: Player's Handbook
   page: '213'
   level: 5
   range: self
@@ -216,7 +216,7 @@ spells:
   classes:
   - druid
 - name: Antimagic Field
-  source: Player's Handbook
+  book: Player's Handbook
   page: '213'
   level: 8
   range: self
@@ -233,7 +233,7 @@ spells:
   - cleric
   - wizard
 - name: Antipathy/Sympathy
-  source: Player's Handbook
+  book: Player's Handbook
   page: '214'
   level: 8
   range: 60 feet
@@ -250,7 +250,7 @@ spells:
   - druid
   - wizard
 - name: Arcane Eye
-  source: Player's Handbook
+  book: Player's Handbook
   page: '214'
   level: 4
   range: 30 feet
@@ -267,7 +267,7 @@ spells:
   - cleric
   - wizard
 - name: Arcane Gate
-  source: Player's Handbook
+  book: Player's Handbook
   page: '214'
   level: 6
   range: 500 feet
@@ -284,7 +284,7 @@ spells:
   - warlock
   - wizard
 - name: Arcane Lock
-  source: Player's Handbook
+  book: Player's Handbook
   page: '215'
   level: 2
   range: touch
@@ -301,7 +301,7 @@ spells:
   classes:
   - wizard
 - name: Armor of Agathys
-  source: Player's Handbook
+  book: Player's Handbook
   page: '215'
   level: 1
   range: self
@@ -317,7 +317,7 @@ spells:
   classes:
   - warlock
 - name: Arms of Hadar
-  source: Player's Handbook
+  book: Player's Handbook
   page: '215'
   level: 1
   range: self
@@ -332,7 +332,7 @@ spells:
   classes:
   - warlock
 - name: Astral Projection
-  source: Player's Handbook
+  book: Player's Handbook
   page: '215'
   level: 9
   range: 10 feet
@@ -351,7 +351,7 @@ spells:
   - warlock
   - wizard
 - name: Augury
-  source: Player's Handbook
+  book: Player's Handbook
   page: '215'
   level: 2
   range: self
@@ -369,7 +369,7 @@ spells:
   - cleric
   - ritual caster
 - name: Aura of Life
-  source: Player's Handbook
+  book: Player's Handbook
   page: '216'
   level: 4
   range: self
@@ -383,7 +383,7 @@ spells:
   classes:
   - paladin
 - name: Aura of Purity
-  source: Player's Handbook
+  book: Player's Handbook
   page: '216'
   level: 4
   range: self
@@ -397,7 +397,7 @@ spells:
   classes:
   - paladin
 - name: Aura of Vitality
-  source: Player's Handbook
+  book: Player's Handbook
   page: '216'
   level: 3
   range: self
@@ -411,7 +411,7 @@ spells:
   classes:
   - paladin
 - name: Awaken
-  source: Player's Handbook
+  book: Player's Handbook
   page: '216'
   level: 5
   range: touch
@@ -429,7 +429,7 @@ spells:
   - bard
   - druid
 - name: Bane
-  source: Player's Handbook
+  book: Player's Handbook
   page: '216'
   level: 1
   range: 30 feet
@@ -447,7 +447,7 @@ spells:
   - cleric
   - paladin
 - name: Banishing Smite
-  source: Player's Handbook
+  book: Player's Handbook
   page: '216'
   level: 5
   range: self
@@ -461,7 +461,7 @@ spells:
   classes:
   - paladin
 - name: Banishment
-  source: Player's Handbook
+  book: Player's Handbook
   page: '217'
   level: 4
   range: 60 feet
@@ -481,7 +481,7 @@ spells:
   - warlock
   - wizard
 - name: Barkskin
-  source: Player's Handbook
+  book: Player's Handbook
   page: '217'
   level: 2
   range: touch
@@ -499,7 +499,7 @@ spells:
   - druid
   - ranger
 - name: Beacon of Hope
-  source: Player's Handbook
+  book: Player's Handbook
   page: '217'
   level: 3
   range: 30 feet
@@ -515,7 +515,7 @@ spells:
   - cleric
   - paladin
 - name: Beast Bond
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 1
   range: touch
   duration: up to 10 minutes
@@ -532,7 +532,7 @@ spells:
   - ranger
   - wizard
 - name: Beast Sense
-  source: Player's Handbook
+  book: Player's Handbook
   page: '217'
   level: 2
   range: touch
@@ -548,7 +548,7 @@ spells:
   - ranger
   - ritual caster
 - name: Bestow Curse
-  source: Player's Handbook
+  book: Player's Handbook
   page: '218'
   level: 3
   range: touch
@@ -565,7 +565,7 @@ spells:
   - cleric
   - wizard
 - name: Bigby's Hand
-  source: Player's Handbook
+  book: Player's Handbook
   page: '218'
   level: 5
   range: 120 feet
@@ -581,7 +581,7 @@ spells:
   classes:
   - wizard
 - name: Blade Barrier
-  source: Player's Handbook
+  book: Player's Handbook
   page: '218'
   level: 6
   range: 90 feet
@@ -596,7 +596,7 @@ spells:
   classes:
   - cleric
 - name: Blade Ward
-  source: Player's Handbook
+  book: Player's Handbook
   page: '218'
   level: cantrip
   range: self
@@ -614,7 +614,7 @@ spells:
   - warlock
   - wizard
 - name: Bless
-  source: Player's Handbook
+  book: Player's Handbook
   page: '219'
   level: 1
   range: 30 feet
@@ -631,7 +631,7 @@ spells:
   - cleric
   - paladin
 - name: Blight
-  source: Player's Handbook
+  book: Player's Handbook
   page: '219'
   level: 4
   range: 30 feet
@@ -649,7 +649,7 @@ spells:
   - warlock
   - wizard
 - name: Blinding Smite
-  source: Player's Handbook
+  book: Player's Handbook
   page: '219'
   level: 3
   range: self
@@ -663,7 +663,7 @@ spells:
   classes:
   - paladin
 - name: Blindness/Deafness
-  source: Player's Handbook
+  book: Player's Handbook
   page: '219'
   level: 2
   range: 30 feet
@@ -681,7 +681,7 @@ spells:
   - warlock
   - wizard
 - name: Blink
-  source: Player's Handbook
+  book: Player's Handbook
   page: '219'
   level: 3
   range: self
@@ -699,7 +699,7 @@ spells:
   - warlock
   - wizard
 - name: Blur
-  source: Player's Handbook
+  book: Player's Handbook
   page: '219'
   level: 2
   range: self
@@ -715,7 +715,7 @@ spells:
   - sorcerer
   - wizard
 - name: Bones of the Earth
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 6
   range: 120 feet
   duration: instantaneous
@@ -729,7 +729,7 @@ spells:
   classes:
   - druid
 - name: Booming Blade
-  source: Sword Coast Adventurer's Guide
+  book: Sword Coast Adventurer's Guide
   page: '142'
   level: cantrip
   range: 5 feet
@@ -746,7 +746,7 @@ spells:
   - warlock
   - wizard
 - name: Branding Smite
-  source: Player's Handbook
+  book: Player's Handbook
   page: '219'
   level: 2
   range: self
@@ -760,7 +760,7 @@ spells:
   classes:
   - paladin
 - name: Burning Hands
-  source: Player's Handbook
+  book: Player's Handbook
   page: '220'
   level: 1
   range: self
@@ -778,7 +778,7 @@ spells:
   - warlock
   - wizard
 - name: Call Lightning
-  source: Player's Handbook
+  book: Player's Handbook
   page: '220'
   level: 3
   range: 120 feet
@@ -794,7 +794,7 @@ spells:
   - cleric
   - druid
 - name: Calm Emotions
-  source: Player's Handbook
+  book: Player's Handbook
   page: '221'
   level: 2
   range: 60 feet
@@ -811,7 +811,7 @@ spells:
   - cleric
   - warlock
 - name: Catapult
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 1
   range: 150 feet
   duration: instantaneous
@@ -825,7 +825,7 @@ spells:
   - sorcerer
   - wizard
 - name: Catnap
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 151
   level: 3
   casting_time: 1 action
@@ -840,7 +840,7 @@ spells:
   - sorcerer
   - wizard
 - name: Cause Fear
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 151
   level: 1
   casting_time: 1 action
@@ -853,7 +853,7 @@ spells:
   - warlock
   - wizard
 - name: Ceremony
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 151
   level: 1
   casting_time: 1 hour
@@ -869,7 +869,7 @@ spells:
   - cleric
   - paladin
 - name: Chain Lightning
-  source: Player's Handbook
+  book: Player's Handbook
   page: '221'
   level: 6
   range: 150 feet
@@ -886,7 +886,7 @@ spells:
   - sorcerer
   - wizard
 - name: Chaos Bolt
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 151
   level: 1
   casting_time: 1 action
@@ -899,7 +899,7 @@ spells:
   classes:
   - sorcerer
 - name: Charm Monster
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 151
   level: 4
   casting_time: 1 action
@@ -916,7 +916,7 @@ spells:
   - warlock
   - wizard
 - name: Charm Person
-  source: Player's Handbook
+  book: Player's Handbook
   page: '221'
   level: 1
   range: 30 feet
@@ -936,7 +936,7 @@ spells:
   - warlock
   - wizard
 - name: Chill Touch
-  source: Player's Handbook
+  book: Player's Handbook
   page: '221'
   level: cantrip
   range: 120 feet
@@ -953,7 +953,7 @@ spells:
   - warlock
   - wizard
 - name: Chromatic Orb
-  source: Player's Handbook
+  book: Player's Handbook
   page: '221'
   level: 1
   range: 90 feet
@@ -971,7 +971,7 @@ spells:
   - sorcerer
   - wizard
 - name: Circle of Death
-  source: Player's Handbook
+  book: Player's Handbook
   page: '221'
   level: 6
   range: 150 feet
@@ -990,7 +990,7 @@ spells:
   - warlock
   - wizard
 - name: Circle of Power
-  source: Player's Handbook
+  book: Player's Handbook
   page: '221'
   level: 5
   range: self
@@ -1004,7 +1004,7 @@ spells:
   classes:
   - paladin
 - name: Clairvoyance
-  source: Player's Handbook
+  book: Player's Handbook
   page: '222'
   level: 3
   range: 1 mile
@@ -1025,7 +1025,7 @@ spells:
   - warlock
   - wizard
 - name: Clone
-  source: Player's Handbook
+  book: Player's Handbook
   page: '222'
   level: 8
   range: touch
@@ -1042,7 +1042,7 @@ spells:
   classes:
   - wizard
 - name: Cloud of Daggers
-  source: Player's Handbook
+  book: Player's Handbook
   page: '222'
   level: 2
   range: 60 feet
@@ -1061,7 +1061,7 @@ spells:
   - warlock
   - wizard
 - name: Cloudkill
-  source: Player's Handbook
+  book: Player's Handbook
   page: '222'
   level: 5
   range: 120 feet
@@ -1078,7 +1078,7 @@ spells:
   - sorcerer
   - wizard
 - name: Color Spray
-  source: Player's Handbook
+  book: Player's Handbook
   page: '222'
   level: 1
   range: self
@@ -1095,7 +1095,7 @@ spells:
   - sorcerer
   - wizard
 - name: Command
-  source: Player's Handbook
+  book: Player's Handbook
   page: '223'
   level: 1
   range: 60 feet
@@ -1111,7 +1111,7 @@ spells:
   - paladin
   - warlock
 - name: Commune
-  source: Player's Handbook
+  book: Player's Handbook
   page: '223'
   level: 5
   range: self
@@ -1129,7 +1129,7 @@ spells:
   - paladin
   - ritual caster
 - name: Commune with Nature
-  source: Player's Handbook
+  book: Player's Handbook
   page: '224'
   level: 5
   range: self
@@ -1147,7 +1147,7 @@ spells:
   - ranger
   - ritual caster
 - name: Compelled Duel
-  source: Player's Handbook
+  book: Player's Handbook
   page: '224'
   level: 1
   range: 30 feet
@@ -1161,7 +1161,7 @@ spells:
   classes:
   - paladin
 - name: Comprehend Languages
-  source: Player's Handbook
+  book: Player's Handbook
   page: '224'
   level: 1
   range: self
@@ -1181,7 +1181,7 @@ spells:
   - warlock
   - wizard
 - name: Compulsion
-  source: Player's Handbook
+  book: Player's Handbook
   page: '224'
   level: 4
   range: 30 feet
@@ -1196,7 +1196,7 @@ spells:
   classes:
   - bard
 - name: Cone of Cold
-  source: Player's Handbook
+  book: Player's Handbook
   page: '224'
   level: 5
   range: self
@@ -1214,7 +1214,7 @@ spells:
   - sorcerer
   - wizard
 - name: Confusion
-  source: Player's Handbook
+  book: Player's Handbook
   page: '224'
   level: 4
   range: 90 feet
@@ -1234,7 +1234,7 @@ spells:
   - sorcerer
   - wizard
 - name: Conjure Animals
-  source: Player's Handbook
+  book: Player's Handbook
   page: '225'
   level: 3
   range: 60 feet
@@ -1250,7 +1250,7 @@ spells:
   - druid
   - ranger
 - name: Conjure Barrage
-  source: Player's Handbook
+  book: Player's Handbook
   page: '225'
   level: 3
   range: self
@@ -1266,7 +1266,7 @@ spells:
   classes:
   - ranger
 - name: Conjure Celestial
-  source: Player's Handbook
+  book: Player's Handbook
   page: '225'
   level: 7
   range: 90 feet
@@ -1281,7 +1281,7 @@ spells:
   classes:
   - cleric
 - name: Conjure Elemental
-  source: Player's Handbook
+  book: Player's Handbook
   page: '225'
   level: 5
   range: 90 feet
@@ -1298,7 +1298,7 @@ spells:
   - druid
   - wizard
 - name: Conjure Fey
-  source: Player's Handbook
+  book: Player's Handbook
   page: '226'
   level: 6
   range: 90 feet
@@ -1314,7 +1314,7 @@ spells:
   - druid
   - warlock
 - name: Conjure Minor Elementals
-  source: Player's Handbook
+  book: Player's Handbook
   page: '226'
   level: 4
   range: 90 feet
@@ -1330,7 +1330,7 @@ spells:
   - druid
   - wizard
 - name: Conjure Volley
-  source: Player's Handbook
+  book: Player's Handbook
   page: '226'
   level: 5
   range: 150 feet
@@ -1346,7 +1346,7 @@ spells:
   classes:
   - ranger
 - name: Conjure Woodland Beings
-  source: Player's Handbook
+  book: Player's Handbook
   page: '226'
   level: 4
   range: 60 feet
@@ -1363,7 +1363,7 @@ spells:
   - druid
   - ranger
 - name: Contact Other Plane
-  source: Player's Handbook
+  book: Player's Handbook
   page: '226'
   level: 5
   range: self
@@ -1379,7 +1379,7 @@ spells:
   - warlock
   - wizard
 - name: Contagion
-  source: Player's Handbook
+  book: Player's Handbook
   page: '227'
   level: 5
   range: touch
@@ -1395,7 +1395,7 @@ spells:
   - cleric
   - druid
 - name: Contingency
-  source: Player's Handbook
+  book: Player's Handbook
   page: '227'
   level: 6
   range: self
@@ -1412,7 +1412,7 @@ spells:
   classes:
   - wizard
 - name: Continual Flame
-  source: Player's Handbook
+  book: Player's Handbook
   page: '227'
   level: 2
   range: touch
@@ -1430,7 +1430,7 @@ spells:
   - cleric
   - wizard
 - name: Control Flames
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: cantrip
   range: 60 feet
   duration: instantaneous/1 hour
@@ -1445,7 +1445,7 @@ spells:
   - sorcerer
   - wizard
 - name: Control Water
-  source: Player's Handbook
+  book: Player's Handbook
   page: '227'
   level: 4
   range: 300 feet
@@ -1463,7 +1463,7 @@ spells:
   - druid
   - wizard
 - name: Control Weather
-  source: Player's Handbook
+  book: Player's Handbook
   page: '228'
   level: 8
   range: self
@@ -1481,7 +1481,7 @@ spells:
   - druid
   - wizard
 - name: Control Winds
-  source: Elemental Evil Player's Compendium
+  book: Elemental Evil Player's Compendium
   page: '16'
   level: 5
   range: 300 feet
@@ -1498,7 +1498,7 @@ spells:
   - sorcerer
   - wizard
 - name: Cordon of Arrows
-  source: Player's Handbook
+  book: Player's Handbook
   page: '228'
   level: 2
   range: 5 feet
@@ -1514,7 +1514,7 @@ spells:
   classes:
   - ranger
 - name: Counterspell
-  source: Player's Handbook
+  book: Player's Handbook
   page: '228'
   level: 3
   range: 60 feet
@@ -1530,7 +1530,7 @@ spells:
   - warlock
   - wizard
 - name: Create Bonfire
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: cantrip
   range: 60 feet
   duration: up to 1 minute
@@ -1547,7 +1547,7 @@ spells:
   - warlock
   - wizard
 - name: Create Food and Water
-  source: Player's Handbook
+  book: Player's Handbook
   page: '229'
   level: 3
   range: 30 feet
@@ -1564,7 +1564,7 @@ spells:
   - druid
   - paladin
 - name: Create Homunculus
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 152
   level: 6
   casting_time: 1 hour
@@ -1579,7 +1579,7 @@ spells:
   classes:
   - wizard
 - name: Create Undead
-  source: Player's Handbook
+  book: Player's Handbook
   page: '229'
   level: 6
   range: 10 feet
@@ -1598,7 +1598,7 @@ spells:
   - warlock
   - wizard
 - name: Create or Destroy Water
-  source: Player's Handbook
+  book: Player's Handbook
   page: '229'
   level: 1
   range: 30 feet
@@ -1615,7 +1615,7 @@ spells:
   - cleric
   - druid
 - name: Creation
-  source: Player's Handbook
+  book: Player's Handbook
   page: '229'
   level: 5
   range: 30 feet
@@ -1632,7 +1632,7 @@ spells:
   - sorcerer
   - wizard
 - name: Crown of Madness
-  source: Player's Handbook
+  book: Player's Handbook
   page: '229'
   level: 2
   range: 120 feet
@@ -1650,7 +1650,7 @@ spells:
   - warlock
   - wizard
 - name: Crown of Stars
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 152
   level: 7
   casting_time: 1 action
@@ -1665,7 +1665,7 @@ spells:
   - warlock
   - wizard
 - name: Crusader's Mantle
-  source: Player's Handbook
+  book: Player's Handbook
   page: '230'
   level: 3
   range: self
@@ -1680,7 +1680,7 @@ spells:
   - cleric
   - paladin
 - name: Cure Wounds
-  source: Player's Handbook
+  book: Player's Handbook
   page: '230'
   level: 1
   range: touch
@@ -1699,7 +1699,7 @@ spells:
   - paladin
   - ranger
 - name: Dancing Lights
-  source: Player's Handbook
+  book: Player's Handbook
   page: '230'
   level: cantrip
   range: 120 feet
@@ -1717,7 +1717,7 @@ spells:
   - sorcerer
   - wizard
 - name: Danse Macabre
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 153
   level: 5
   casting_time: 1 action
@@ -1731,7 +1731,7 @@ spells:
   - warlock
   - wizard
 - name: Darkness
-  source: Player's Handbook
+  book: Player's Handbook
   page: '230'
   level: 2
   range: 60 feet
@@ -1749,7 +1749,7 @@ spells:
   - warlock
   - wizard
 - name: Darkvision
-  source: Player's Handbook
+  book: Player's Handbook
   page: '230'
   level: 2
   range: touch
@@ -1768,7 +1768,7 @@ spells:
   - sorcerer
   - wizard
 - name: Dawn
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 153
   level: 5
   casting_time: 1 action
@@ -1784,7 +1784,7 @@ spells:
   - cleric
   - wizard
 - name: Daylight
-  source: Player's Handbook
+  book: Player's Handbook
   page: '230'
   level: 3
   range: 60 feet
@@ -1803,7 +1803,7 @@ spells:
   - ranger
   - sorcerer
 - name: Death Ward
-  source: Player's Handbook
+  book: Player's Handbook
   page: '230'
   level: 4
   range: touch
@@ -1819,7 +1819,7 @@ spells:
   - cleric
   - paladin
 - name: Delayed Blast Fireball
-  source: Player's Handbook
+  book: Player's Handbook
   page: '230'
   level: 7
   range: 150 feet
@@ -1836,7 +1836,7 @@ spells:
   - sorcerer
   - wizard
 - name: Demiplane
-  source: Player's Handbook
+  book: Player's Handbook
   page: '231'
   level: 8
   range: 60 feet
@@ -1851,7 +1851,7 @@ spells:
   - warlock
   - wizard
 - name: Destructive Wave
-  source: Player's Handbook
+  book: Player's Handbook
   page: '231'
   level: 5
   range: self
@@ -1866,7 +1866,7 @@ spells:
   - cleric
   - paladin
 - name: Detect Evil and Good
-  source: Player's Handbook
+  book: Player's Handbook
   page: '231'
   level: 1
   range: self
@@ -1882,7 +1882,7 @@ spells:
   - cleric
   - paladin
 - name: Detect Magic
-  source: Player's Handbook
+  book: Player's Handbook
   page: '231'
   level: 1
   range: self
@@ -1904,7 +1904,7 @@ spells:
   - sorcerer
   - wizard
 - name: Detect Poison and Disease
-  source: Player's Handbook
+  book: Player's Handbook
   page: '231'
   level: 1
   range: self
@@ -1924,7 +1924,7 @@ spells:
   - ranger
   - ritual caster
 - name: Detect Thoughts
-  source: Player's Handbook
+  book: Player's Handbook
   page: '231'
   level: 2
   range: self
@@ -1943,7 +1943,7 @@ spells:
   - warlock
   - wizard
 - name: Dimension Door
-  source: Player's Handbook
+  book: Player's Handbook
   page: '233'
   level: 4
   range: 500 feet
@@ -1962,7 +1962,7 @@ spells:
   - warlock
   - wizard
 - name: Disguise Self
-  source: Player's Handbook
+  book: Player's Handbook
   page: '233'
   level: 1
   range: self
@@ -1980,7 +1980,7 @@ spells:
   - sorcerer
   - wizard
 - name: Disintegrate
-  source: Player's Handbook
+  book: Player's Handbook
   page: '233'
   level: 6
   range: 60 feet
@@ -1997,7 +1997,7 @@ spells:
   - sorcerer
   - wizard
 - name: Dispel Evil and Good
-  source: Player's Handbook
+  book: Player's Handbook
   page: '233'
   level: 5
   range: self
@@ -2014,7 +2014,7 @@ spells:
   - cleric
   - paladin
 - name: Dispel Magic
-  source: Player's Handbook
+  book: Player's Handbook
   page: '234'
   level: 3
   range: 120 feet
@@ -2035,7 +2035,7 @@ spells:
   - warlock
   - wizard
 - name: Dissonant Whispers
-  source: Player's Handbook
+  book: Player's Handbook
   page: '234'
   level: 1
   range: 60 feet
@@ -2050,7 +2050,7 @@ spells:
   - bard
   - warlock
 - name: Divination
-  source: Player's Handbook
+  book: Player's Handbook
   page: '234'
   level: 4
   range: self
@@ -2069,7 +2069,7 @@ spells:
   - druid
   - ritual caster
 - name: Divine Favor
-  source: Player's Handbook
+  book: Player's Handbook
   page: '234'
   level: 1
   range: self
@@ -2085,7 +2085,7 @@ spells:
   - cleric
   - paladin
 - name: Divine Word
-  source: Player's Handbook
+  book: Player's Handbook
   page: '234'
   level: 7
   range: 30 feet
@@ -2099,7 +2099,7 @@ spells:
   classes:
   - cleric
 - name: Dominate Beast
-  source: Player's Handbook
+  book: Player's Handbook
   page: '234'
   level: 4
   range: 60 feet
@@ -2117,7 +2117,7 @@ spells:
   - sorcerer
   - warlock
 - name: Dominate Monster
-  source: Player's Handbook
+  book: Player's Handbook
   page: '235'
   level: 8
   range: 60 feet
@@ -2135,7 +2135,7 @@ spells:
   - warlock
   - wizard
 - name: Dominate Person
-  source: Player's Handbook
+  book: Player's Handbook
   page: '235'
   level: 5
   range: 60 feet
@@ -2154,7 +2154,7 @@ spells:
   - warlock
   - wizard
 - name: Dragon's Breath
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 154
   level: 2
   casting_time: 1 bonus action
@@ -2169,7 +2169,7 @@ spells:
   - sorcerer
   - wizard
 - name: Drawmij's Instant Summons
-  source: Player's Handbook
+  book: Player's Handbook
   page: '235'
   level: 6
   range: touch
@@ -2187,7 +2187,7 @@ spells:
   - ritual caster
   - wizard
 - name: Dream
-  source: Player's Handbook
+  book: Player's Handbook
   page: '236'
   level: 5
   range: special
@@ -2206,7 +2206,7 @@ spells:
   - warlock
   - wizard
 - name: Druid Grove
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 0
   level: 6
   casting_time: 10 minute
@@ -2217,7 +2217,7 @@ spells:
   classes:
   - druid
 - name: Druidcraft
-  source: Player's Handbook
+  book: Player's Handbook
   page: '236'
   level: cantrip
   range: 30 feet
@@ -2232,7 +2232,7 @@ spells:
   classes:
   - druid
 - name: Dust Devil
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 2
   range: 60 feet
   duration: up to 1 minute
@@ -2249,7 +2249,7 @@ spells:
   - sorcerer
   - wizard
 - name: Earth Tremor
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 1
   range: self (10-foot radius)
   duration: instantaneous
@@ -2266,7 +2266,7 @@ spells:
   - sorcerer
   - wizard
 - name: Earthbind
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 2
   range: 300 feet
   duration: up to 1 minute
@@ -2282,7 +2282,7 @@ spells:
   - warlock
   - wizard
 - name: Earthquake
-  source: Player's Handbook
+  book: Player's Handbook
   page: '236'
   level: 8
   range: 500 feet
@@ -2300,7 +2300,7 @@ spells:
   - druid
   - sorcerer
 - name: Eldritch Blast
-  source: Player's Handbook
+  book: Player's Handbook
   page: '237'
   level: cantrip
   range: 120 feet
@@ -2315,7 +2315,7 @@ spells:
   classes:
   - warlock
 - name: Elemental Bane
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 4
   range: 90 feet
   duration: up to 1 minute
@@ -2331,7 +2331,7 @@ spells:
   - warlock
   - wizard
 - name: Elemental Weapon
-  source: Player's Handbook
+  book: Player's Handbook
   page: '237'
   level: 3
   range: touch
@@ -2346,7 +2346,7 @@ spells:
   classes:
   - paladin
 - name: Enemies Abound
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 155
   level: 3
   casting_time: 1 action
@@ -2362,7 +2362,7 @@ spells:
   - warlock
   - wizard
 - name: Enervation
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 155
   level: 5
   casting_time: 1 action
@@ -2377,7 +2377,7 @@ spells:
   - warlock
   - wizard
 - name: Enhance Ability
-  source: Player's Handbook
+  book: Player's Handbook
   page: '237'
   level: 2
   range: touch
@@ -2396,7 +2396,7 @@ spells:
   - druid
   - sorcerer
 - name: Enlarge/Reduce
-  source: Player's Handbook
+  book: Player's Handbook
   page: '237'
   level: 2
   range: 30 feet
@@ -2413,7 +2413,7 @@ spells:
   - sorcerer
   - wizard
 - name: Ensnaring Strike
-  source: Player's Handbook
+  book: Player's Handbook
   page: '237'
   level: 1
   range: self
@@ -2428,7 +2428,7 @@ spells:
   - paladin
   - ranger
 - name: Entangle
-  source: Player's Handbook
+  book: Player's Handbook
   page: '238'
   level: 1
   range: 90 feet
@@ -2443,7 +2443,7 @@ spells:
   classes:
   - druid
 - name: Enthrall
-  source: Player's Handbook
+  book: Player's Handbook
   page: '238'
   level: 2
   range: 60 feet
@@ -2459,7 +2459,7 @@ spells:
   - bard
   - warlock
 - name: Erupting Earth
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 3
   range: 120 feet
   duration: instantaneous
@@ -2476,7 +2476,7 @@ spells:
   - sorcerer
   - wizard
 - name: Etherealness
-  source: Player's Handbook
+  book: Player's Handbook
   page: '238'
   level: 7
   range: self
@@ -2495,7 +2495,7 @@ spells:
   - warlock
   - wizard
 - name: Evard's Black Tentacles
-  source: Player's Handbook
+  book: Player's Handbook
   page: '238'
   level: 4
   range: 90 feet
@@ -2512,7 +2512,7 @@ spells:
   - warlock
   - wizard
 - name: Expeditious Retreat
-  source: Player's Handbook
+  book: Player's Handbook
   page: '238'
   level: 1
   range: self
@@ -2529,7 +2529,7 @@ spells:
   - warlock
   - wizard
 - name: Eyebite
-  source: Player's Handbook
+  book: Player's Handbook
   page: '238'
   level: 6
   range: self
@@ -2547,7 +2547,7 @@ spells:
   - warlock
   - wizard
 - name: Fabricate
-  source: Player's Handbook
+  book: Player's Handbook
   page: '239'
   level: 4
   range: 120 feet
@@ -2562,7 +2562,7 @@ spells:
   classes:
   - wizard
 - name: Faerie Fire
-  source: Player's Handbook
+  book: Player's Handbook
   page: '239'
   level: 1
   range: 60 feet
@@ -2579,7 +2579,7 @@ spells:
   - druid
   - warlock
 - name: False Life
-  source: Player's Handbook
+  book: Player's Handbook
   page: '239'
   level: 1
   range: self
@@ -2596,7 +2596,7 @@ spells:
   - sorcerer
   - wizard
 - name: Far Step
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 155
   level: 5
   casting_time: 1 bonus action
@@ -2610,7 +2610,7 @@ spells:
   - warlock
   - wizard
 - name: Fear
-  source: Player's Handbook
+  book: Player's Handbook
   page: '239'
   level: 3
   range: self
@@ -2629,7 +2629,7 @@ spells:
   - warlock
   - wizard
 - name: Feather Fall
-  source: Player's Handbook
+  book: Player's Handbook
   page: '239'
   level: 1
   range: 60 feet
@@ -2646,7 +2646,7 @@ spells:
   - sorcerer
   - wizard
 - name: Feeblemind
-  source: Player's Handbook
+  book: Player's Handbook
   page: '239'
   level: 8
   range: 150 feet
@@ -2665,7 +2665,7 @@ spells:
   - warlock
   - wizard
 - name: Feign Death
-  source: Player's Handbook
+  book: Player's Handbook
   page: '240'
   level: 3
   range: touch
@@ -2685,7 +2685,7 @@ spells:
   - ritual caster
   - wizard
 - name: Find Familiar
-  source: Player's Handbook
+  book: Player's Handbook
   page: '240'
   level: 1
   range: 10 feet
@@ -2703,7 +2703,7 @@ spells:
   - ritual caster
   - wizard
 - name: Find Greater Steed
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 0
   level: 4
   casting_time: 10 minute
@@ -2714,7 +2714,7 @@ spells:
   classes:
   - paladin
 - name: Find Steed
-  source: Player's Handbook
+  book: Player's Handbook
   page: '240'
   level: 2
   range: 30 feet
@@ -2729,7 +2729,7 @@ spells:
   classes:
   - paladin
 - name: Find Traps
-  source: Player's Handbook
+  book: Player's Handbook
   page: '241'
   level: 2
   range: 120 feet
@@ -2746,7 +2746,7 @@ spells:
   - druid
   - ranger
 - name: Find the Path
-  source: Player's Handbook
+  book: Player's Handbook
   page: '240'
   level: 6
   range: self
@@ -2765,7 +2765,7 @@ spells:
   - cleric
   - druid
 - name: Finger of Death
-  source: Player's Handbook
+  book: Player's Handbook
   page: '241'
   level: 7
   range: 60 feet
@@ -2782,7 +2782,7 @@ spells:
   - warlock
   - wizard
 - name: Fire Bolt
-  source: Player's Handbook
+  book: Player's Handbook
   page: '242'
   level: cantrip
   range: 120 feet
@@ -2798,7 +2798,7 @@ spells:
   - sorcerer
   - wizard
 - name: Fire Shield
-  source: Player's Handbook
+  book: Player's Handbook
   page: '242'
   level: 4
   range: self
@@ -2815,7 +2815,7 @@ spells:
   - warlock
   - wizard
 - name: Fire Storm
-  source: Player's Handbook
+  book: Player's Handbook
   page: '242'
   level: 7
   range: 150 feet
@@ -2832,7 +2832,7 @@ spells:
   - druid
   - sorcerer
 - name: Fireball
-  source: Player's Handbook
+  book: Player's Handbook
   page: '241'
   level: 3
   range: 150 feet
@@ -2851,7 +2851,7 @@ spells:
   - warlock
   - wizard
 - name: Flame Arrows
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 3
   range: touch
   duration: up to 1 hour
@@ -2868,7 +2868,7 @@ spells:
   - sorcerer
   - wizard
 - name: Flame Blade
-  source: Player's Handbook
+  book: Player's Handbook
   page: '242'
   level: 2
   range: self
@@ -2884,7 +2884,7 @@ spells:
   classes:
   - druid
 - name: Flame Strike
-  source: Player's Handbook
+  book: Player's Handbook
   page: '242'
   level: 5
   range: 60 feet
@@ -2902,7 +2902,7 @@ spells:
   - paladin
   - warlock
 - name: Flaming Sphere
-  source: Player's Handbook
+  book: Player's Handbook
   page: '242'
   level: 2
   range: 60 feet
@@ -2920,7 +2920,7 @@ spells:
   - druid
   - wizard
 - name: Flesh to Stone
-  source: Player's Handbook
+  book: Player's Handbook
   page: '243'
   level: 6
   range: 60 feet
@@ -2937,7 +2937,7 @@ spells:
   - warlock
   - wizard
 - name: Fly
-  source: Player's Handbook
+  book: Player's Handbook
   page: '243'
   level: 3
   range: touch
@@ -2955,7 +2955,7 @@ spells:
   - warlock
   - wizard
 - name: Fog Cloud
-  source: Player's Handbook
+  book: Player's Handbook
   page: '243'
   level: 1
   range: 120 feet
@@ -2974,7 +2974,7 @@ spells:
   - sorcerer
   - wizard
 - name: Forbiddance
-  source: Player's Handbook
+  book: Player's Handbook
   page: '243'
   level: 6
   range: touch
@@ -2992,7 +2992,7 @@ spells:
   - cleric
   - ritual caster
 - name: Forcecage
-  source: Player's Handbook
+  book: Player's Handbook
   page: '243'
   level: 7
   range: 100 feet
@@ -3011,7 +3011,7 @@ spells:
   - warlock
   - wizard
 - name: Foresight
-  source: Player's Handbook
+  book: Player's Handbook
   page: '244'
   level: 9
   range: touch
@@ -3030,7 +3030,7 @@ spells:
   - warlock
   - wizard
 - name: Freedom of Movement
-  source: Player's Handbook
+  book: Player's Handbook
   page: '244'
   level: 4
   range: touch
@@ -3050,7 +3050,7 @@ spells:
   - paladin
   - ranger
 - name: Friends
-  source: Player's Handbook
+  book: Player's Handbook
   page: '244'
   level: cantrip
   range: self
@@ -3068,7 +3068,7 @@ spells:
   - warlock
   - wizard
 - name: Frostbite
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: cantrip
   range: 60 feet
   duration: instantaneous
@@ -3085,7 +3085,7 @@ spells:
   - warlock
   - wizard
 - name: Gaseous Form
-  source: Player's Handbook
+  book: Player's Handbook
   page: '244'
   level: 3
   range: touch
@@ -3104,7 +3104,7 @@ spells:
   - warlock
   - wizard
 - name: Gate
-  source: Player's Handbook
+  book: Player's Handbook
   page: '244'
   level: 9
   range: 60 feet
@@ -3123,7 +3123,7 @@ spells:
   - sorcerer
   - wizard
 - name: Geas
-  source: Player's Handbook
+  book: Player's Handbook
   page: '244'
   level: 5
   range: 60 feet
@@ -3141,7 +3141,7 @@ spells:
   - paladin
   - wizard
 - name: Gentle Repose
-  source: Player's Handbook
+  book: Player's Handbook
   page: '245'
   level: 2
   range: touch
@@ -3159,7 +3159,7 @@ spells:
   - ritual caster
   - wizard
 - name: Giant Insect
-  source: Player's Handbook
+  book: Player's Handbook
   page: '245'
   level: 4
   range: 30 feet
@@ -3174,7 +3174,7 @@ spells:
   classes:
   - druid
 - name: Glibness
-  source: Player's Handbook
+  book: Player's Handbook
   page: '245'
   level: 8
   range: self
@@ -3189,7 +3189,7 @@ spells:
   - bard
   - warlock
 - name: Globe of Invulnerability
-  source: Player's Handbook
+  book: Player's Handbook
   page: '245'
   level: 6
   range: self
@@ -3206,7 +3206,7 @@ spells:
   - sorcerer
   - wizard
 - name: Glyph of Warding
-  source: Player's Handbook
+  book: Player's Handbook
   page: '245'
   level: 3
   range: touch
@@ -3225,7 +3225,7 @@ spells:
   - cleric
   - wizard
 - name: Goodberry
-  source: Player's Handbook
+  book: Player's Handbook
   page: '246'
   level: 1
   range: touch
@@ -3242,7 +3242,7 @@ spells:
   - druid
   - ranger
 - name: Grasping Vine
-  source: Player's Handbook
+  book: Player's Handbook
   page: '246'
   level: 4
   range: 30 feet
@@ -3259,7 +3259,7 @@ spells:
   - druid
   - ranger
 - name: Grease
-  source: Player's Handbook
+  book: Player's Handbook
   page: '246'
   level: 1
   range: 60 feet
@@ -3275,7 +3275,7 @@ spells:
   classes:
   - wizard
 - name: Greater Invisibility
-  source: Player's Handbook
+  book: Player's Handbook
   page: '246'
   level: 4
   range: touch
@@ -3294,7 +3294,7 @@ spells:
   - warlock
   - wizard
 - name: Greater Restoration
-  source: Player's Handbook
+  book: Player's Handbook
   page: '246'
   level: 5
   range: touch
@@ -3313,7 +3313,7 @@ spells:
   - cleric
   - druid
 - name: Green-Flame Blade
-  source: Sword Coast Adventurer's Guide
+  book: Sword Coast Adventurer's Guide
   page: '143'
   level: cantrip
   range: 5 feet
@@ -3330,7 +3330,7 @@ spells:
   - warlock
   - wizard
 - name: Guardian of Faith
-  source: Player's Handbook
+  book: Player's Handbook
   page: '246'
   level: 4
   range: 30 feet
@@ -3345,7 +3345,7 @@ spells:
   - cleric
   - paladin
 - name: Guardian of Nature
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 157
   level: 4
   casting_time: 1 bonus action
@@ -3358,7 +3358,7 @@ spells:
   - druid
   - ranger
 - name: Guards and Wards
-  source: Player's Handbook
+  book: Player's Handbook
   page: '248'
   level: 6
   range: touch
@@ -3376,7 +3376,7 @@ spells:
   - bard
   - wizard
 - name: Guidance
-  source: Player's Handbook
+  book: Player's Handbook
   page: '248'
   level: cantrip
   range: touch
@@ -3392,7 +3392,7 @@ spells:
   - cleric
   - druid
 - name: Guiding Bolt
-  source: Player's Handbook
+  book: Player's Handbook
   page: '248'
   level: 1
   range: 120 feet
@@ -3407,7 +3407,7 @@ spells:
   classes:
   - cleric
 - name: Gust
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: cantrip
   range: 30 feet
   duration: instantaneous
@@ -3423,7 +3423,7 @@ spells:
   - sorcerer
   - wizard
 - name: Gust of Wind
-  source: Player's Handbook
+  book: Player's Handbook
   page: '248'
   level: 2
   range: self
@@ -3442,7 +3442,7 @@ spells:
   - sorcerer
   - wizard
 - name: Hail of Thorns
-  source: Player's Handbook
+  book: Player's Handbook
   page: '249'
   level: 1
   range: self
@@ -3456,7 +3456,7 @@ spells:
   classes:
   - ranger
 - name: Hallow
-  source: Player's Handbook
+  book: Player's Handbook
   page: '249'
   level: 5
   range: touch
@@ -3474,7 +3474,7 @@ spells:
   - cleric
   - warlock
 - name: Hallucinatory Terrain
-  source: Player's Handbook
+  book: Player's Handbook
   page: '249'
   level: 4
   range: 300 feet
@@ -3493,7 +3493,7 @@ spells:
   - warlock
   - wizard
 - name: Harm
-  source: Player's Handbook
+  book: Player's Handbook
   page: '249'
   level: 6
   range: 60 feet
@@ -3508,7 +3508,7 @@ spells:
   classes:
   - cleric
 - name: Haste
-  source: Player's Handbook
+  book: Player's Handbook
   page: '250'
   level: 3
   range: 30 feet
@@ -3527,7 +3527,7 @@ spells:
   - sorcerer
   - wizard
 - name: Heal
-  source: Player's Handbook
+  book: Player's Handbook
   page: '250'
   level: 6
   range: 60 feet
@@ -3543,7 +3543,7 @@ spells:
   - cleric
   - druid
 - name: Healing Spirit
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 157
   level: 2
   casting_time: 1 bonus action
@@ -3557,7 +3557,7 @@ spells:
   - druid
   - ranger
 - name: Healing Word
-  source: Player's Handbook
+  book: Player's Handbook
   page: '250'
   level: 1
   range: 60 feet
@@ -3573,7 +3573,7 @@ spells:
   - cleric
   - druid
 - name: Heat Metal
-  source: Player's Handbook
+  book: Player's Handbook
   page: '250'
   level: 2
   range: 60 feet
@@ -3590,7 +3590,7 @@ spells:
   - bard
   - druid
 - name: Hellish Rebuke
-  source: Player's Handbook
+  book: Player's Handbook
   page: '250'
   level: 1
   range: 60 feet
@@ -3605,7 +3605,7 @@ spells:
   classes:
   - warlock
 - name: Heroes' Feast
-  source: Player's Handbook
+  book: Player's Handbook
   page: '250'
   level: 6
   range: 30 feet
@@ -3623,7 +3623,7 @@ spells:
   - cleric
   - druid
 - name: Heroism
-  source: Player's Handbook
+  book: Player's Handbook
   page: '250'
   level: 1
   range: touch
@@ -3639,7 +3639,7 @@ spells:
   - bard
   - paladin
 - name: Hex
-  source: Player's Handbook
+  book: Player's Handbook
   page: '251'
   level: 1
   range: 90 feet
@@ -3655,7 +3655,7 @@ spells:
   classes:
   - warlock
 - name: Hold Monster
-  source: Player's Handbook
+  book: Player's Handbook
   page: '251'
   level: 5
   range: 90 feet
@@ -3676,7 +3676,7 @@ spells:
   - warlock
   - wizard
 - name: Hold Person
-  source: Player's Handbook
+  book: Player's Handbook
   page: '251'
   level: 2
   range: 60 feet
@@ -3698,7 +3698,7 @@ spells:
   - warlock
   - wizard
 - name: Holy Aura
-  source: Player's Handbook
+  book: Player's Handbook
   page: '251'
   level: 8
   range: self
@@ -3715,7 +3715,7 @@ spells:
   classes:
   - cleric
 - name: Holy Weapon
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 157
   level: 5
   casting_time: 1 bonus action
@@ -3729,7 +3729,7 @@ spells:
   - cleric
   - paladin
 - name: Hunger of Hadar
-  source: Player's Handbook
+  book: Player's Handbook
   page: '251'
   level: 3
   range: 150 feet
@@ -3745,7 +3745,7 @@ spells:
   classes:
   - warlock
 - name: Hunter's Mark
-  source: Player's Handbook
+  book: Player's Handbook
   page: '251'
   level: 1
   range: 90 feet
@@ -3760,7 +3760,7 @@ spells:
   - paladin
   - ranger
 - name: Hypnotic Pattern
-  source: Player's Handbook
+  book: Player's Handbook
   page: '252'
   level: 3
   range: 120 feet
@@ -3778,7 +3778,7 @@ spells:
   - warlock
   - wizard
 - name: Ice Knife
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 1
   range: 60 feet
   duration: instantaneous
@@ -3794,7 +3794,7 @@ spells:
   - sorcerer
   - wizard
 - name: Ice Storm
-  source: Player's Handbook
+  book: Player's Handbook
   page: '252'
   level: 4
   range: 300 feet
@@ -3814,7 +3814,7 @@ spells:
   - sorcerer
   - wizard
 - name: Identify
-  source: Player's Handbook
+  book: Player's Handbook
   page: '252'
   level: 1
   range: touch
@@ -3834,7 +3834,7 @@ spells:
   - ritual caster
   - wizard
 - name: Illusory Dragon
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 157
   level: 8
   casting_time: 1 action
@@ -3846,7 +3846,7 @@ spells:
   classes:
   - wizard
 - name: Illusory Script
-  source: Player's Handbook
+  book: Player's Handbook
   page: '252'
   level: 1
   range: touch
@@ -3865,7 +3865,7 @@ spells:
   - warlock
   - wizard
 - name: Immolation
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 5
   range: 90 feet
   duration: up to 1 minute
@@ -3879,7 +3879,7 @@ spells:
   - sorcerer
   - wizard
 - name: Imprisonment
-  source: Player's Handbook
+  book: Player's Handbook
   page: '252'
   level: 9
   range: 30 feet
@@ -3897,7 +3897,7 @@ spells:
   - warlock
   - wizard
 - name: Incendiary Cloud
-  source: Player's Handbook
+  book: Player's Handbook
   page: '253'
   level: 8
   range: 150 feet
@@ -3913,7 +3913,7 @@ spells:
   - sorcerer
   - wizard
 - name: Infernal Calling
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 158
   level: 5
   casting_time: 1 minute
@@ -3929,7 +3929,7 @@ spells:
   - warlock
   - wizard
 - name: Infestation
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 158
   level: cantrip
   casting_time: 1 action
@@ -3946,7 +3946,7 @@ spells:
   - warlock
   - wizard
 - name: Inflict Wounds
-  source: Player's Handbook
+  book: Player's Handbook
   page: '253'
   level: 1
   range: touch
@@ -3961,7 +3961,7 @@ spells:
   classes:
   - cleric
 - name: Insect Plague
-  source: Player's Handbook
+  book: Player's Handbook
   page: '254'
   level: 5
   range: 300 feet
@@ -3979,7 +3979,7 @@ spells:
   - druid
   - sorcerer
 - name: Investiture of Flame
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 6
   range: self
   duration: up to 10 minutes
@@ -3996,7 +3996,7 @@ spells:
   - warlock
   - wizard
 - name: Investiture of Ice
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 6
   range: self
   duration: up to 10 minutes
@@ -4013,7 +4013,7 @@ spells:
   - warlock
   - wizard
 - name: Investiture of Stone
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 6
   range: self
   duration: up to 10 minutes
@@ -4030,7 +4030,7 @@ spells:
   - warlock
   - wizard
 - name: Investiture of Wind
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 6
   range: self
   duration: up to 10 minutes
@@ -4047,7 +4047,7 @@ spells:
   - warlock
   - wizard
 - name: Invisibility
-  source: Player's Handbook
+  book: Player's Handbook
   page: '254'
   level: 2
   range: touch
@@ -4067,7 +4067,7 @@ spells:
   - warlock
   - wizard
 - name: Invulnerability
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 160
   level: 9
   casting_time: 1 action
@@ -4082,7 +4082,7 @@ spells:
   classes:
   - wizard
 - name: Jump
-  source: Player's Handbook
+  book: Player's Handbook
   page: '254'
   level: 1
   range: touch
@@ -4101,7 +4101,7 @@ spells:
   - sorcerer
   - wizard
 - name: Knock
-  source: Player's Handbook
+  book: Player's Handbook
   page: '254'
   level: 2
   range: 60 feet
@@ -4117,7 +4117,7 @@ spells:
   - sorcerer
   - wizard
 - name: Legend Lore
-  source: Player's Handbook
+  book: Player's Handbook
   page: '254'
   level: 5
   range: self
@@ -4136,7 +4136,7 @@ spells:
   - cleric
   - wizard
 - name: Leomund's Secret Chest
-  source: Player's Handbook
+  book: Player's Handbook
   page: '254'
   level: 4
   range: touch
@@ -4153,7 +4153,7 @@ spells:
   classes:
   - wizard
 - name: Leomund's Tiny Hut
-  source: Player's Handbook
+  book: Player's Handbook
   page: '255'
   level: 3
   range: self
@@ -4171,7 +4171,7 @@ spells:
   - ritual caster
   - wizard
 - name: Lesser Restoration
-  source: Player's Handbook
+  book: Player's Handbook
   page: '255'
   level: 2
   range: touch
@@ -4190,7 +4190,7 @@ spells:
   - paladin
   - ranger
 - name: Levitate
-  source: Player's Handbook
+  book: Player's Handbook
   page: '255'
   level: 2
   range: 60 feet
@@ -4207,7 +4207,7 @@ spells:
   - sorcerer
   - wizard
 - name: Life Transference
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 160
   level: 3
   casting_time: 1 action
@@ -4221,7 +4221,7 @@ spells:
   - cleric
   - wizard
 - name: Light
-  source: Player's Handbook
+  book: Player's Handbook
   page: '255'
   level: cantrip
   range: touch
@@ -4239,7 +4239,7 @@ spells:
   - sorcerer
   - wizard
 - name: Lightning Arrow
-  source: Player's Handbook
+  book: Player's Handbook
   page: '255'
   level: 3
   range: self
@@ -4254,7 +4254,7 @@ spells:
   classes:
   - ranger
 - name: Lightning Bolt
-  source: Player's Handbook
+  book: Player's Handbook
   page: '255'
   level: 3
   range: self
@@ -4272,7 +4272,7 @@ spells:
   - sorcerer
   - wizard
 - name: Lightning Lure
-  source: Sword Coast Adventurer's Guide
+  book: Sword Coast Adventurer's Guide
   page: '143'
   level: cantrip
   range: 15 feet
@@ -4288,7 +4288,7 @@ spells:
   - warlock
   - wizard
 - name: Locate Animals or Plants
-  source: Player's Handbook
+  book: Player's Handbook
   page: '256'
   level: 2
   range: self
@@ -4307,7 +4307,7 @@ spells:
   - ranger
   - ritual caster
 - name: Locate Creature
-  source: Player's Handbook
+  book: Player's Handbook
   page: '256'
   level: 4
   range: self
@@ -4328,7 +4328,7 @@ spells:
   - ranger
   - wizard
 - name: Locate Object
-  source: Player's Handbook
+  book: Player's Handbook
   page: '256'
   level: 2
   range: self
@@ -4349,7 +4349,7 @@ spells:
   - ranger
   - wizard
 - name: Longstrider
-  source: Player's Handbook
+  book: Player's Handbook
   page: '256'
   level: 1
   range: touch
@@ -4368,7 +4368,7 @@ spells:
   - ranger
   - wizard
 - name: Maddening Darkness
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 160
   level: 8
   casting_time: 1 action
@@ -4382,7 +4382,7 @@ spells:
   - warlock
   - wizard
 - name: Maelstrom
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 5
   range: 120 feet
   duration: up to 1 minute
@@ -4397,7 +4397,7 @@ spells:
   classes:
   - druid
 - name: Mage Armor
-  source: Player's Handbook
+  book: Player's Handbook
   page: '256'
   level: 1
   range: touch
@@ -4414,7 +4414,7 @@ spells:
   - sorcerer
   - wizard
 - name: Mage Hand
-  source: Player's Handbook
+  book: Player's Handbook
   page: '256'
   level: cantrip
   range: 30 feet
@@ -4432,7 +4432,7 @@ spells:
   - warlock
   - wizard
 - name: Magic Circle
-  source: Player's Handbook
+  book: Player's Handbook
   page: '256'
   level: 3
   range: 10 feet
@@ -4452,7 +4452,7 @@ spells:
   - warlock
   - wizard
 - name: Magic Jar
-  source: Player's Handbook
+  book: Player's Handbook
   page: '257'
   level: 6
   range: self
@@ -4469,7 +4469,7 @@ spells:
   classes:
   - wizard
 - name: Magic Missile
-  source: Player's Handbook
+  book: Player's Handbook
   page: '257'
   level: 1
   range: 120 feet
@@ -4485,7 +4485,7 @@ spells:
   - sorcerer
   - wizard
 - name: Magic Mouth
-  source: Player's Handbook
+  book: Player's Handbook
   page: '257'
   level: 2
   range: 30 feet
@@ -4503,7 +4503,7 @@ spells:
   - ritual caster
   - wizard
 - name: Magic Stone
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: cantrip
   range: touch
   duration: 1 minute
@@ -4518,7 +4518,7 @@ spells:
   - druid
   - warlock
 - name: Magic Weapon
-  source: Player's Handbook
+  book: Player's Handbook
   page: '257'
   level: 2
   range: touch
@@ -4535,7 +4535,7 @@ spells:
   - paladin
   - wizard
 - name: Major Image
-  source: Player's Handbook
+  book: Player's Handbook
   page: '258'
   level: 3
   range: 120 feet
@@ -4554,7 +4554,7 @@ spells:
   - warlock
   - wizard
 - name: Mass Cure Wounds
-  source: Player's Handbook
+  book: Player's Handbook
   page: '258'
   level: 5
   range: 60 feet
@@ -4571,7 +4571,7 @@ spells:
   - cleric
   - druid
 - name: Mass Heal
-  source: Player's Handbook
+  book: Player's Handbook
   page: '258'
   level: 9
   range: 60 feet
@@ -4586,7 +4586,7 @@ spells:
   classes:
   - cleric
 - name: Mass Healing Word
-  source: Player's Handbook
+  book: Player's Handbook
   page: '258'
   level: 3
   range: 60 feet
@@ -4600,7 +4600,7 @@ spells:
   classes:
   - cleric
 - name: Mass Polymorph
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 160
   level: 9
   casting_time: 1 action
@@ -4616,7 +4616,7 @@ spells:
   - sorcerer
   - wizard
 - name: Mass Suggestion
-  source: Player's Handbook
+  book: Player's Handbook
   page: '258'
   level: 6
   range: 60 feet
@@ -4634,7 +4634,7 @@ spells:
   - warlock
   - wizard
 - name: Maximilian's Earthen Grasp
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 2
   range: 30 feet
   duration: up to 1 minute
@@ -4650,7 +4650,7 @@ spells:
   - sorcerer
   - wizard
 - name: Maze
-  source: Player's Handbook
+  book: Player's Handbook
   page: '258'
   level: 8
   range: 60 feet
@@ -4665,7 +4665,7 @@ spells:
   classes:
   - wizard
 - name: Meld into Stone
-  source: Player's Handbook
+  book: Player's Handbook
   page: '259'
   level: 3
   range: touch
@@ -4682,7 +4682,7 @@ spells:
   - druid
   - ritual caster
 - name: Melf's Acid Arrow
-  source: Player's Handbook
+  book: Player's Handbook
   page: '259'
   level: 2
   range: 90 feet
@@ -4699,7 +4699,7 @@ spells:
   - druid
   - wizard
 - name: Melf's Minute Meteors
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 3
   range: self
   duration: up to 10 minutes
@@ -4715,7 +4715,7 @@ spells:
   - sorcerer
   - wizard
 - name: Mending
-  source: Player's Handbook
+  book: Player's Handbook
   page: '259'
   level: cantrip
   range: touch
@@ -4735,7 +4735,7 @@ spells:
   - sorcerer
   - wizard
 - name: Mental Prison
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 161
   level: 6
   casting_time: 1 action
@@ -4749,7 +4749,7 @@ spells:
   - warlock
   - wizard
 - name: Message
-  source: Player's Handbook
+  book: Player's Handbook
   page: '259'
   level: cantrip
   range: 120 feet
@@ -4767,7 +4767,7 @@ spells:
   - sorcerer
   - wizard
 - name: Meteor Swarm
-  source: Player's Handbook
+  book: Player's Handbook
   page: '259'
   level: 9
   range: 1 mile
@@ -4783,7 +4783,7 @@ spells:
   - sorcerer
   - wizard
 - name: Mighty Fortress
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 161
   level: 8
   casting_time: 1 minute
@@ -4798,7 +4798,7 @@ spells:
   classes:
   - wizard
 - name: Mind Blank
-  source: Player's Handbook
+  book: Player's Handbook
   page: '259'
   level: 8
   range: touch
@@ -4814,7 +4814,7 @@ spells:
   - bard
   - wizard
 - name: Mind Spike
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 162
   level: 2
   casting_time: 1 action
@@ -4828,7 +4828,7 @@ spells:
   - warlock
   - wizard
 - name: Minor Illusion
-  source: Player's Handbook
+  book: Player's Handbook
   page: '260'
   level: cantrip
   range: 30 feet
@@ -4846,7 +4846,7 @@ spells:
   - warlock
   - wizard
 - name: Mirage Arcane
-  source: Player's Handbook
+  book: Player's Handbook
   page: '260'
   level: 7
   range: sight
@@ -4863,7 +4863,7 @@ spells:
   - druid
   - wizard
 - name: Mirror Image
-  source: Player's Handbook
+  book: Player's Handbook
   page: '260'
   level: 2
   range: self
@@ -4882,7 +4882,7 @@ spells:
   - warlock
   - wizard
 - name: Mislead
-  source: Player's Handbook
+  book: Player's Handbook
   page: '260'
   level: 5
   range: self
@@ -4897,7 +4897,7 @@ spells:
   - bard
   - wizard
 - name: Misty Step
-  source: Player's Handbook
+  book: Player's Handbook
   page: '260'
   level: 2
   range: self
@@ -4915,7 +4915,7 @@ spells:
   - warlock
   - wizard
 - name: Modify Memory
-  source: Player's Handbook
+  book: Player's Handbook
   page: '261'
   level: 5
   range: 30 feet
@@ -4932,7 +4932,7 @@ spells:
   - cleric
   - wizard
 - name: Mold Earth
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: cantrip
   range: 30 feet
   duration: instantaneous/1 hour
@@ -4947,7 +4947,7 @@ spells:
   - sorcerer
   - wizard
 - name: Moonbeam
-  source: Player's Handbook
+  book: Player's Handbook
   page: '261'
   level: 2
   range: 120 feet
@@ -4964,7 +4964,7 @@ spells:
   - druid
   - paladin
 - name: Mordenkainen's Faithful Hound
-  source: Player's Handbook
+  book: Player's Handbook
   page: '261'
   level: 4
   range: 30 feet
@@ -4981,7 +4981,7 @@ spells:
   classes:
   - wizard
 - name: Mordenkainen's Magnificent Mansion
-  source: Player's Handbook
+  book: Player's Handbook
   page: '261'
   level: 7
   range: 300 feet
@@ -4999,7 +4999,7 @@ spells:
   - bard
   - wizard
 - name: Mordenkainen's Private Sanctum
-  source: Player's Handbook
+  book: Player's Handbook
   page: '262'
   level: 4
   range: 120 feet
@@ -5015,7 +5015,7 @@ spells:
   classes:
   - wizard
 - name: Mordenkainen's Sword
-  source: Player's Handbook
+  book: Player's Handbook
   page: '262'
   level: 7
   range: 60 feet
@@ -5033,7 +5033,7 @@ spells:
   - bard
   - wizard
 - name: Move Earth
-  source: Player's Handbook
+  book: Player's Handbook
   page: '263'
   level: 6
   range: 120 feet
@@ -5051,7 +5051,7 @@ spells:
   - sorcerer
   - wizard
 - name: Negative Energy Flood
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 163
   level: 5
   casting_time: 1 action
@@ -5065,7 +5065,7 @@ spells:
   - warlock
   - wizard
 - name: Nondetection
-  source: Player's Handbook
+  book: Player's Handbook
   page: '263'
   level: 3
   range: touch
@@ -5085,7 +5085,7 @@ spells:
   - ranger
   - wizard
 - name: Nystul's Magic Aura
-  source: Player's Handbook
+  book: Player's Handbook
   page: '263'
   level: 2
   range: touch
@@ -5101,7 +5101,7 @@ spells:
   classes:
   - wizard
 - name: Otiluke's Freezing Sphere
-  source: Player's Handbook
+  book: Player's Handbook
   page: '263'
   level: 6
   range: 300 feet
@@ -5117,7 +5117,7 @@ spells:
   classes:
   - wizard
 - name: Otiluke's Resilient Sphere
-  source: Player's Handbook
+  book: Player's Handbook
   page: '264'
   level: 4
   range: 30 feet
@@ -5133,7 +5133,7 @@ spells:
   classes:
   - wizard
 - name: Otto's Irresistible Dance
-  source: Player's Handbook
+  book: Player's Handbook
   page: '264'
   level: 6
   range: 30 feet
@@ -5148,7 +5148,7 @@ spells:
   - bard
   - wizard
 - name: Pass without Trace
-  source: Player's Handbook
+  book: Player's Handbook
   page: '264'
   level: 2
   range: self
@@ -5166,7 +5166,7 @@ spells:
   - druid
   - ranger
 - name: Passwall
-  source: Player's Handbook
+  book: Player's Handbook
   page: '264'
   level: 5
   range: 30 feet
@@ -5200,7 +5200,7 @@ spells:
   - warlock
   - wizard
 - name: Phantasmal Force
-  source: Player's Handbook
+  book: Player's Handbook
   page: '264'
   level: 2
   range: 60 feet
@@ -5219,7 +5219,7 @@ spells:
   - warlock
   - wizard
 - name: Phantasmal Killer
-  source: Player's Handbook
+  book: Player's Handbook
   page: '265'
   level: 4
   range: 120 feet
@@ -5234,7 +5234,7 @@ spells:
   classes:
   - wizard
 - name: Phantom Steed
-  source: Player's Handbook
+  book: Player's Handbook
   page: '265'
   level: 3
   range: 30 feet
@@ -5250,7 +5250,7 @@ spells:
   - ritual caster
   - wizard
 - name: Planar Ally
-  source: Player's Handbook
+  book: Player's Handbook
   page: '265'
   level: 6
   range: 60 feet
@@ -5265,7 +5265,7 @@ spells:
   classes:
   - cleric
 - name: Planar Binding
-  source: Player's Handbook
+  book: Player's Handbook
   page: '265'
   level: 5
   range: 60 feet
@@ -5285,7 +5285,7 @@ spells:
   - druid
   - wizard
 - name: Plane Shift
-  source: Player's Handbook
+  book: Player's Handbook
   page: '266'
   level: 7
   range: touch
@@ -5305,7 +5305,7 @@ spells:
   - warlock
   - wizard
 - name: Plant Growth
-  source: Player's Handbook
+  book: Player's Handbook
   page: '266'
   level: 3
   range: 150 feet
@@ -5325,7 +5325,7 @@ spells:
   - ranger
   - warlock
 - name: Poison Spray
-  source: Player's Handbook
+  book: Player's Handbook
   page: '266'
   level: cantrip
   range: 10 feet
@@ -5342,7 +5342,7 @@ spells:
   - warlock
   - wizard
 - name: Polymorph
-  source: Player's Handbook
+  book: Player's Handbook
   page: '266'
   level: 4
   range: 60 feet
@@ -5362,7 +5362,7 @@ spells:
   - sorcerer
   - wizard
 - name: Power Word Heal
-  source: Player's Handbook
+  book: Player's Handbook
   page: '266'
   level: 9
   range: touch
@@ -5377,7 +5377,7 @@ spells:
   classes:
   - bard
 - name: Power Word Kill
-  source: Player's Handbook
+  book: Player's Handbook
   page: '266'
   level: 9
   range: 60 feet
@@ -5394,7 +5394,7 @@ spells:
   - warlock
   - wizard
 - name: Power Word Pain
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 163
   level: 7
   casting_time: 1 action
@@ -5408,7 +5408,7 @@ spells:
   - warlock
   - wizard
 - name: Power Word Stun
-  source: Player's Handbook
+  book: Player's Handbook
   page: '267'
   level: 8
   range: 60 feet
@@ -5425,7 +5425,7 @@ spells:
   - warlock
   - wizard
 - name: Prayer of Healing
-  source: Player's Handbook
+  book: Player's Handbook
   page: '267'
   level: 2
   range: 30 feet
@@ -5439,7 +5439,7 @@ spells:
   classes:
   - cleric
 - name: Prestidigitation
-  source: Player's Handbook
+  book: Player's Handbook
   page: '267'
   level: cantrip
   range: 10 feet
@@ -5457,7 +5457,7 @@ spells:
   - warlock
   - wizard
 - name: Primal Savagery
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 163
   level: cantrip
   casting_time: 1 action
@@ -5469,7 +5469,7 @@ spells:
   classes:
   - druid
 - name: Primordial Ward
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 6
   range: self
   duration: up to 1 minute
@@ -5483,7 +5483,7 @@ spells:
   classes:
   - druid
 - name: Prismatic Spray
-  source: Player's Handbook
+  book: Player's Handbook
   page: '267'
   level: 7
   range: self
@@ -5499,7 +5499,7 @@ spells:
   - sorcerer
   - wizard
 - name: Prismatic Wall
-  source: Player's Handbook
+  book: Player's Handbook
   page: '267'
   level: 9
   range: 60 feet
@@ -5514,7 +5514,7 @@ spells:
   classes:
   - wizard
 - name: Produce Flame
-  source: Player's Handbook
+  book: Player's Handbook
   page: '269'
   level: cantrip
   range: self
@@ -5529,7 +5529,7 @@ spells:
   classes:
   - druid
 - name: Programmed Illusion
-  source: Player's Handbook
+  book: Player's Handbook
   page: '269'
   level: 6
   range: 120 feet
@@ -5547,7 +5547,7 @@ spells:
   - bard
   - wizard
 - name: Project Image
-  source: Player's Handbook
+  book: Player's Handbook
   page: '270'
   level: 7
   range: 500 miles
@@ -5565,7 +5565,7 @@ spells:
   - bard
   - wizard
 - name: Protection from Energy
-  source: Player's Handbook
+  book: Player's Handbook
   page: '270'
   level: 3
   range: touch
@@ -5585,7 +5585,7 @@ spells:
   - sorcerer
   - wizard
 - name: Protection from Evil and Good
-  source: Player's Handbook
+  book: Player's Handbook
   page: '270'
   level: 1
   range: touch
@@ -5604,7 +5604,7 @@ spells:
   - warlock
   - wizard
 - name: Protection from Poison
-  source: Player's Handbook
+  book: Player's Handbook
   page: '270'
   level: 2
   range: touch
@@ -5622,7 +5622,7 @@ spells:
   - paladin
   - ranger
 - name: Psychic Scream
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 163
   level: 9
   casting_time: 1 action
@@ -5637,7 +5637,7 @@ spells:
   - warlock
   - wizard
 - name: Purify Food and Drink
-  source: Player's Handbook
+  book: Player's Handbook
   page: '270'
   level: 1
   range: 10 feet
@@ -5655,7 +5655,7 @@ spells:
   - paladin
   - ritual caster
 - name: Pyrotechnics
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 2
   range: 60 feet
   duration: instantaneous
@@ -5671,7 +5671,7 @@ spells:
   - sorcerer
   - wizard
 - name: Raise Dead
-  source: Player's Handbook
+  book: Player's Handbook
   page: '270'
   level: 5
   range: touch
@@ -5690,7 +5690,7 @@ spells:
   - cleric
   - paladin
 - name: Rary's Telepathic Bond
-  source: Player's Handbook
+  book: Player's Handbook
   page: '270'
   level: 5
   range: 30 feet
@@ -5707,7 +5707,7 @@ spells:
   - ritual caster
   - wizard
 - name: Ray of Enfeeblement
-  source: Player's Handbook
+  book: Player's Handbook
   page: '271'
   level: 2
   range: 60 feet
@@ -5723,7 +5723,7 @@ spells:
   - warlock
   - wizard
 - name: Ray of Frost
-  source: Player's Handbook
+  book: Player's Handbook
   page: '271'
   level: cantrip
   range: 60 feet
@@ -5739,7 +5739,7 @@ spells:
   - sorcerer
   - wizard
 - name: Ray of Sickness
-  source: Player's Handbook
+  book: Player's Handbook
   page: '271'
   level: 1
   range: 60 feet
@@ -5755,7 +5755,7 @@ spells:
   - sorcerer
   - wizard
 - name: Regenerate
-  source: Player's Handbook
+  book: Player's Handbook
   page: '271'
   level: 7
   range: touch
@@ -5773,7 +5773,7 @@ spells:
   - cleric
   - druid
 - name: Reincarnate
-  source: Player's Handbook
+  book: Player's Handbook
   page: '271'
   level: 5
   range: touch
@@ -5790,7 +5790,7 @@ spells:
   classes:
   - druid
 - name: Remove Curse
-  source: Player's Handbook
+  book: Player's Handbook
   page: '271'
   level: 3
   range: touch
@@ -5808,7 +5808,7 @@ spells:
   - warlock
   - wizard
 - name: Resistance
-  source: Player's Handbook
+  book: Player's Handbook
   page: '272'
   level: cantrip
   range: touch
@@ -5825,7 +5825,7 @@ spells:
   - cleric
   - druid
 - name: Resurrection
-  source: Player's Handbook
+  book: Player's Handbook
   page: '272'
   level: 7
   range: touch
@@ -5843,7 +5843,7 @@ spells:
   - bard
   - cleric
 - name: Reverse Gravity
-  source: Player's Handbook
+  book: Player's Handbook
   page: '272'
   level: 7
   range: 100 feet
@@ -5861,7 +5861,7 @@ spells:
   - sorcerer
   - wizard
 - name: Revivify
-  source: Player's Handbook
+  book: Player's Handbook
   page: '272'
   level: 3
   range: touch
@@ -5879,7 +5879,7 @@ spells:
   - cleric
   - paladin
 - name: Rope Trick
-  source: Player's Handbook
+  book: Player's Handbook
   page: '272'
   level: 2
   range: touch
@@ -5895,7 +5895,7 @@ spells:
   classes:
   - wizard
 - name: Sacred Flame
-  source: Player's Handbook
+  book: Player's Handbook
   page: '272'
   level: cantrip
   range: 60 feet
@@ -5910,7 +5910,7 @@ spells:
   classes:
   - cleric
 - name: Sanctuary
-  source: Player's Handbook
+  book: Player's Handbook
   page: '272'
   level: 1
   range: 30 feet
@@ -5927,7 +5927,7 @@ spells:
   - cleric
   - paladin
 - name: Scatter
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 164
   level: 6
   casting_time: 1 action
@@ -5941,7 +5941,7 @@ spells:
   - warlock
   - wizard
 - name: Scorching Ray
-  source: Player's Handbook
+  book: Player's Handbook
   page: '273'
   level: 2
   range: 120 feet
@@ -5959,7 +5959,7 @@ spells:
   - warlock
   - wizard
 - name: Scrying
-  source: Player's Handbook
+  book: Player's Handbook
   page: '273'
   level: 5
   range: self
@@ -5981,7 +5981,7 @@ spells:
   - warlock
   - wizard
 - name: Searing Smite
-  source: Player's Handbook
+  book: Player's Handbook
   page: '274'
   level: 1
   range: self
@@ -5995,7 +5995,7 @@ spells:
   classes:
   - paladin
 - name: See Invisibility
-  source: Player's Handbook
+  book: Player's Handbook
   page: '274'
   level: 2
   range: self
@@ -6013,7 +6013,7 @@ spells:
   - sorcerer
   - wizard
 - name: Seeming
-  source: Player's Handbook
+  book: Player's Handbook
   page: '274'
   level: 5
   range: 30 feet
@@ -6031,7 +6031,7 @@ spells:
   - warlock
   - wizard
 - name: Sending
-  source: Player's Handbook
+  book: Player's Handbook
   page: '274'
   level: 3
   range: unlimited
@@ -6050,7 +6050,7 @@ spells:
   - warlock
   - wizard
 - name: Sequester
-  source: Player's Handbook
+  book: Player's Handbook
   page: '274'
   level: 7
   range: touch
@@ -6067,7 +6067,7 @@ spells:
   classes:
   - wizard
 - name: Shadow Blade
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 164
   level: 2
   casting_time: 1 bonus action
@@ -6082,7 +6082,7 @@ spells:
   - warlock
   - wizard
 - name: Shadow of Moil
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 164
   level: 4
   casting_time: 1 action
@@ -6097,7 +6097,7 @@ spells:
   classes:
   - warlock
 - name: Shape Water
-  source: Elemental Evil Player's Compendium
+  book: Elemental Evil Player's Compendium
   page: '21'
   level: cantrip
   range: 30 feet
@@ -6113,7 +6113,7 @@ spells:
   - sorcerer
   - wizard
 - name: Shapechange
-  source: Player's Handbook
+  book: Player's Handbook
   page: '274'
   level: 9
   range: self
@@ -6131,7 +6131,7 @@ spells:
   - druid
   - wizard
 - name: Shatter
-  source: Player's Handbook
+  book: Player's Handbook
   page: '275'
   level: 2
   range: 60 feet
@@ -6151,7 +6151,7 @@ spells:
   - warlock
   - wizard
 - name: Shield
-  source: Player's Handbook
+  book: Player's Handbook
   page: '275'
   level: 1
   range: self
@@ -6167,7 +6167,7 @@ spells:
   - sorcerer
   - wizard
 - name: Shield of Faith
-  source: Player's Handbook
+  book: Player's Handbook
   page: '275'
   level: 1
   range: 60 feet
@@ -6184,7 +6184,7 @@ spells:
   - cleric
   - paladin
 - name: Shillelagh
-  source: Player's Handbook
+  book: Player's Handbook
   page: '275'
   level: cantrip
   range: touch
@@ -6200,7 +6200,7 @@ spells:
   classes:
   - druid
 - name: Shocking Grasp
-  source: Player's Handbook
+  book: Player's Handbook
   page: '275'
   level: cantrip
   range: touch
@@ -6216,7 +6216,7 @@ spells:
   - sorcerer
   - wizard
 - name: Sickening Radiance
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 164
   level: 4
   casting_time: 1 action
@@ -6231,7 +6231,7 @@ spells:
   - warlock
   - wizard
 - name: Silence
-  source: Player's Handbook
+  book: Player's Handbook
   page: '275'
   level: 2
   range: 120 feet
@@ -6250,7 +6250,7 @@ spells:
   - ranger
   - ritual caster
 - name: Silent Image
-  source: Player's Handbook
+  book: Player's Handbook
   page: '276'
   level: 1
   range: 60 feet
@@ -6268,7 +6268,7 @@ spells:
   - sorcerer
   - wizard
 - name: Simulacrum
-  source: Player's Handbook
+  book: Player's Handbook
   page: '276'
   level: 7
   range: touch
@@ -6285,7 +6285,7 @@ spells:
   classes:
   - wizard
 - name: Skill Empowerment
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 165
   level: 5
   casting_time: 1 action
@@ -6300,7 +6300,7 @@ spells:
   - sorcerer
   - wizard
 - name: Skywrite
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 2
   range: sight
   duration: up to 1 hour
@@ -6317,7 +6317,7 @@ spells:
   - ritual caster
   - wizard
 - name: Sleep
-  source: Player's Handbook
+  book: Player's Handbook
   page: '276'
   level: 1
   range: 90 feet
@@ -6336,7 +6336,7 @@ spells:
   - warlock
   - wizard
 - name: Sleet Storm
-  source: Player's Handbook
+  book: Player's Handbook
   page: '276'
   level: 3
   range: 150 feet
@@ -6355,7 +6355,7 @@ spells:
   - sorcerer
   - wizard
 - name: Slow
-  source: Player's Handbook
+  book: Player's Handbook
   page: '277'
   level: 3
   range: 120 feet
@@ -6373,7 +6373,7 @@ spells:
   - sorcerer
   - wizard
 - name: Snare
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 165
   level: 1
   casting_time: 1 minute
@@ -6389,7 +6389,7 @@ spells:
   - ranger
   - wizard
 - name: Snilloc's Snowball Swarm
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 2
   range: 90 feet
   duration: up to 1 hour
@@ -6405,7 +6405,7 @@ spells:
   - sorcerer
   - wizard
 - name: Soul Cage
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 165
   level: 6
   casting_time: 1 reaction
@@ -6421,7 +6421,7 @@ spells:
   - warlock
   - wizard
 - name: Spare the Dying
-  source: Player's Handbook
+  book: Player's Handbook
   page: '277'
   level: cantrip
   range: touch
@@ -6436,7 +6436,7 @@ spells:
   classes:
   - cleric
 - name: Speak with Animals
-  source: Player's Handbook
+  book: Player's Handbook
   page: '277'
   level: 1
   range: self
@@ -6456,7 +6456,7 @@ spells:
   - ranger
   - ritual caster
 - name: Speak with Dead
-  source: Player's Handbook
+  book: Player's Handbook
   page: '277'
   level: 3
   range: 10 feet
@@ -6473,7 +6473,7 @@ spells:
   - bard
   - cleric
 - name: Speak with Plants
-  source: Player's Handbook
+  book: Player's Handbook
   page: '277'
   level: 3
   range: self
@@ -6490,7 +6490,7 @@ spells:
   - druid
   - ranger
 - name: Spider Climb
-  source: Player's Handbook
+  book: Player's Handbook
   page: '277'
   level: 2
   range: touch
@@ -6509,7 +6509,7 @@ spells:
   - warlock
   - wizard
 - name: Spike Growth
-  source: Player's Handbook
+  book: Player's Handbook
   page: '277'
   level: 2
   range: 150 feet
@@ -6527,7 +6527,7 @@ spells:
   - druid
   - ranger
 - name: Spirit Guardians
-  source: Player's Handbook
+  book: Player's Handbook
   page: '278'
   level: 3
   range: self
@@ -6543,7 +6543,7 @@ spells:
   classes:
   - cleric
 - name: Spiritual Weapon
-  source: Player's Handbook
+  book: Player's Handbook
   page: '278'
   level: 2
   range: 60 feet
@@ -6558,7 +6558,7 @@ spells:
   classes:
   - cleric
 - name: Staggering Smite
-  source: Player's Handbook
+  book: Player's Handbook
   page: '278'
   level: 4
   range: self
@@ -6572,7 +6572,7 @@ spells:
   classes:
   - paladin
 - name: Steel Wind Strike
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 166
   level: 5
   casting_time: 1 action
@@ -6587,7 +6587,7 @@ spells:
   - ranger
   - wizard
 - name: Stinking Cloud
-  source: Player's Handbook
+  book: Player's Handbook
   page: '278'
   level: 3
   range: 90 feet
@@ -6607,7 +6607,7 @@ spells:
   - warlock
   - wizard
 - name: Stone Shape
-  source: Player's Handbook
+  book: Player's Handbook
   page: '278'
   level: 4
   range: touch
@@ -6625,7 +6625,7 @@ spells:
   - druid
   - wizard
 - name: Stoneskin
-  source: Player's Handbook
+  book: Player's Handbook
   page: '278'
   level: 4
   range: touch
@@ -6647,7 +6647,7 @@ spells:
   - sorcerer
   - wizard
 - name: Storm Sphere
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 4
   range: 150 feet
   duration: up to 1 minute
@@ -6662,7 +6662,7 @@ spells:
   - sorcerer
   - wizard
 - name: Storm of Vengeance
-  source: Player's Handbook
+  book: Player's Handbook
   page: '279'
   level: 9
   range: sight
@@ -6677,7 +6677,7 @@ spells:
   classes:
   - druid
 - name: Suggestion
-  source: Player's Handbook
+  book: Player's Handbook
   page: '279'
   level: 2
   range: 30 feet
@@ -6696,7 +6696,7 @@ spells:
   - warlock
   - wizard
 - name: Summon Greater Demon
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 166
   level: 4
   casting_time: 1 action
@@ -6711,7 +6711,7 @@ spells:
   - warlock
   - wizard
 - name: Summon Lesser Demons
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 167
   level: 3
   casting_time: 1 action
@@ -6726,7 +6726,7 @@ spells:
   - warlock
   - wizard
 - name: Sunbeam
-  source: Player's Handbook
+  book: Player's Handbook
   page: '279'
   level: 6
   range: self
@@ -6744,7 +6744,7 @@ spells:
   - sorcerer
   - wizard
 - name: Sunburst
-  source: Player's Handbook
+  book: Player's Handbook
   page: '279'
   level: 8
   range: 150 feet
@@ -6762,7 +6762,7 @@ spells:
   - sorcerer
   - wizard
 - name: Swift Quiver
-  source: Player's Handbook
+  book: Player's Handbook
   page: '279'
   level: 5
   range: touch
@@ -6778,7 +6778,7 @@ spells:
   classes:
   - ranger
 - name: Sword Burst
-  source: Sword Coast Adventurer's Guide
+  book: Sword Coast Adventurer's Guide
   page: '143'
   level: cantrip
   range: 5 feet
@@ -6794,7 +6794,7 @@ spells:
   - warlock
   - wizard
 - name: Symbol
-  source: Player's Handbook
+  book: Player's Handbook
   page: '280'
   level: 7
   range: touch
@@ -6813,7 +6813,7 @@ spells:
   - cleric
   - wizard
 - name: Synaptic Static
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 167
   level: 5
   casting_time: 1 action
@@ -6829,7 +6829,7 @@ spells:
   - warlock
   - wizard
 - name: Tasha's Hideous Laughter
-  source: Player's Handbook
+  book: Player's Handbook
   page: '280'
   level: 1
   range: 30 feet
@@ -6847,7 +6847,7 @@ spells:
   - warlock
   - wizard
 - name: Telekinesis
-  source: Player's Handbook
+  book: Player's Handbook
   page: '280'
   level: 5
   range: 60 feet
@@ -6864,7 +6864,7 @@ spells:
   - warlock
   - wizard
 - name: Telepathy
-  source: Player's Handbook
+  book: Player's Handbook
   page: '281'
   level: 8
   range: unlimited
@@ -6880,7 +6880,7 @@ spells:
   classes:
   - wizard
 - name: Teleport
-  source: Player's Handbook
+  book: Player's Handbook
   page: '281'
   level: 7
   range: 10 feet
@@ -6896,7 +6896,7 @@ spells:
   - sorcerer
   - wizard
 - name: Teleportation Circle
-  source: Player's Handbook
+  book: Player's Handbook
   page: '282'
   level: 5
   range: 10 feet
@@ -6914,7 +6914,7 @@ spells:
   - sorcerer
   - wizard
 - name: Temple of the Gods
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 167
   level: 7
   casting_time: 1 hour
@@ -6929,7 +6929,7 @@ spells:
   classes:
   - cleric
 - name: Tenser's Floating Disk
-  source: Player's Handbook
+  book: Player's Handbook
   page: '282'
   level: 1
   range: 30 feet
@@ -6946,7 +6946,7 @@ spells:
   - ritual caster
   - wizard
 - name: Tenser's Transformation
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 168
   level: 6
   casting_time: 1 action
@@ -6960,7 +6960,7 @@ spells:
   classes:
   - wizard
 - name: Thaumaturgy
-  source: Player's Handbook
+  book: Player's Handbook
   page: '282'
   level: cantrip
   range: 30 feet
@@ -6974,7 +6974,7 @@ spells:
   classes:
   - cleric
 - name: Thorn Whip
-  source: Player's Handbook
+  book: Player's Handbook
   page: '282'
   level: cantrip
   range: 30 feet
@@ -6990,7 +6990,7 @@ spells:
   classes:
   - druid
 - name: Thunder Step
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 168
   level: 3
   casting_time: 1 action
@@ -7004,7 +7004,7 @@ spells:
   - warlock
   - wizard
 - name: Thunderclap
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: cantrip
   range: self (5-foot radius)
   duration: instantaneous
@@ -7021,7 +7021,7 @@ spells:
   - warlock
   - wizard
 - name: Thunderous Smite
-  source: Player's Handbook
+  book: Player's Handbook
   page: '282'
   level: 1
   range: self
@@ -7035,7 +7035,7 @@ spells:
   classes:
   - paladin
 - name: Thunderwave
-  source: Player's Handbook
+  book: Player's Handbook
   page: '282'
   level: 1
   range: self
@@ -7054,7 +7054,7 @@ spells:
   - sorcerer
   - wizard
 - name: Tidal Wave
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 3
   range: 120 feet
   duration: instantaneous
@@ -7070,7 +7070,7 @@ spells:
   - druid
   - wizard
 - name: Time Stop
-  source: Player's Handbook
+  book: Player's Handbook
   page: '283'
   level: 9
   range: self
@@ -7085,7 +7085,7 @@ spells:
   - sorcerer
   - wizard
 - name: Tiny Servant
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 168
   level: 3
   casting_time: 1 minute
@@ -7098,7 +7098,7 @@ spells:
   classes:
   - wizard
 - name: Toll the Dead
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 169
   level: cantrip
   casting_time: 1 action
@@ -7113,7 +7113,7 @@ spells:
   - warlock
   - wizard
 - name: Tongues
-  source: Player's Handbook
+  book: Player's Handbook
   page: '283'
   level: 3
   range: touch
@@ -7132,7 +7132,7 @@ spells:
   - warlock
   - wizard
 - name: Transmute Rock
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 5
   range: 120 feet
   duration: instantaneous
@@ -7148,7 +7148,7 @@ spells:
   - druid
   - wizard
 - name: Transport via Plants
-  source: Player's Handbook
+  book: Player's Handbook
   page: '283'
   level: 6
   range: 10 feet
@@ -7177,7 +7177,7 @@ spells:
   classes:
   - wizard
 - name: Tree Stride
-  source: Player's Handbook
+  book: Player's Handbook
   page: '283'
   level: 5
   range: self
@@ -7195,7 +7195,7 @@ spells:
   - paladin
   - ranger
 - name: True Polymorph
-  source: Player's Handbook
+  book: Player's Handbook
   page: '283'
   level: 9
   range: 30 feet
@@ -7213,7 +7213,7 @@ spells:
   - warlock
   - wizard
 - name: True Resurrection
-  source: Player's Handbook
+  book: Player's Handbook
   page: '284'
   level: 9
   range: touch
@@ -7231,7 +7231,7 @@ spells:
   - cleric
   - druid
 - name: True Seeing
-  source: Player's Handbook
+  book: Player's Handbook
   page: '284'
   level: 6
   range: touch
@@ -7252,7 +7252,7 @@ spells:
   - warlock
   - wizard
 - name: True Strike
-  source: Player's Handbook
+  book: Player's Handbook
   page: '284'
   level: cantrip
   range: 30 feet
@@ -7269,7 +7269,7 @@ spells:
   - warlock
   - wizard
 - name: Tsunami
-  source: Player's Handbook
+  book: Player's Handbook
   page: '284'
   level: 8
   range: sight
@@ -7284,7 +7284,7 @@ spells:
   classes:
   - druid
 - name: Unseen Servant
-  source: Player's Handbook
+  book: Player's Handbook
   page: '284'
   level: 1
   range: 60 feet
@@ -7303,7 +7303,7 @@ spells:
   - warlock
   - wizard
 - name: Vampiric Touch
-  source: Player's Handbook
+  book: Player's Handbook
   page: '285'
   level: 3
   range: self
@@ -7319,7 +7319,7 @@ spells:
   - warlock
   - wizard
 - name: Vicious Mockery
-  source: Player's Handbook
+  book: Player's Handbook
   page: '285'
   level: cantrip
   range: 60 feet
@@ -7333,7 +7333,7 @@ spells:
   classes:
   - bard
 - name: Vitriolic Sphere
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 4
   range: 150 feet
   duration: instantaneous
@@ -7349,7 +7349,7 @@ spells:
   - sorcerer
   - wizard
 - name: Wall of Fire
-  source: Player's Handbook
+  book: Player's Handbook
   page: '285'
   level: 4
   range: 120 feet
@@ -7369,7 +7369,7 @@ spells:
   - warlock
   - wizard
 - name: Wall of Force
-  source: Player's Handbook
+  book: Player's Handbook
   page: '285'
   level: 5
   range: 120 feet
@@ -7385,7 +7385,7 @@ spells:
   classes:
   - wizard
 - name: Wall of Ice
-  source: Player's Handbook
+  book: Player's Handbook
   page: '285'
   level: 6
   range: 120 feet
@@ -7401,7 +7401,7 @@ spells:
   classes:
   - wizard
 - name: Wall of Light
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 170
   level: 5
   casting_time: 1 action
@@ -7417,7 +7417,7 @@ spells:
   - warlock
   - wizard
 - name: Wall of Sand
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 3
   range: 90 feet
   duration: up to 10 minutes
@@ -7432,7 +7432,7 @@ spells:
   classes:
   - wizard
 - name: Wall of Stone
-  source: Player's Handbook
+  book: Player's Handbook
   page: '287'
   level: 5
   range: 120 feet
@@ -7450,7 +7450,7 @@ spells:
   - sorcerer
   - wizard
 - name: Wall of Thorns
-  source: Player's Handbook
+  book: Player's Handbook
   page: '287'
   level: 6
   range: 120 feet
@@ -7466,7 +7466,7 @@ spells:
   classes:
   - druid
 - name: Wall of Water
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 3
   range: 60 feet
   duration: up to 10 minutes
@@ -7483,7 +7483,7 @@ spells:
   - sorcerer
   - wizard
 - name: Warding Bond
-  source: Player's Handbook
+  book: Player's Handbook
   page: '287'
   level: 2
   range: touch
@@ -7500,7 +7500,7 @@ spells:
   classes:
   - cleric
 - name: Warding Wind
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 2
   range: self
   duration: up to 10 minutes
@@ -7515,7 +7515,7 @@ spells:
   - druid
   - sorcerer
 - name: Water Breathing
-  source: Player's Handbook
+  book: Player's Handbook
   page: '287'
   level: 3
   range: 30 feet
@@ -7535,7 +7535,7 @@ spells:
   - sorcerer
   - wizard
 - name: Water Walk
-  source: Player's Handbook
+  book: Player's Handbook
   page: '287'
   level: 3
   range: 30 feet
@@ -7555,7 +7555,7 @@ spells:
   - ritual caster
   - sorcerer
 - name: Watery Sphere
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 4
   range: 90 feet
   duration: up to 1 minute
@@ -7572,7 +7572,7 @@ spells:
   - sorcerer
   - wizard
 - name: Web
-  source: Player's Handbook
+  book: Player's Handbook
   page: '287'
   level: 2
   range: 60 feet
@@ -7590,7 +7590,7 @@ spells:
   - sorcerer
   - wizard
 - name: Weird
-  source: Player's Handbook
+  book: Player's Handbook
   page: '288'
   level: 9
   range: 120 feet
@@ -7605,7 +7605,7 @@ spells:
   classes:
   - wizard
 - name: Whirlwind
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   level: 7
   range: 300 feet
   duration: up to 1 minute
@@ -7620,7 +7620,7 @@ spells:
   - druid
   - wizard
 - name: Wind Walk
-  source: Player's Handbook
+  book: Player's Handbook
   page: '288'
   level: 6
   range: 30 feet
@@ -7636,7 +7636,7 @@ spells:
   classes:
   - druid
 - name: Wind Wall
-  source: Player's Handbook
+  book: Player's Handbook
   page: '288'
   level: 3
   range: 120 feet
@@ -7654,7 +7654,7 @@ spells:
   - druid
   - ranger
 - name: Wish
-  source: Player's Handbook
+  book: Player's Handbook
   page: '288'
   level: 9
   range: self
@@ -7669,7 +7669,7 @@ spells:
   - sorcerer
   - wizard
 - name: Witch Bolt
-  source: Player's Handbook
+  book: Player's Handbook
   page: '289'
   level: 1
   range: 30 feet
@@ -7687,7 +7687,7 @@ spells:
   - warlock
   - wizard
 - name: Word of Radiance
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 171
   level: cantrip
   casting_time: 1 action
@@ -7700,7 +7700,7 @@ spells:
   classes:
   - cleric
 - name: Word of Recall
-  source: Player's Handbook
+  book: Player's Handbook
   page: '289'
   level: 6
   range: 5 feet
@@ -7714,7 +7714,7 @@ spells:
   classes:
   - cleric
 - name: Wrath of Nature
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 171
   level: 5
   casting_time: 1 action
@@ -7728,7 +7728,7 @@ spells:
   - druid
   - ranger
 - name: Wrathful Smite
-  source: Player's Handbook
+  book: Player's Handbook
   page: '289'
   level: 1
   range: self
@@ -7742,7 +7742,7 @@ spells:
   classes:
   - paladin
 - name: Zephyr Strike
-  source: Xanathar's Guide to Everything
+  book: Xanathar's Guide to Everything
   page: 171
   level: 1
   casting_time: 1 bonus action
@@ -7754,7 +7754,7 @@ spells:
   classes:
   - ranger
 - name: Zone of Truth
-  source: Player's Handbook
+  book: Player's Handbook
   page: '289'
   level: 2
   range: 60 feet

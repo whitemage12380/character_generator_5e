@@ -1,7 +1,7 @@
 require_relative 'character_generator_helper'
 require_relative 'spell'
 
-class SpellList
+class SpellList < Array
   include CharacterGeneratorHelper
   attr_reader :name, :spells
 
@@ -10,12 +10,12 @@ class SpellList
     if spells
       @spells = read_yaml_files("spells")
                 .select { |s| spells.include? s["name"] }
-                .collect { |s| Spell.new(s.transform_keys(&:to_sym).merge({list: self})) }
+                .collect { |s| Spell.new(source: "#{name.pretty} Spell List", spell_data: s.transform_keys(&:to_sym).merge({list: self})) }
                 #.to_h { |s| [s.level, s] }
     else
       @spells = read_yaml_files("spells")
                 .select { |s| name == "any" or s["classes"].include? name }
-                .collect { |s| Spell.new(s.transform_keys(&:to_sym).merge({list: self})) }
+                .collect { |s| Spell.new(source: "#{name.pretty} Spell List", spell_data: s.transform_keys(&:to_sym).merge({list: self})) }
                 #.to_h { |s| [s.level, s] }
     end
 
@@ -28,11 +28,11 @@ class SpellList
     end
 
     def cantrips()
-      spells.select { |s| s.level == "Cantrip" }
+      @spells.select { |s| s.level == "Cantrip" }
     end
 
     def spells_by_level(level)
-      spells.select { |s| s.level == level }
+      @spells.select { |s| s.level == level }
     end
 
     #@spells = (0..9).to_a.collect { |l|

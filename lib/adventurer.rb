@@ -13,7 +13,7 @@ class Adventurer
     @race = AdventurerRace.new(@base_abilities)
     @character_class = AdventurerClass.new(abilities)
     @background = AdventurerBackground.new()
-    generate_skills(skills, character_class.expertises)
+    generate_skills(skills, @character_class.expertises)
     level_up(level)
   end
 

@@ -43,11 +43,11 @@ class AdventurerClass
     @expertises = []
     @spell_lists = []
     apply_level(1, character_class, subclass)
-    # TODO: Spells need to have info about what source it's from
-    generate_cantrips()
-    generate_spellbook()
-    generate_spells_known()
-    generate_spells_prepared()
+    add_cantrips()
+    add_spells_known()
+    add_spellbook_spells()
+    generate_spells(@cantrips)
+    generate_spells(@spells_known)
   end
 
   def create_decision_lists(lists, list_prerequisites = nil)
@@ -134,39 +134,93 @@ class AdventurerClass
     generate_decisions(level)
   end
 
-  def generate_decisions(level)
-    @decisions.each { |d| d.make_decisions(level: level, cantrips: nil, class_features: @decisions) }
+  def add_cantrips(level = @level, source = nil, cantrips_data = nil)
+    @cantrips = Array.new if @cantrips.nil?
+    add_spells(@cantrips, "cantrips", level)
   end
 
-  def generate_cantrips(cantrip_data = @class_data["cantrips"])
-    return if cantrip_data.nil?
-    @cantrips = [] if @cantrips.nil?
-    cantrip_data.each_pair { |list_name, list_data|
-      spell_list = find_or_create_spell_list(list_name)
-      case list_data
-      when Hash
-        list_data.each_pair { |spell_level, spell_count|
-          spell_count.times { Spell.random_spell("cantrip", spell_list, @cantrips) }
+  def add_spells_known(level = @level)
+    @spells_known = Array.new if @spells_known.nil?
+    add_spells(@spells_known, "spells_known", level)
+  end
+
+  def add_spellbook_spells(level = @level)
+    @spellbook = Array.new if @spellbook.nil?
+    add_spells(@spellbook, "spellbook", level)
+  end
+
+  # Convenience method for add_(spellfield) methods
+  # Returns the class or subclass data, the spell field data, and a source string
+  def casting_class_info(field)
+    if @subclass_data.nil? or @subclass_data[field].nil?
+      return nil, nil, nil if @class_data[field].nil?
+      character_class = @class_data
+      source = class_name
+    else
+      character_class = @subclass_data
+      source = subclass_name
+    end
+    spell_data = character_class[field]
+    return character_class, spell_data, source
+  end
+
+  def add_spells(spells, spell_field, level = @level)
+    character_class, spell_data, source = casting_class_info(spell_field)
+    return if character_class.nil?
+    spell_data.each_pair { |list_name, list_data|
+      if list_data.kind_of? Array and list_data.first.kind_of? String
+        list_data.each { |spell_name|
+          spells << Spell.new(source: source, spell_list: find_or_create_spell_list(list_name), name: spell_name)
         }
-      when Array
-        raise "Cantrip array must have exact 20 values" unless list_data.length == 20
+        next
+      end
+      spell_count = spell_count_for_level(list_data, level)
+      next if spell_count == 0
+      debug "Adding #{spell_count} new spells (#{spell_field}, #{list_name})"
+      max_level = max_spell_level(level)
+      spell_count_for_level(list_data, level).times do
+        spells << Spell.new(source: source,
+                            spell_list: find_or_create_spell_list(list_name),
+                            max_spell_level: max_level,
+                            is_cantrip: (spell_field == "cantrips"))
       end
     }
   end
 
-  def generate_spells_known(level, spells_known_data = @class_data["spells_known"])
-    return if spells_known_data.nil?
-    @spells_known = [] if @spells_known.nil?
-    spells_known_data.each_pair { |list_name, list_data|
-      spell_list = find_or_create_spell_list(list_name)
-      case list_data
-      when Hash
-        list_data.each_pair { |spell_level, spell_count|
-          spell_count.times { Spell.random_spell("cantrip", spell_list, @cantrips) }
-        }
-      when Array
-        raise "Cantrip array must have exact 20 values" unless list_data.length == 20
-      end
+  def spell_count_for_level(list_data, level = @level)
+    case list_data
+    when Array
+      spell_count = list_data[level-1]
+    when Hash
+      spell_count = list_data.fetch(level, 0)
+    else
+      raise "Unsupported type of value for list data: #{list_data}"
+    end
+  end
+
+  def generate_decisions(level)
+    @decisions.each { |d| d.make_decisions(level: level, cantrips: nil, class_features: @decisions) }
+  end
+
+  def generate_cantrips(cantrips = @cantrips)
+    return if cantrips.nil?
+    cantrips.each { |spell|
+      spell.generate(@cantrips)
+    }
+  end
+
+  def generate_spells_known(spells_known = @spells_known)
+    return if spells_known.nil?
+    spells_known.each { |spell|
+      spell.generate(@spells_known)
+    }
+  end
+
+  def generate_spells(spells)
+    puts spells.to_s
+    return if spells.nil?
+    spells.each { |spell|
+      spell.generate(spells)
     }
   end
 
@@ -174,6 +228,17 @@ class AdventurerClass
   end
 
   def generate_spellbook()
+  end
+
+  def class_data_element(elem)
+    if @subclass_data.nil? or @subclass_data[elem].nil?
+      return @class_data[elem]
+    elsif @class_data[elem].nil?
+      return @subclass_data[elem]
+    else
+      raise "Both class and subclass have #{elem}, this is not supported"
+      #return @class_data[elem].merge(@subclass_data[elem])
+    end
   end
 
   def find_or_create_spell_list(list_name)
@@ -184,6 +249,11 @@ class AdventurerClass
       @spell_lists << spell_list
     end
     return spell_list
+  end
+
+  def max_spell_level(level = @level, spell_level_data = class_data_element("spell_levels"))
+    spell_level_data = {1 => 1, 3 => 2, 5 => 3, 7 => 4, 9 => 5, 11 => 6, 13 => 7, 15 => 8, 17 => 9} if spell_level_data.nil?
+    spell_level_data.select { |character_level, v| character_level <= level }.values.max
   end
 
   def random_class(classes)
