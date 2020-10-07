@@ -2,12 +2,13 @@ require_relative 'character_generator_helper'
 
 class ClassDecision
   include CharacterGeneratorHelper
-  attr_reader :decision_name, :prerequisites, :decision_data
+  attr_reader :decision_name, :prerequisites, :decision_data, :spell_data
 
   def initialize(decision_name, prerequisites: nil, decision_data: nil)
     @decision_name = decision_name
     @prerequisites = prerequisites
     @decision_data = decision_data
+    @spell_data = @decision_data ? @decision_data.fetch("spells", {}) : {}
   end
 
   def prerequisites_met?(level: nil, cantrips: nil, class_features: nil)

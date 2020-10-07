@@ -407,8 +407,8 @@ classes:
       assassin:
         weight: 10
       arcane trickster:
-        spells: [mage hand] # TODO: Wrong, this is a cantrip so belongs under cantrips, but the structure may not support it yet!
         cantrips:
+          any: [mage_hand]
           wizard: {3: 3, 10: 1}
         spells_known:
           arcane trickster: [0, 0, 2, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0]

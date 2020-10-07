@@ -43,12 +43,6 @@ class AdventurerClass
     @expertises = []
     @spell_lists = []
     apply_level(1, character_class, subclass)
-    # add_cantrips()
-    # add_spells_known()
-    # add_spellbook_spells()
-    # generate_spells(@cantrips)
-    # generate_spells(@spells_known)
-    # generate_spells(@spellbook_spells)
   end
 
   def create_decision_lists(lists, list_prerequisites = nil)
@@ -140,7 +134,7 @@ class AdventurerClass
     add_spells_known()
     add_spellbook_spells()
     generate_spells(@spells_known)
-    generate_spells(@spellbook_spells)
+    generate_spells(@spellbook)
   end
 
   def add_cantrips(level = @level, source = nil, cantrips_data = nil)
@@ -158,30 +152,53 @@ class AdventurerClass
     add_spells(@spellbook, "spellbook", level)
   end
 
-  # Convenience method for add_(spellfield) methods
-  # Returns the class or subclass data, the spell field data, and a source string
-  # def casting_class_info(field, level = @level)
-  #   if @subclass_data.nil? or @subclass_data[field].nil?
-  #     return nil, nil if @class_data[field].nil?
-  #     spell_data = @class_data[field]
-  #     source = @class_name
-  #   elsif @class_data[field].nil?
-  #     spell_data = @subclass_data[field]
-  #     source = @subclass_name
-  #   else
-  #     # Field is specified in both locations, must be merged.
-  #     spell_data = {}
-  #     @class_data[field].each_pair { |spell_list, list_data|
-  #       next if spell_count_for_level(list_data, level) == 0 and spell_count_for_level(@subclass_data[field][spell_list], level) == 0
-  #       if spell_count_for_level(list_data, level) > 0 and spell_count_for_level(@subclass_data[field][spell_list], level) > 0
-  #         spell_data[spell_list] = @class_data[field]
-  #         spell_data[spell_list][]
-  #       unless spell_count_for_level(list_data, level) == 0
+  def prepare_spells(adventurer_abilities, level = @level)
+    @spells_prepared = Array.new
+    # No classes have spells automatically prepared outside of subclasses, so not searching for those
+    # Add subclass spells
+    prepare_spells_from_data(@subclass_data["spells"], @subclass_name, level) if @subclass_data and @subclass_data["spells"]
+    # Add class feature spells
+    @decisions.each { |class_feature|
+      class_feature.decisions.each { |decision|
+        prepare_spells_from_data(decision.spell_data, class_feature.feature_name, level)
+      }
+    }
+    # Choose spells
+    max_level = max_spell_level(level)
+    [@class_data, @subclass_data].each { |character_class|
+      next if character_class.nil? or character_class["spells_prepared"].nil?
+      spells_prepared_data = character_class["spells_prepared"]
+      spells_prepared_ability = spells_prepared_data["ability"].to_sym
+      spells_prepared_class = spells_prepared_data["class"]
+      spells_prepared_level_multiplier = spells_prepared_data.fetch("level_multiplier", 1.0)
+      spell_count_ability = (adventurer_abilities[spells_prepared_ability]  - 10) / 2
+      spell_count_level = (level * spells_prepared_level_multiplier).floor
+      spell_count = spell_count_ability + spell_count_level
+      log "Preparing #{spell_count} #{spells_prepared_class} spells"
+      debug "Preparing #{spell_count_ability} spells from ability"
+      debug "Preparing #{spell_count_level} spells from level"
+      spell_count.times do
+        @spells_prepared << Spell.new(source: character_class["name"],
+                            spell_list: find_or_create_spell_list(spells_prepared_class),
+                            max_spell_level: max_level)
+      end
+      generate_spells(@spells_prepared)
+    }
+  end
 
-  #     }
-  #   end
-  #   return spell_data, source
-  # end
+  def prepare_spells_from_data(spell_data, source, level = @level)
+    spell_data.each_pair { |spell_level, spells|
+      if spell_level <= level
+        spells.each { |spell_name|
+          if @spells_prepared.none? { |s| s.name == spell_name }
+            @spells_prepared << Spell.new(name: spell_name, source: source, spell_list: nil)
+          else
+            log_warn "Tried to prepare #{source} spell #{spell_name.pretty} but it is already prepared!"
+          end
+        }
+      end
+    }
+  end
 
   def add_spells(spells, spell_field, level = @level)
     [@class_data, @subclass_data].each { |character_class|
@@ -191,16 +208,19 @@ class AdventurerClass
       spell_data.each_pair { |list_name, list_data|
         if list_data.kind_of? Array and list_data.first.kind_of? String
           list_data.each { |spell_name|
+            next unless spells.none? { |s| s.name == "spell_name" }
+            log "Adding Spell #{spell_name}"
             spells << Spell.new(source: source, spell_list: find_or_create_spell_list(list_name), name: spell_name)
           }
           next
         end
         spell_count = spell_count_for_level(list_data, level)
         next if spell_count == 0
+        spell_source = source == list_name ? source : "#{source} (#{list_name})" # Make it clear when a spell uses an unusual list
         debug "Adding #{spell_count} new spells (#{spell_field}, #{list_name})"
         max_level = max_spell_level(level)
         spell_count_for_level(list_data, level).times do
-          spells << Spell.new(source: source,
+          spells << Spell.new(source: spell_source,
                               spell_list: find_or_create_spell_list(list_name),
                               max_spell_level: max_level,
                               is_cantrip: (spell_field == "cantrips"))
@@ -226,25 +246,9 @@ class AdventurerClass
     @decisions.each { |d| d.make_decisions(level: level, cantrips: @cantrips, class_features: @decisions) }
   end
 
-  def generate_cantrips(cantrips = @cantrips)
-    return if cantrips.nil?
-    cantrips.each { |spell|
-      spell.generate(@cantrips)
-    }
-  end
-
-  def generate_spells_known(spells_known = @spells_known)
-    return if spells_known.nil?
-    spells_known.each { |spell|
-      spell.generate(@spells_known)
-    }
-  end
-
   def generate_spells(spells)
     return if spells.nil?
-    spells.each { |spell|
-      spell.generate(spells)
-    }
+    spells.each { |spell| spell.generate(spells) }
   end
 
   def generate_spells_prepared(spells_prepared_data = @class_data["spells_prepared"])

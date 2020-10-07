@@ -57,7 +57,7 @@ class Spell
     chosen_spell = spell_list.spells_by_level(spell_level)
                    .select { |s| spells.none? { |sto| sto.name == s.name } } # Omit spells with names matching ones we already have
                    .sample # Simple random for now, may produce smarter random later
-    raise "Failed to pick chosen spell" if chosen_spell.nil?
+    raise "Failed to pick chosen spell (#{spell_str}, from #{spell_list.spells_by_level(spell_level).count} spells)" if chosen_spell.nil?
     log "Chose #{spell_str}: #{chosen_spell.name}"
     chosen_spell
   end

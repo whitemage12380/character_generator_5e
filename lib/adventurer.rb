@@ -15,6 +15,7 @@ class Adventurer
     @background = AdventurerBackground.new()
     generate_skills(skills, @character_class.expertises)
     level_up(level)
+    prepare_spells()
   end
 
   def abilities()
@@ -54,6 +55,10 @@ class Adventurer
       character_class.apply_level(l)
       generate_skills(skills, character_class.expertises)
     end
+  end
+
+  def prepare_spells()
+    @character_class.prepare_spells(abilities)
   end
 
   def modifier(ability_score)
@@ -181,6 +186,16 @@ class Adventurer
       puts "----------------------------"
       puts "Spells Known:"
       puts @character_class.spell_strings(@character_class.spells_known).join("\n")
+    end
+    unless @character_class.spellbook.nil? or @character_class.spellbook.empty?
+      puts "----------------------------"
+      puts "Spellbook:"
+      puts @character_class.spell_strings(@character_class.spellbook).join("\n")
+    end
+    unless @character_class.spells_prepared.nil? or @character_class.spells_prepared.empty?
+      puts "----------------------------"
+      puts "Spells Prepared:"
+      puts @character_class.spell_strings(@character_class.spells_prepared).join("\n")
     end
     puts "----------------------------"
   end
