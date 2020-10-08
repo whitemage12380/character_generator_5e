@@ -9,7 +9,7 @@ require_relative 'spell'
 class AdventurerClass
   include CharacterGeneratorHelper
   attr_reader :class_name, :subclass_name, :level, :hit_die, :hp_rolls, :skills, :expertises, :cantrips, :spells_known, :spells_prepared,
-              :spellbook, :spell_lists, :decision_lists, :decisions, :class_data, :subclass_data
+              :spellbook, :spell_lists, :mystic_arcana, :decision_lists, :class_features, :class_data, :subclass_data
 
   def initialize(adventurer_abilities, level = 1)
     @level = level
@@ -19,6 +19,53 @@ class AdventurerClass
   def name()
     @subclass_name ? "#{class_name} (#{subclass_name})" : @class_name
   end
+
+  ###########
+  ## LEVELING UP
+  ###########
+
+  def apply_level(level, character_class = @class_data, subclass = @subclass_data)
+    log "Applying level #{level}"
+    @level = level
+    # Roll HP
+    if level > 1
+      hp_roll = rand(@hit_die - 1) + 1
+      log "Rolled #{hp_roll} on a d#{@hit_die} for hit points"
+      @hp_rolls << hp_roll
+    end
+    # Add Subclass
+    if level == character_class["subclass_level"] and not subclass
+      @subclass_name, subclass = random_subclass(character_class) # TODO: weighted parameter should be set appropriately
+      @subclass_data = subclass.merge({"name" => @subclass_name})
+      log "Chose Subclass: #{@subclass_name.pretty}"
+      create_decision_lists(subclass["lists"], subclass.fetch("list_prerequisites", nil)) if subclass["lists"]
+    end
+    # Add and Resolve Cantrips (because they can be prerequisites for other abilities)
+    add_cantrips()
+    generate_spells(@cantrips)
+    # Resolve Class Choices
+    @class_features = Array.new if @class_features.nil?
+    class_choices = character_class["choices"] ? character_class["choices"].fetch(level, {}) : {}
+    subclass_choices = (subclass and subclass["choices"]) ? subclass["choices"].fetch(level, {}) : {}
+    choices = class_choices.merge(subclass_choices)
+    choices.each_pair { |choice_name, choice|
+      raise "For level #{level}, #{choice_name} should be a key-value pair, but it isn't." unless choice.kind_of? Hash
+      evaluate_choice(choice_name, choice)
+    }
+    generate_decisions(level)
+    # Add and Resolve Spells
+    add_spells_known()
+    add_spellbook_spells()
+    generate_spells(@spells_known)
+    generate_spells(@spellbook)
+  end
+
+
+  ###########
+  ## CLASS/SUBCLASS
+  ###########
+
+  # Main Generator
 
   def generate_class(adventurer_abilities)
     classes = read_yaml_files("class")
@@ -45,6 +92,81 @@ class AdventurerClass
     apply_level(1, character_class, subclass)
   end
 
+  # Random - Class
+
+  def random_class_smart(classes, adventurer_abilities)
+    debug "Class probabilities:"
+    classes.each_pair { |class_name, character_class|
+      character_class["weight"] = class_weight(adventurer_abilities, character_class["ability_weights"])
+      debug "#{class_name}: #{classes[class_name]["weight"]}"
+    }
+    if classes.values.select { |c| c["weight"] > 0}.count == 0
+      log "There is no recommended class based on ability scores! Allowing class to be entirely random."
+      return random_class(classes)
+    end
+    chosen_class = weighted_random(classes)
+    class_name, character_class = chosen_class.first
+    if character_class["subclass_level"] == 1
+      subclass_name, subclass = random_subclass(character_class, true)
+      return class_name, character_class, subclass_name, subclass
+    else
+      return class_name, character_class, nil, nil
+    end
+  end
+
+  def random_class(classes)
+    weighted = $configuration["generation_style"]["class"] == "weighted"
+    character_class_hash = weighted ? weighted_random(classes) : classes.to_a.sample(1).to_h
+    class_name, character_class = character_class_hash.first
+    if character_class["subclass_level"] == 1
+      subclass_name, subclass = random_subclass(character_class, weighted)
+      return class_name, character_class, subclass_name, subclass
+    else
+      return class_name, character_class, nil, nil
+    end
+  end
+
+  def class_weight(adventurer_abilities, ability_weights = @class_data["ability_weights"])
+    total_weight = 0
+    ability_weights.each_pair { |ability, weight|
+      ability_modifier = (adventurer_abilities[ability.to_sym] - 10) / 2
+      total_weight +=  ability_modifier * weight
+      total_weight += weight if ability_modifier >= 3
+      total_weight += weight if ability_modifier >= 4
+      total_weight += weight if ability_modifier >= 5
+    }
+    return [total_weight, 0].max
+  end
+
+  # Random - Subclass
+
+  def random_subclass(character_class, weighted = false)
+    subclass = weighted ? weighted_random(character_class["subclasses"]) : character_class["subclasses"].to_a.sample(1).to_h
+    subclass_name, subclass = subclass.first
+    return subclass_name, subclass
+  end
+
+  ###########
+  ## CLASS FEATURES/DECISIONS
+  ###########
+
+  def evaluate_choice(choice_name, choice)
+    choice.each_pair { |choice_type, choice_content|
+      case choice_type
+      when "skills"
+        add_skills(choice_content, choice_name, choice.fetch("skill_list", "any"))
+      when "skill_list"
+        next
+      when "expertises"
+        add_expertises(choice_content)
+      when "arcanum_level"
+        generate_mystic_arcanum(choice_content)
+      else
+        add_class_feature(choice_name, choice_type, choice_content)
+      end
+    }
+  end
+
   def create_decision_lists(lists, list_prerequisites = nil)
     @decision_lists = [] unless @decision_lists
     lists.each_pair { |list_name, list|
@@ -55,87 +177,68 @@ class AdventurerClass
     }
   end
 
-  def apply_level(level, character_class = @class_data, subclass = @subclass_data)
-    log "Applying level #{level}"
-    @level = level
-    # Roll HP
-    if level > 1
-      hp_roll = rand(@hit_die - 1) + 1
-      log "Rolled #{hp_roll} on a d#{@hit_die} for hit points"
-      @hp_rolls << hp_roll
+  def add_class_feature(feature_name, list_name, choices)
+    if list_name == "options"
+      @class_features << ClassFeature.new(feature_name, choices: choices)
+      return
     end
-    # Add Subclass
-    if level == character_class["subclass_level"] and not subclass
-      @subclass_name, subclass = random_subclass(character_class) # TODO: weighted parameter should be set appropriately
-      @subclass_data = subclass.merge({"name" => @subclass_name})
-      log "Chose Subclass: #{@subclass_name.pretty}"
-      create_decision_lists(subclass["lists"], subclass.fetch("list_prerequisites", nil)) if subclass["lists"]
+    list = @decision_lists.select { |dl| dl.list_name == list_name }.first
+    raise "Could not find list for #{list_name}" unless list
+    case choices
+    when Integer
+      decision = @class_features.select { |d| d.feature_name == feature_name }.first
+      if decision.nil?
+        @class_features << ClassFeature.new(feature_name, list: list, decisions_available: choices)
+      else
+        raise "This feature already exists with a different list" if decision.list_name != list.list_name
+        decision.add_decisions(choices)
+      end
+    else
+      raise "Unsupported type of value for #{list_name}: #{choices}"
     end
-    # Add and resolve cantrips (because they can be prerequisites for other abilities)
-    add_cantrips()
-    generate_spells(@cantrips)
-    # Resolve Class Choices
-    decisions = {}
-    @decisions = Array.new unless @decisions
-    class_choices = character_class["choices"] ? character_class["choices"].fetch(level, {}) : {}
-    subclass_choices = (subclass and subclass["choices"]) ? subclass["choices"].fetch(level, {}) : {}
-    choices = class_choices.merge(subclass_choices)
-    choices.each_pair { |choice_name, choice|
-      raise "For level #{level}, #{choice_name} should be a key-value pair, but it isn't." unless choice.kind_of? Hash
-      choice.each_pair { |choice_type, choice_content|
-        case choice_type
-        when "skills"
-          case choice_content
-          when Integer
-            choice_content.times do
-              @skills << Skill.new(choice.fetch("skill_list", "any"), source: choice_name)
-            end
-          when Array
-            @skills.concat(choice_content.map { |s| Skill.new(s, source: choice_name) })
-          else
-            raise "Unsupported type of value for skills: #{choice_content}"
-          end
-        when "skill_list"
-          next
-        when "expertises"
-          case choice_content
-          when Integer
-            choice_content.times { @expertises << "any" }
-          else
-            # Expertise list not currently supported because no class currently requires it
-            raise "Unsupported type of value for expertises: #{choice_content}"
-          end
-        when "spells_known"
-          log "Spell choices not yet supported"
-        when "arcanums"
-          log "Spell choices for Mystic Arcanum not supported yet"
-        when "options"
-          @decisions << ClassFeature.new(choice_name, choices: choice_content)
-        else
-          list = @decision_lists.select { |dl| dl.list_name == choice_type }.first
-          raise "Could not find list for #{choice_content}" unless list
-          case choice_content
-          when Integer
-            decision = @decisions.select { |d| d.feature_name == choice_name }.first
-            if decision.nil?
-              @decisions << ClassFeature.new(choice_name, list: list, decisions_available: choice_content)
-            else
-              raise "This feature already exists with a different list" if decision.list_name != list.list_name
-              decision.add_decisions(choice_content)
-            end
-          else
-            raise "Unsupported type of value for #{choice_type}: #{choice_content}"
-          end
-        end
-      }
-    }
-    generate_decisions(level)
-    # Add and resolve spells
-    add_spells_known()
-    add_spellbook_spells()
-    generate_spells(@spells_known)
-    generate_spells(@spellbook)
   end
+
+  def generate_decisions(level)
+    @class_features.each { |d| d.make_decisions(level: level, cantrips: @cantrips, class_features: @class_features) }
+  end
+
+  def decision_strings()
+    @class_features.map { |d| d.feature_lines }.flatten
+  end
+
+  ###########
+  ## SKILLS
+  ###########
+
+  def add_skills(skills, source, skill_list = "any")
+    @skills = Array.new if @skills.nil?
+    case skills
+    when Integer
+      skills.times do
+        @skills << Skill.new(skill_list, source: source)
+      end
+    when Array
+      @skills.concat(skills.map { |s| Skill.new(s, source: source) })
+    else
+      raise "Unsupported type of value for skills: #{choice_content}"
+    end
+  end
+
+  def add_expertises(expertises)
+    case expertises
+    when Integer
+      expertises.times { @expertises << "any" }
+    else
+      # Expertise list not currently supported because no class currently requires it
+      raise "Unsupported type of value for expertises: #{expertises}"
+    end
+  end
+
+  ###########
+  ## SPELLS
+  ###########
+
+  # Adding placeholder spells
 
   def add_cantrips(level = @level, source = nil, cantrips_data = nil)
     @cantrips = Array.new if @cantrips.nil?
@@ -152,13 +255,58 @@ class AdventurerClass
     add_spells(@spellbook, "spellbook", level)
   end
 
+  def add_spells(spells, spell_field, level = @level)
+    [@class_data, @subclass_data].each { |character_class|
+      next if character_class.nil? or character_class[spell_field].nil?
+      spell_data = character_class[spell_field]
+      source = character_class["name"]
+      spell_data.each_pair { |list_name, list_data|
+        if list_data.kind_of? Array and list_data.first.kind_of? String
+          list_data.each { |spell_name|
+            next unless spells.none? { |s| s.name.downcase == spell_name.downcase }
+            log "Adding Spell: #{spell_name.pretty}"
+            spells << Spell.new(source: source, spell_list: find_or_create_spell_list(list_name), name: spell_name)
+          }
+          next
+        end
+        spell_count = spell_count_for_level(list_data, level)
+        next if spell_count == 0
+        spell_source = source == list_name ? source : "#{source} (#{list_name})" # Makes it clear when a spell uses an unusual list
+        debug "Adding #{spell_count} new spells (#{spell_field}, #{list_name})"
+        max_level = max_spell_level(level)
+        spell_count_for_level(list_data, level).times do
+          spells << Spell.new(source: spell_source,
+                              spell_list: find_or_create_spell_list(list_name),
+                              max_spell_level: max_level,
+                              is_cantrip: (spell_field == "cantrips"))
+        end
+      }
+    }
+  end
+
+  # Generating spells
+
+  def generate_spells(spells)
+    return if spells.nil?
+    spells.each { |spell| spell.generate(spells) }
+  end
+
+  def generate_mystic_arcanum(level, spell_list = "warlock")
+    @mystic_arcana = Array.new if @mystic_arcana.nil?
+    spell = Spell.random_spell(level, find_or_create_spell_list(spell_list), @mystic_arcana, min_spell_level: level)
+    @mystic_arcana << spell
+    log "Chose Mystic Arcanum: #{spell.name.pretty}"
+  end
+
+  # Preparing spells
+
   def prepare_spells(adventurer_abilities, level = @level)
     @spells_prepared = Array.new
     # No classes have spells automatically prepared outside of subclasses, so not searching for those
     # Add subclass spells
     prepare_spells_from_data(@subclass_data["spells"], @subclass_name, level) if @subclass_data and @subclass_data["spells"]
     # Add class feature spells
-    @decisions.each { |class_feature|
+    @class_features.each { |class_feature|
       class_feature.decisions.each { |decision|
         prepare_spells_from_data(decision.spell_data, class_feature.feature_name, level)
       }
@@ -202,33 +350,22 @@ class AdventurerClass
     }
   end
 
-  def add_spells(spells, spell_field, level = @level)
-    [@class_data, @subclass_data].each { |character_class|
-      next if character_class.nil? or character_class[spell_field].nil?
-      spell_data = character_class[spell_field]
-      source = character_class["name"]
-      spell_data.each_pair { |list_name, list_data|
-        if list_data.kind_of? Array and list_data.first.kind_of? String
-          list_data.each { |spell_name|
-            next unless spells.none? { |s| s.name == "spell_name" }
-            log "Adding Spell #{spell_name}"
-            spells << Spell.new(source: source, spell_list: find_or_create_spell_list(list_name), name: spell_name)
-          }
-          next
-        end
-        spell_count = spell_count_for_level(list_data, level)
-        next if spell_count == 0
-        spell_source = source == list_name ? source : "#{source} (#{list_name})" # Make it clear when a spell uses an unusual list
-        debug "Adding #{spell_count} new spells (#{spell_field}, #{list_name})"
-        max_level = max_spell_level(level)
-        spell_count_for_level(list_data, level).times do
-          spells << Spell.new(source: spell_source,
-                              spell_list: find_or_create_spell_list(list_name),
-                              max_spell_level: max_level,
-                              is_cantrip: (spell_field == "cantrips"))
-        end
-      }
-    }
+  # Helpful spell methods
+
+  def find_or_create_spell_list(list_name)
+    @spell_lists = Array.new if @spell_lists.nil?
+    if @spell_lists.one? { |sl| sl.name == list_name }
+      spell_list = @spell_lists.select { |sl| sl.name == list_name }.first
+    else
+      spell_list = SpellList.new(list_name)
+      @spell_lists << spell_list
+    end
+    return spell_list
+  end
+
+  def max_spell_level(level = @level, spell_level_data = class_data_element("spell_levels"))
+    spell_level_data = {1 => 1, 3 => 2, 5 => 3, 7 => 4, 9 => 5, 11 => 6, 13 => 7, 15 => 8, 17 => 9} if spell_level_data.nil?
+    spell_level_data.select { |character_level, v| character_level <= level }.values.max
   end
 
   def spell_count_for_level(list_data, level = @level)
@@ -244,14 +381,13 @@ class AdventurerClass
     end
   end
 
-  def generate_decisions(level)
-    @decisions.each { |d| d.make_decisions(level: level, cantrips: @cantrips, class_features: @decisions) }
+  def spell_strings(spells)
+    spells.sort_by { |s| [s.level, s.name] }.collect { |s| s.to_s }
   end
 
-  def generate_spells(spells)
-    return if spells.nil?
-    spells.each { |spell| spell.generate(spells) }
-  end
+  ###########
+  ## GENERAL HELPERS
+  ###########
 
   def class_data_element(elem)
     if @subclass_data.nil? or @subclass_data[elem].nil?
@@ -260,80 +396,7 @@ class AdventurerClass
       return @subclass_data[elem]
     else
       raise "Both class and subclass have #{elem}, this is not supported"
-      #return @class_data[elem].merge(@subclass_data[elem])
     end
   end
 
-  def find_or_create_spell_list(list_name)
-    if @spell_lists.one? { |sl| sl.name == list_name }
-      spell_list = @spell_lists.select { |sl| sl.name == list_name }.first
-    else
-      spell_list = SpellList.new(list_name)
-      @spell_lists << spell_list
-    end
-    return spell_list
-  end
-
-  def max_spell_level(level = @level, spell_level_data = class_data_element("spell_levels"))
-    spell_level_data = {1 => 1, 3 => 2, 5 => 3, 7 => 4, 9 => 5, 11 => 6, 13 => 7, 15 => 8, 17 => 9} if spell_level_data.nil?
-    spell_level_data.select { |character_level, v| character_level <= level }.values.max
-  end
-
-  def random_class(classes)
-    weighted = $configuration["generation_style"]["class"] == "weighted"
-    character_class_hash = weighted ? weighted_random(classes) : classes.to_a.sample(1).to_h
-    class_name, character_class = character_class_hash.first
-    if character_class["subclass_level"] == 1
-      subclass_name, subclass = random_subclass(character_class, weighted)
-      return class_name, character_class, subclass_name, subclass
-    else
-      return class_name, character_class, nil, nil
-    end
-  end
-
-  def random_subclass(character_class, weighted = false)
-    subclass = weighted ? weighted_random(character_class["subclasses"]) : character_class["subclasses"].to_a.sample(1).to_h
-    subclass_name, subclass = subclass.first
-    return subclass_name, subclass
-  end
-
-  def random_class_smart(classes, adventurer_abilities)
-    debug "Class probabilities:"
-    classes.each_pair { |class_name, character_class|
-      character_class["weight"] = class_weight(adventurer_abilities, character_class["ability_weights"])
-      debug "#{class_name}: #{classes[class_name]["weight"]}"
-    }
-    if classes.values.select { |c| c["weight"] > 0}.count == 0
-      log "There is no recommended class based on ability scores! Allowing class to be entirely random."
-      return random_class(classes)
-    end
-    chosen_class = weighted_random(classes)
-    class_name, character_class = chosen_class.first
-    if character_class["subclass_level"] == 1
-      subclass_name, subclass = random_subclass(character_class, true)
-      return class_name, character_class, subclass_name, subclass
-    else
-      return class_name, character_class, nil, nil
-    end
-  end
-
-  def class_weight(adventurer_abilities, ability_weights = @class_data["ability_weights"])
-    total_weight = 0
-    ability_weights.each_pair { |ability, weight|
-      ability_modifier = (adventurer_abilities[ability.to_sym] - 10) / 2
-      total_weight +=  ability_modifier * weight
-      total_weight += weight if ability_modifier >= 3
-      total_weight += weight if ability_modifier >= 4
-      total_weight += weight if ability_modifier >= 5
-    }
-    return [total_weight, 0].max
-  end
-
-  def decision_strings()
-    @decisions.map { |d| d.feature_lines }.flatten
-  end
-
-  def spell_strings(spells)
-    spells.sort_by { |s| [s.level, s.name] }.collect { |s| s.to_s }
-  end
 end

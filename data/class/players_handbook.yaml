@@ -215,7 +215,7 @@ classes:
     saves: [strength, constitution]
     skills: 2
     skill_list: [acrobatics, animal handling, athletics, history, insight, intimidation, perception, survival]
-    ability_score_increases: [6, 8, 12, 14, 16, 19]
+    ability_score_increases: [4, 6, 8, 12, 14, 16, 19]
     lists:
       fighting styles: [archery, defense, dueling, great weapon fighting, protection, two-weapon fighting]
     choices:
@@ -408,7 +408,7 @@ classes:
         weight: 10
       arcane trickster:
         cantrips:
-          any: [mage_hand]
+          any: [mage hand]
           wizard: {3: 3, 10: 1}
         spells_known:
           arcane trickster: [0, 0, 2, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0]
@@ -542,13 +542,13 @@ classes:
       5: {eldritch invocations: {invocations: 1}}
       7: {eldritch invocations: {invocations: 1}}
       9: {eldritch invocations: {invocations: 1}}
-      11: {mystic arcanum: {arcanums: 1}}
+      11: {mystic arcanum: {arcanum_level: 6}}
       12: {eldritch invocations: {invocations: 1}}
-      13: {mystic arcanum: {arcanums: 1}}
+      13: {mystic arcanum: {arcanum_level: 7}}
       15:
         eldritch invocations: {invocations: 1}
-        mystic arcanum: {arcanums: 1}
-      17: {mystic arcanum: {arcanums: 1}}
+        mystic arcanum: {arcanum_level: 8}
+      17: {mystic arcanum: {arcanum_level: 9}}
       18: {eldritch invocations: {invocations: 1}}
     subclass_level: 1
     subclasses:

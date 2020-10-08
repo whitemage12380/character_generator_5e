@@ -63,6 +63,7 @@ class Spell
   end
 
   def self.random_spell_level(min_spell_level, max_spell_level, spells, spell_list = nil)
+    return max_spell_level if min_spell_level == max_spell_level
     weight_multiplier_level = 1
     weight_multiplier_count = 4
     max_spell_count = (min_spell_level..max_spell_level).to_a

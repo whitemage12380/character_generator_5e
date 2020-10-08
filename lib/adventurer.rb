@@ -172,7 +172,7 @@ class Adventurer
       puts "Skills:"
       puts skill_strings.join("\n")
     end
-    unless @character_class.decisions.nil? or @character_class.decisions.empty?
+    unless @character_class.class_features.nil? or @character_class.class_features.empty?
       puts "----------------------------"
       puts "Class Features:"
       puts @character_class.decision_strings.join("\n")
@@ -186,6 +186,11 @@ class Adventurer
       puts "----------------------------"
       puts "Spells Known:"
       puts @character_class.spell_strings(@character_class.spells_known).join("\n")
+    end
+    unless @character_class.mystic_arcana.nil? or @character_class.mystic_arcana.empty?
+      puts "----------------------------"
+      puts "Mystic Arcana:"
+      puts @character_class.spell_strings(@character_class.mystic_arcana).join("\n")
     end
     unless @character_class.spellbook.nil? or @character_class.spellbook.empty?
       puts "----------------------------"
