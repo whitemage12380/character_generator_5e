@@ -3,13 +3,15 @@ require_relative 'class_decision_list'
 require_relative 'class_decision'
 require_relative 'class_feature'
 require_relative 'skill'
+require_relative 'feat'
 require_relative 'spell_list'
 require_relative 'spell'
 
 class AdventurerClass
   include CharacterGeneratorHelper
-  attr_reader :class_name, :subclass_name, :level, :hit_die, :hp_rolls, :skills, :expertises, :cantrips, :spells_known, :spells_prepared,
-              :spellbook, :spell_lists, :mystic_arcana, :decision_lists, :class_features, :class_data, :subclass_data
+  attr_reader :class_name, :subclass_name, :level, :hit_die, :hp_rolls, :skills, :expertises, :feats, :ability_score_increases,
+              :cantrips, :spells_known, :spells_prepared, :spellbook, :spell_lists, :mystic_arcana, :decision_lists, :class_features,
+              :class_data, :subclass_data
 
   def initialize(adventurer_abilities, level = 1)
     @level = level
@@ -24,7 +26,7 @@ class AdventurerClass
   ## LEVELING UP
   ###########
 
-  def apply_level(level, character_class = @class_data, subclass = @subclass_data)
+  def apply_level(level, adventurer_abilities, feat_params = nil, character_class = @class_data, subclass = @subclass_data)
     log "Applying level #{level}"
     @level = level
     # Roll HP
@@ -53,6 +55,9 @@ class AdventurerClass
       evaluate_choice(choice_name, choice)
     }
     generate_decisions(level)
+    # Resolve Ability Score Increases and Feats
+    generate_ability_score_increases(character_class.fetch("ability_score_increases", [4, 8, 12, 16, 19]),
+                                     adventurer_abilities: adventurer_abilities)
     # Add and Resolve Spells
     add_spells_known()
     add_spellbook_spells()
@@ -89,7 +94,7 @@ class AdventurerClass
     @skills = class_skills.map { |s| Skill.new(s, source: @class_name) }
     @expertises = []
     @spell_lists = []
-    apply_level(1, character_class, subclass)
+    apply_level(1, adventurer_abilities, nil, character_class, subclass)
   end
 
   # Random - Class
@@ -232,6 +237,36 @@ class AdventurerClass
       # Expertise list not currently supported because no class currently requires it
       raise "Unsupported type of value for expertises: #{expertises}"
     end
+  end
+
+  ###########
+  ## ABILITY SCORE INCREASES/FEATS
+  ###########
+
+  def generate_ability_score_increases(asi_levels, level: @level, source: @class_name, adventurer_abilities:, skills: nil, proficiencies: nil)
+    return unless asi_levels and asi_levels.include? level
+    # For now, decide whether to choose an ASI or a feat based on a coin flip
+    case $configuration["feats"]
+    when "always"
+      is_feat = true
+    when "sometimes"
+      is_feat = rand(1)
+    when "never"
+      is_feat = false
+    else
+      log_warn "feats configuration not set; assuming never"
+      is_feat = false
+    end
+    if is_feat
+      @feats = Array.new if @feats.nil?
+      @feats << Feat.new(source: source, feats: @feats, adventurer_abilities: adventurer_abilities, is_spellcaster: spellcaster?, skills: skills, proficiencies: proficiencies)
+    else
+      log "Ability score increases not yet supported"
+    end
+  end
+
+  def feat_strings()
+    @feats.collect { |f| f.feat_name.pretty }.sort
   end
 
   ###########
@@ -379,6 +414,14 @@ class AdventurerClass
     else
       raise "Unsupported type of value for list data: #{list_data}"
     end
+  end
+
+  def spellcaster?()
+    [@class_data, @subclass_data].any? { |c| ["cantrips", "spells_known", "spells_prepared", "spellbook"].any? { |s| not c[s].nil? }} or
+    (not @cantrips.to_a.empty?) or
+    (not @spells_known.to_a.empty?) or
+    (not @spells_prepared.to_a.empty?) or
+    (not @spellbook.to_a.empty?)
   end
 
   def spell_strings(spells)

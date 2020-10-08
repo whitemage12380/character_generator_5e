@@ -1,0 +1,102 @@
+feats:
+  alert:
+    weight: 10
+  athlete:
+    ability_choices: [strength, dexterity]
+  actor:
+    ability_choices: [charisma]
+  charger:
+    weight: 10
+  crossbow expert:
+    weight: 10
+  defensive duelist:
+    prerequisites: {abilities: {dexterity: 13}}
+  dual wielder:
+    weight: 10
+  dungeon delver:
+    weight: 10
+  durable:
+    ability_choices: [constitution]
+  elemental adept:
+    prerequisites: {special: spellcaster}
+    choices:
+      damage type: [acid, cold, fire, lightning, thunder]
+    allow_multiple: true
+  grappler:
+    prerequisites: {abilities: {strength: 13}}
+  great weapon master:
+    weight: 10
+  healer:
+    weight: 10
+  heavily armored:
+    ability_choices: [strength]
+    proficiencies: [heavy armor]
+  heavy armor master:
+    prerequisites: {proficiencies: [heavy armor]}
+    ability_choices: [strength]
+  inspiring leader:
+    prerequisites: {abilities: {charisma: 13}}
+  keen mind:
+    ability_choices: [intelligence]
+  lightly armored:
+    ability_choices: [strength, dexterity]
+    proficiencies: [light armor]
+  linguist:
+    ability_choices: [intelligence]
+  lucky:
+    weight: 10
+  mage slayer:
+    weight: 10
+  magic initiate:
+    choices:
+      cantrips: 2
+      spells: {1: 1}
+      spell_list_choices: [bard, cleric, druid, sorcerer, warlock, wizard]
+  martial adept:
+    choices:
+      maneuvers: 2
+  medium armor master:
+    prerequisites: {proficiencies: [mediium armor]}
+  mobile:
+    weight: 10
+  moderately armored:
+    prerequisites: {proficiencies: [light armor]}
+    ability_choices: [strength, dexterity]
+  mounted combatant:
+    weight: 10
+  observant:
+    ability_choices: [intelligence, wisdom]
+  polearm master:
+    weight: 10
+  resilient:
+    ability_choices: [strength, dexterity, constitution, intelligence, wisdom, charisma]
+    max_weight: 10
+  ritual caster:
+    choices:
+      spells: {1: 2}
+      spell_restrictions: {ritual: true}
+      spell_list_choices: [bard, cleric, druid, sorcerer, warlock, wizard]
+  savage attacker:
+    weight: 10
+  sentinel:
+    weight: 10
+  sharpshooter:
+    weight: 10
+  shield master:
+    weight: 10
+  skilled:
+    choices:
+      skills: 3
+  skulker:
+    prerequisites: {abilities: {dexterity: 13}}
+  spell sniper:
+    prerequisites: {special: spellcaster}
+  tavern brawler:
+    ability_choices: [strength, constitution]
+  tough:
+    weight: 10
+  war caster:
+    prerequisites: {special: spellcaster}
+  weapon master:
+    ability_choices: [strength, dexterity]
+    proficiencies: {weapon: 4}

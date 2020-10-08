@@ -52,7 +52,7 @@ class Adventurer
   def level_up(level)
     return if level < 2
     for l in 2..level
-      character_class.apply_level(l)
+      character_class.apply_level(l, abilities, nil)
       generate_skills(skills, character_class.expertises)
     end
   end
@@ -171,6 +171,11 @@ class Adventurer
       puts "----------------------------"
       puts "Skills:"
       puts skill_strings.join("\n")
+    end
+    unless @character_class.feats.nil? or @character_class.feats.empty?
+      puts "----------------------------"
+      puts "Feats:"
+      puts @character_class.feat_strings.join("\n")
     end
     unless @character_class.class_features.nil? or @character_class.class_features.empty?
       puts "----------------------------"

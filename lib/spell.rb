@@ -16,7 +16,7 @@ class Spell
       @min_spell_level = "cantrip"
     end
     if spell_data.nil? and not name.nil? # If the name parameter is set, pull the rest of the data from yaml
-      define_spell(read_yaml_files("spells").select { |s| s["name"].downcase == name.downcase }.first)
+      define_spell(read_yaml_files("spell").select { |s| s["name"].downcase == name.downcase }.first)
     elsif not spell_data.nil?
       define_spell(spell_data)
     end
