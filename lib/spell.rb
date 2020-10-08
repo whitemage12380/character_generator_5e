@@ -51,7 +51,7 @@ class Spell
       spell_level = "cantrip"
       spell_str = "Cantrip"
     else
-      spell_level = Spell.random_spell_level(min_spell_level, max_spell_level, spells)
+      spell_level = Spell.random_spell_level(min_spell_level, max_spell_level, spells, spell_list)
       spell_str = "Level #{spell_level} Spell"
     end
     chosen_spell = spell_list.spells_by_level(spell_level)
@@ -62,7 +62,7 @@ class Spell
     chosen_spell
   end
 
-  def self.random_spell_level(min_spell_level, max_spell_level, spells)
+  def self.random_spell_level(min_spell_level, max_spell_level, spells, spell_list = nil)
     weight_multiplier_level = 1
     weight_multiplier_count = 4
     max_spell_count = (min_spell_level..max_spell_level).to_a
@@ -72,10 +72,15 @@ class Spell
       spell_count = spells.count { |s| s.level == lvl }
       # RULE 1: Base weight is inverse spell level (e.g. for level 1-6, level 1's weight is 6, level 6's weight is 1)
       weight = ((max_spell_level + 1) - lvl) * weight_multiplier_level
-      # RULE 2: Levels with no spell slots get an additional 300 weight
+      # RULE 2: Levels with no spell slots get an additional large weight
       # RULE 3: Otherwise, add additional weight for each spell fewer than the maximum number of spells for a given level
       #         this level has (e.g. if there are 5 lvl 1 spells and 1 lvl 2 spell, add 0 to lvl 1 and 4 * multiplier to lvl 2)
       weight += (spell_count == 0) ? 600 : (max_spell_count - spell_count) * weight_multiplier_count
+      # RULE 4: If there aren't any available spells in the spell list for the level, the weight is 0
+      if spell_list and spell_list.spells_by_level(lvl).none? { |s| spells.none? { |sto| sto.name == s.name } }
+        debug "No available level #{lvl} spells"
+        weight = 0
+      end
       {level: lvl, weight: weight}
     }
     debug "Spell level weights: (#{min_spell_level}) #{level_weights.collect { |l| l[:weight] }} (#{max_spell_level})"

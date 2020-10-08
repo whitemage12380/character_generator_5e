@@ -169,17 +169,19 @@ class AdventurerClass
       next if character_class.nil? or character_class["spells_prepared"].nil?
       spells_prepared_data = character_class["spells_prepared"]
       spells_prepared_ability = spells_prepared_data["ability"].to_sym
+      spells_prepared_spellbook = spells_prepared_data.fetch("spellbook", false)
       spells_prepared_class = spells_prepared_data["class"]
       spells_prepared_level_multiplier = spells_prepared_data.fetch("level_multiplier", 1.0)
       spell_count_ability = (adventurer_abilities[spells_prepared_ability]  - 10) / 2
       spell_count_level = (level * spells_prepared_level_multiplier).floor
       spell_count = spell_count_ability + spell_count_level
+      spell_list = spells_prepared_spellbook ? SpellList.new("spellbook", @spellbook) : find_or_create_spell_list(spells_prepared_class)
       log "Preparing #{spell_count} #{spells_prepared_class} spells"
       debug "Preparing #{spell_count_ability} spells from ability"
       debug "Preparing #{spell_count_level} spells from level"
       spell_count.times do
         @spells_prepared << Spell.new(source: character_class["name"],
-                            spell_list: find_or_create_spell_list(spells_prepared_class),
+                            spell_list: spell_list,
                             max_spell_level: max_level)
       end
       generate_spells(@spells_prepared)
@@ -249,12 +251,6 @@ class AdventurerClass
   def generate_spells(spells)
     return if spells.nil?
     spells.each { |spell| spell.generate(spells) }
-  end
-
-  def generate_spells_prepared(spells_prepared_data = @class_data["spells_prepared"])
-  end
-
-  def generate_spellbook()
   end
 
   def class_data_element(elem)

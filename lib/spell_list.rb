@@ -8,15 +8,17 @@ class SpellList < Array
   def initialize(name, spells = nil)
     @name = name
     if spells
-      @spells = read_yaml_files("spells")
-                .select { |s| spells.include? s["name"] }
-                .collect { |s| Spell.new(source: "#{name.pretty} Spell List", spell_data: s.transform_keys(&:to_sym).merge({list: self})) }
-                #.to_h { |s| [s.level, s] }
+      if spells.none? { |s| s.kind_of? Spell }
+        @spells = read_yaml_files("spells")
+                  .select { |s| spells.include? s["name"] }
+                  .collect { |s| Spell.new(source: "#{name.pretty} Spell List", spell_data: s.transform_keys(&:to_sym).merge({list: self})) }
+      else
+        @spells = spells
+      end
     else
       @spells = read_yaml_files("spells")
                 .select { |s| name == "any" or s["classes"].include? name }
                 .collect { |s| Spell.new(source: "#{name.pretty} Spell List", spell_data: s.transform_keys(&:to_sym).merge({list: self})) }
-                #.to_h { |s| [s.level, s] }
     end
 
     def difference(arr)
