@@ -3787,7 +3787,6 @@ spells:
   components:
   - V
   classes:
-  - paladin
   - ranger
 - name: Hypnotic Pattern
   book: Player's Handbook
