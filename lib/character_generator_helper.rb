@@ -122,7 +122,6 @@ module CharacterGeneratorHelper
     skills.select { |s| not s.skill_list and not s.skill_name }.each { |s| s.generate(skills) }
     # Expertises
     expertises.each { |e|
-      puts expertises
       skills.select { |s| not s.expertise? }.sample.make_expertise()
       expertises.delete_at(expertises.index(e))
     }

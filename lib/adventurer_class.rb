@@ -82,8 +82,8 @@ class AdventurerClass
     else
       raise "Unrecognized generation style: #{$configuration['generation_style']['class']}"
     end
-    log "Chose Class: #{@class_name}"
-    log "Chose Subclass: #{@subclass_name}" if @subclass_name
+    log "Chose Class: #{@class_name.pretty}"
+    log "Chose Subclass: #{@subclass_name.pretty}" if @subclass_name
     create_decision_lists(character_class["lists"], character_class.fetch("list_prerequisites", nil)) if character_class["lists"]
     @class_data = character_class.merge({"name" => @class_name})
     @subclass_data = subclass ? subclass.merge({"name" => @subclass_name}) : nil
@@ -266,7 +266,7 @@ class AdventurerClass
   end
 
   def feat_strings()
-    @feats.collect { |f| f.feat_name.pretty }.sort
+    @feats.sort_by { |f| f.name }.collect { |f| f.feat_lines }.flatten
   end
 
   ###########

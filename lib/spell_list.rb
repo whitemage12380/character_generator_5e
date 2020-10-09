@@ -1,7 +1,7 @@
 require_relative 'character_generator_helper'
 require_relative 'spell'
 
-class SpellList < Array
+class SpellList
   include CharacterGeneratorHelper
   attr_reader :name, :spells
 

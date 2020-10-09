@@ -123,7 +123,7 @@ classes:
           1: [charm person, disguise self]
           3: [mirror image, pass without trace]
           5: [blink, dispel magic]
-          7: [dimension_door, polymorph]
+          7: [dimension door, polymorph]
           9: [dominate person, modify memory]
       war domain:
         spells:

@@ -56,7 +56,7 @@ feats:
     choices:
       maneuvers: 2
   medium armor master:
-    prerequisites: {proficiencies: [mediium armor]}
+    prerequisites: {proficiencies: [medium armor]}
   mobile:
     weight: 10
   moderately armored:

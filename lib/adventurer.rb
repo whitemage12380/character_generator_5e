@@ -20,9 +20,14 @@ class Adventurer
 
   def abilities()
     a = @base_abilities.clone()
-    if @race
+    unless @race.nil?
       @race.race_abilities.each_pair { |ability, bonus|
         a[ability.to_sym] += bonus
+      }
+    end
+    unless @character_class.nil? or @character_class.feats.nil?
+      @character_class.feats.each { |f|
+        a.each_key { |ability| (a[ability] += 1) if f.ability_increase == ability }
       }
     end
     a
