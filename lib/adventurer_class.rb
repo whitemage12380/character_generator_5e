@@ -13,9 +13,9 @@ class AdventurerClass
               :cantrips, :spells_known, :spells_prepared, :spellbook, :spell_lists, :mystic_arcana, :decision_lists, :class_features,
               :class_data, :subclass_data
 
-  def initialize(adventurer_abilities, level = 1)
+  def initialize(adventurer_abilities, level = 1, feat_params = nil)
     @level = level
-    generate_class(adventurer_abilities)
+    generate_class(adventurer_abilities, feat_params)
   end
 
   def name()
@@ -57,7 +57,8 @@ class AdventurerClass
     generate_decisions(level)
     # Resolve Ability Score Increases and Feats
     generate_ability_score_increases(character_class.fetch("ability_score_increases", [4, 8, 12, 16, 19]),
-                                     adventurer_abilities: adventurer_abilities)
+                                     adventurer_abilities: adventurer_abilities,
+                                     feat_params: feat_params)
     # Add and Resolve Spells
     add_spells_known()
     add_spellbook_spells()
@@ -72,7 +73,7 @@ class AdventurerClass
 
   # Main Generator
 
-  def generate_class(adventurer_abilities)
+  def generate_class(adventurer_abilities, feat_params = nil)
     classes = read_yaml_files("class")
     case $configuration["generation_style"]["class"]
     when "smart"
@@ -94,7 +95,7 @@ class AdventurerClass
     @skills = class_skills.map { |s| Skill.new(s, source: @class_name) }
     @expertises = []
     @spell_lists = []
-    apply_level(1, adventurer_abilities, nil, character_class, subclass)
+    apply_level(1, adventurer_abilities, feat_params, character_class, subclass)
   end
 
   # Random - Class
@@ -243,7 +244,7 @@ class AdventurerClass
   ## ABILITY SCORE INCREASES/FEATS
   ###########
 
-  def generate_ability_score_increases(asi_levels, level: @level, source: @class_name, adventurer_abilities:, skills: nil, proficiencies: nil)
+  def generate_ability_score_increases(asi_levels, level: @level, source: @class_name, adventurer_abilities:, feat_params: nil)
     return unless asi_levels and asi_levels.include? level
     # For now, decide whether to choose an ASI or a feat based on a coin flip
     case $configuration["feats"]
@@ -259,7 +260,7 @@ class AdventurerClass
     end
     if is_feat
       @feats = Array.new if @feats.nil?
-      @feats << Feat.new(source: source, feats: @feats, adventurer_abilities: adventurer_abilities, is_spellcaster: spellcaster?, skills: skills, proficiencies: proficiencies)
+      @feats << Feat.new(source: source, feats: @feats, adventurer_abilities: adventurer_abilities, is_spellcaster: spellcaster?, skills: feat_params[:skills], proficiencies: feat_params[:proficiencies])
     else
       log "Ability score increases not yet supported"
     end

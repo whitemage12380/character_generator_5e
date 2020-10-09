@@ -116,7 +116,7 @@ module CharacterGeneratorHelper
 
   def generate_skills(skills, expertises = [])
     skills = [] unless skills
-    # Restriect options, in ascending order of options available
+    # Restricted options, in ascending order of options available
     skills.select { |s| s.skill_list and not s.skill_name }.sort_by { |s| s.skill_list.length }.each { |s| s.generate(skills) }
     # Unrestricted options
     skills.select { |s| not s.skill_list and not s.skill_name }.each { |s| s.generate(skills) }

@@ -11,7 +11,7 @@ class Adventurer
   def initialize(level = 1)
     @base_abilities = roll_abilities()
     @race = AdventurerRace.new(@base_abilities)
-    @character_class = AdventurerClass.new(abilities)
+    @character_class = AdventurerClass.new(abilities, feat_params)
     @background = AdventurerBackground.new()
     generate_skills(skills, @character_class.expertises)
     level_up(level)
@@ -38,10 +38,15 @@ class Adventurer
   end
 
   def skills()
-    race_skills = race.skills ? race.skills : []
-    class_skills = character_class.skills ? character_class.skills : []
-    background_skills = background.skills ? background.skills : []
-    race_skills + class_skills + background_skills
+    race_skills = (race and race.skills) ? race.skills : []
+    class_skills = (character_class and character_class.skills) ? character_class.skills : []
+    background_skills = (background and background.skills) ? background.skills : []
+    feat_skills = (character_class and character_class.feats) ? character_class.feats.collect { |f| f.decisions.fetch("skills", []) }.flatten : []
+    race_skills + class_skills + background_skills + feat_skills
+  end
+
+  def feat_params()
+    {skills: skills}
   end
 
   def roll_abilities()
@@ -57,7 +62,7 @@ class Adventurer
   def level_up(level)
     return if level < 2
     for l in 2..level
-      character_class.apply_level(l, abilities, nil)
+      character_class.apply_level(l, abilities, feat_params)
       generate_skills(skills, character_class.expertises)
     end
   end

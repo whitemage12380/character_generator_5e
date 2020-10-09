@@ -9,8 +9,9 @@ class Feat
 
   def initialize(source:, feats: nil, adventurer_abilities: nil, is_spellcaster: nil, skills: nil, proficiencies: nil)
     @source = source
+    @decisions = Hash.new
     unless feats.nil?
-      generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, proficiencies: proficiencies)
+      generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, skills: skills, proficiencies: proficiencies)
     end
   end
 
@@ -92,22 +93,19 @@ class Feat
       log "#{@feat_name.pretty}: #{asi_statement} - #{@ability_increase.to_s.pretty}"
     end
     unless choices.nil?
-      @decisions = Hash.new if @decisions.nil?
       choices.each_pair { |choice_name, choice_data|
         case choice_name
-        when "skills" # Haven't seen it work yet
+        when "skills"
           unless skills.nil?
-            choice_data.times {
-              skills << Skill.new("any", source: @feat_name)
-            }
+            @decisions["skills"] = Array.new(choice_data) {Skill.new("any", source: @feat_name)}
           end
-        when "cantrips" # Haven't seen it work yet
+        when "cantrips"
           choose_spell_list(choices["spell_list_choices"])
           @decisions["cantrips"] = Array.new(choice_data) {
             Spell.new(source: @feat_name, is_cantrip: true, spell_list: @decisions["spell list"])
           }
           @decisions["cantrips"].each { |s| s.generate(@decisions["cantrips"]) }
-        when "spells" # Haven't seen it work yet
+        when "spells"
           choose_spell_list(choices["spell_list_choices"], restrictions = choices.fetch("spell_restrictions", {}))
           choice_data.each_pair { |spell_level, spell_count|
             @decisions["spells"] = Array.new(spell_count) {
@@ -151,7 +149,7 @@ class Feat
         lines << "  #{d_name.pretty}:"
         lines.concat(d_content.collect { |c|
           case c
-          when Spell, SpellList
+          when Spell, SpellList, Skill
             "    - #{c.name}"
           when String
             "    - #{c}"
