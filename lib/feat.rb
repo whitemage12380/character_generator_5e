@@ -22,7 +22,7 @@ class Feat
   def generate(feats:, adventurer_abilities: nil, is_spellcaster: nil, skills: nil, proficiencies: nil)
     feat_data = read_yaml_files("feat")
     feat_data.each_pair { |feat_name, feat|
-      feat["weight"] = feat_weight(feat_name, feat, feats, adventurer_abilities: adventurer_abilities, is_spellcaster: nil, proficiencies: nil)
+      feat["weight"] = feat_weight(feat_name, feat, feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, proficiencies: nil)
     }
     chosen_feat_name, chosen_feat = weighted_random(feat_data).first
     @feat_name = chosen_feat_name
@@ -89,6 +89,7 @@ class Feat
       # TODO: Resilient does not check for or handle save proficiency yet (saves are not yet handled in adventurer_class)
       debug "Ability increase base weights: #{ability_choices.collect { |a| ability_increase_weight(a, adventurer_abilities)}.to_s}"
       @ability_increase = ability_choices.max_by { |a| ability_increase_weight(a, adventurer_abilities) + rand(3) + rand()}.to_sym
+      @decisions["ability increase"] = @ability_increase
       asi_statement = (ability_choices.count == 1) ? "Ability Score Increased" : "Chose Ability Score Increase"
       log "#{@feat_name.pretty}: #{asi_statement} - #{@ability_increase.to_s.pretty}"
     end
@@ -119,6 +120,8 @@ class Feat
           next
         when "maneuvers"
           log "Choose #{choice_data} Fighter maneuvers (generation for maneuvers not supported yet in feats)"
+        else
+          @decisions[choice_name] = choice_data.sample
         end
       }
     end
@@ -150,15 +153,17 @@ class Feat
         lines.concat(d_content.collect { |c|
           case c
           when Spell, SpellList, Skill
-            "    - #{c.name}"
-          when String
-            "    - #{c}"
+            "    - #{c.name.pretty}"
+          when String, Symbol
+            "    - #{c.to_s.pretty}"
           else
             "<Not Supported>"
           end
         })
       when SpellList
         lines << "  #{d_name.pretty}: #{d_content.name.pretty}"
+      when String, Symbol
+        lines << "  #{d_name.pretty}: #{d_content.to_s.pretty}"
       else
         lines << "  #{d_name.pretty}: <Could not identify value>"
       end

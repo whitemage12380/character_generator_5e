@@ -34,7 +34,15 @@ class Adventurer
   end
 
   def hp()
-    @character_class.hp_rolls.collect { |hr| hr + modifier(:constitution) >= 1 ? hr + modifier(:constitution) : 1 }.sum
+    @character_class.hp_rolls.collect { |hr| hr + modifier(:constitution) >= 1 ? hr + modifier(:constitution) : 1 }.sum + extra_hp
+  end
+
+  def extra_hp
+    (((@race.name.downcase == "hill dwarf") ? 1 : 0) + (tough? ? 2 : 0)) * @character_class.level
+  end
+
+  def tough?()
+    @character_class and @character_class.feats and @character_class.feats.one? { |f| f.name.downcase == "tough" }
   end
 
   def skills()

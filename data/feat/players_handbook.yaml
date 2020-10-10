@@ -91,6 +91,8 @@ feats:
     prerequisites: {abilities: {dexterity: 13}}
   spell sniper:
     prerequisites: {special: spellcaster}
+    choices:
+      spell_list_choices: [bard, cleric, druid, sorcerer, warlock, wizard]
   tavern brawler:
     ability_choices: [strength, constitution]
   tough:
