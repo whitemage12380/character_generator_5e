@@ -14,6 +14,7 @@ class Adventurer
     @character_class = AdventurerClass.new(abilities, feat_params)
     @background = AdventurerBackground.new()
     generate_skills(skills, @character_class.expertises)
+    generate_feats(@race.feats, abilities, @character_class.spellcaster?, feat_params)
     level_up(level)
     prepare_spells()
   end
@@ -30,6 +31,12 @@ class Adventurer
         a.each_key { |ability| (a[ability] += 1) if f.ability_increase == ability }
       }
     end
+    unless @character_class.nil? or @character_class.ability_score_increases.nil?
+      @character_class.ability_score_increases.each_pair { |asi_ability, asi_bonus|
+        a[asi_ability] += asi_bonus
+      }
+    end
+    a.each_key { |ability| a[ability] = 20 if a[ability] > 20 }
     a
   end
 
@@ -51,6 +58,16 @@ class Adventurer
     background_skills = (background and background.skills) ? background.skills : []
     feat_skills = (character_class and character_class.feats) ? character_class.feats.collect { |f| f.decisions.fetch("skills", []) }.flatten : []
     race_skills + class_skills + background_skills + feat_skills
+  end
+
+  def feats()
+    race_feats = (race and race.feats) ? race.feats : []
+    class_feats = (character_class and character_class.feats) ? character_class.feats : []
+    race_feats + class_feats
+  end
+
+  def feat_strings()
+    feats.sort_by { |f| f.name }.collect { |f| f.feat_lines }.flatten
   end
 
   def feat_params()
@@ -190,10 +207,10 @@ class Adventurer
       puts "Skills:"
       puts skill_strings.join("\n")
     end
-    unless @character_class.feats.nil? or @character_class.feats.empty?
+    unless feats.nil? or feats.empty?
       puts "----------------------------"
       puts "Feats:"
-      puts @character_class.feat_strings.join("\n")
+      puts feat_strings.join("\n")
     end
     unless @character_class.class_features.nil? or @character_class.class_features.empty?
       puts "----------------------------"

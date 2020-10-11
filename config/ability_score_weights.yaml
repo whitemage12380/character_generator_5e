@@ -18,6 +18,8 @@ ability_score_weights:
     18: 1
     19: 1
     20: 2
+    21: 0
+    22: 0
   weighted:
     3:  1
     4:  3
@@ -37,6 +39,8 @@ ability_score_weights:
     18: 3
     19: 1
     20: 3
+    21: 0
+    22: 0
   smart:
     3:  1
     4:  2
@@ -56,3 +60,5 @@ ability_score_weights:
     18: 16
     19: 14
     20: 20
+    21: 0
+    22: 0

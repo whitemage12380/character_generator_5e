@@ -144,7 +144,7 @@ class Feat
   end
 
   def feat_lines()
-    lines = [@feat_name.pretty]
+    lines = ["#{@feat_name.pretty.ljust(40)}#{source.pretty}"]
     return lines if @decisions.nil? or @decisions.empty?
     @decisions.each_pair { |d_name, d_content|
       case d_content

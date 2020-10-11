@@ -39,6 +39,6 @@ class ClassDecisionList
   end
 
   def to_s()
-    puts "#{@list_name}: #{@choices.to_s}"
+    "#{@list_name}: #{@choices.to_s}"
   end
 end

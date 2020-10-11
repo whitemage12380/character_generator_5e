@@ -1,4 +1,5 @@
 generation_style:
+  default: smart
   race: weighted
   class: smart
 feats: sometimes # always, sometimes, or never

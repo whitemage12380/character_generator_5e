@@ -3,17 +3,9 @@ require_relative 'character_generator_helper'
 
 class AdventurerRace
   include CharacterGeneratorHelper
-  attr_reader :race_name, :subrace_name, :race_abilities, :skills, :tools, :cantrips, :languages
+  attr_reader :race_name, :subrace_name, :race_abilities, :skills, :tools, :feats, :cantrips, :languages
 
   def initialize(adventurer_abilities)
-    # There are the weights, but also weight bonuses if:
-    #   An ability score bonus would increase the modifier
-    #   20: +10
-    #   18: +7
-    #   16: +4
-    #   10: +2
-    #   8:  +2
-    #   6:  +2
     generate_race(adventurer_abilities)
   end
 
@@ -22,10 +14,9 @@ class AdventurerRace
   end
 
   def generate_race(adventurer_abilities)
-    @ability_score_weight_config = YAML.load_file("#{Configuration.project_path}/config/ability_score_weights.yaml")
     races = read_yaml_files("race")
     case $configuration["generation_style"]["race"]
-    when "weighted"
+    when "smart", "weighted"
       @race_name, race, @subrace_name, subrace = random_race_weighted(races)
     when "random"
       @race_name, race, @subrace_name, subrace = random_race_true(races)
@@ -35,11 +26,15 @@ class AdventurerRace
     log "Chose Race: #{@race_name.pretty}"
     log "Chose Subrace: #{@subrace_name.pretty}" if @subrace_name
     @race_abilities = random_race_abilities(race, subrace, adventurer_abilities)
+    # Set race skills
     race_skills = race.fetch("skills", [])
     subrace_skills = subrace ? subrace.fetch("skills", []) : []
     race_skills = Array.new(race_skills, "any") if race_skills.kind_of? Integer
     subrace_skills = Array.new(subrace_skills, "any") if subrace_skills.kind_of? Integer
-    @skills = (race_skills + subrace_skills).map { |s| Skill.new(s, source: name) }
+    @skills = (race_skills + subrace_skills).collect { |s| Skill.new(s, source: name) }
+    # Set race feats
+    # Cheat: Assuming feats is an integer and not supporting subclass feats, since only humans get a feat and it can be any feat
+    @feats = Array.new(race.fetch("feats", 0)) { |f| Feat.new(source: @race_name) }
   end
 
   #def random_race_smart(races)
@@ -66,44 +61,8 @@ class AdventurerRace
   end
 
   def random_race_abilities(race, subrace, adventurer_abilities)
-    race_abilities = race.fetch("abilities", {})
-    subrace_abilities = subrace ? subrace.fetch("abilities", {}) : {}
-    return spend_ability_points(race_abilities
-          .merge(subrace_abilities), adventurer_abilities)
-          .transform_keys(&:to_sym)
-  end
-
-  def spend_ability_points(race_abilities, adventurer_abilities)
-    return race_abilities unless race_abilities["any"]
-    abilities = race_abilities.clone
-    ability_points = abilities["any"]
-    ability_points = [ability_points] unless ability_points.kind_of? Array
-    abilities_chosen = []
-    ability_points.each { |val|
-      ability_weights = ABILITIES.collect { |ability|
-        if abilities_chosen.include? ability or race_abilities.include? ability
-          [ability, {"weight" => 0}]
-        else
-          [ability, {"weight" => ability_score_weight(adventurer_abilities[ability] + val, val)}]
-        end
-      }.to_h
-      chosen_ability = weighted_random(ability_weights).keys.first
-      log "Spending ability point on #{chosen_ability}"
-      abilities_chosen << chosen_ability
-      if abilities[chosen_ability]
-        abilities[chosen_ability] += val
-      else
-        abilities[chosen_ability] = val
-      end
-    }
-    abilities.delete("any")
-    return abilities
-  end
-
-  def ability_score_weight(score, increase = 1)
-    weight_chart = @ability_score_weight_config["ability_score_weights"][$configuration["generation_style"]["race"]]
-    weight = weight_chart[score]
-    weight *= 10 if (increase == 1) and (score % 2 == 0)
-    return weight
+    race_abilities = race.fetch("abilities", {}).transform_keys(&:to_sym)
+    subrace_abilities = subrace ? subrace.fetch("abilities", {}).transform_keys(&:to_sym) : {}
+    return spend_ability_points(race_abilities.merge(subrace_abilities), adventurer_abilities, "race")
   end
 end

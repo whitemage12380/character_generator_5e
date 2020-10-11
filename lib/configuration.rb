@@ -23,9 +23,20 @@ class Configuration < Hash
     }
     puts "Configurations loaded: #{to_s}"
   end
+
+  def ability_score_weights(category = nil)
+    @ability_score_weight_config = YAML.load_file("#{Configuration.project_path}/config/ability_score_weights.yaml") if @ability_score_weight_config.nil?
+    if category.nil?
+      @ability_score_weight_config["ability_score_weights"]
+    else
+      @ability_score_weight_config["ability_score_weights"][self["generation_style"][category]]
+    end
+  end
+
   def self.configuration_path()
     "#{self.project_path}/config/character_generator.yaml"
   end
+
   def self.project_path()
     File.expand_path('../', File.dirname(__FILE__))
   end

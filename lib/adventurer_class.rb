@@ -92,9 +92,11 @@ class AdventurerClass
     @hp_rolls = [@hit_die.clone]
     class_skills = character_class.fetch("skills", [])
     class_skills = Array.new(class_skills, character_class.fetch("skill_list", "any")) if class_skills.kind_of? Integer
-    @skills = class_skills.map { |s| Skill.new(s, source: @class_name) }
-    @expertises = []
-    @spell_lists = []
+    @skills = class_skills.collect { |s| Skill.new(s, source: @class_name) }
+    @expertises = Array.new
+    @spell_lists = Array.new
+    @feats = Array.new
+    @ability_score_increases = ABILITIES.to_h { |a| [a, 0] }
     apply_level(1, adventurer_abilities, feat_params, character_class, subclass)
   end
 
@@ -251,7 +253,7 @@ class AdventurerClass
     when "always"
       is_feat = true
     when "sometimes"
-      is_feat = rand(1)
+      is_feat = [true, false].sample
     when "never"
       is_feat = false
     else
@@ -259,15 +261,20 @@ class AdventurerClass
       is_feat = false
     end
     if is_feat
-      @feats = Array.new if @feats.nil?
       @feats << Feat.new(source: source, feats: @feats, adventurer_abilities: adventurer_abilities, is_spellcaster: spellcaster?, skills: feat_params[:skills], proficiencies: feat_params[:proficiencies])
-    else
-      log "Ability score increases not yet supported"
+      return
     end
-  end
-
-  def feat_strings()
-    @feats.sort_by { |f| f.name }.collect { |f| f.feat_lines }.flatten
+    asi_split = spend_ability_points([1, 1], adventurer_abilities, "class")
+    asi_split_weight = asi_split.to_a.sum { |asi| ability_score_weight(adventurer_abilities[asi[0]] + 1, 1, "class") }
+    asi_unsplit = spend_ability_points([2], adventurer_abilities, "class")
+    asi_unsplit_weight = ability_score_weight(adventurer_abilities[asi_unsplit.keys[0]] + 2, 2, "class")
+    debug "Ability Score Increase: Choosing between #{asi_split.to_s} (wt: #{asi_split_weight}) and #{asi_unsplit.to_s} (wt: #{asi_unsplit_weight})"
+    chosen_ability_score_increases = weighted_random([asi_split.merge({weight: asi_split_weight}), asi_unsplit.merge({weight: asi_unsplit_weight})])
+    chosen_ability_score_increases.each_pair { |ability, increase|
+      next if ability == :weight
+      @ability_score_increases[ability] += increase
+      log "Chose Ability Score Increase: +#{increase} #{ability.to_s.pretty}"
+    }
   end
 
   ###########
@@ -299,7 +306,7 @@ class AdventurerClass
       spell_data.each_pair { |list_name, list_data|
         if list_data.kind_of? Array and list_data.first.kind_of? String
           list_data.each { |spell_name|
-            next unless spells.none? { |s| s.name.downcase == spell_name.downcase }
+            next unless spells.none? { |s| s.name and (s.name.downcase == spell_name.downcase) }
             log "Adding Spell: #{spell_name.pretty}"
             spells << Spell.new(source: source, spell_list: find_or_create_spell_list(list_name), name: spell_name)
           }
@@ -418,7 +425,7 @@ class AdventurerClass
   end
 
   def spellcaster?()
-    [@class_data, @subclass_data].any? { |c| ["cantrips", "spells_known", "spells_prepared", "spellbook"].any? { |s| not c[s].nil? }} or
+    [@class_data, @subclass_data].reject { |d| d.nil? }.any? { |c| ["cantrips", "spells_known", "spells_prepared", "spellbook"].any? { |s| not c[s].nil? }} or
     (not @cantrips.to_a.empty?) or
     (not @spells_known.to_a.empty?) or
     (not @spells_prepared.to_a.empty?) or
