@@ -21,7 +21,6 @@ Execute `/bin/character_generator` in a terminal emulator. Enter the desired cha
 The following discrepancies currently exist between the generator and Dungeons & Dragons rules and content:
 
 * Other than spells, only content from the Player's Handbook is available.
-* The Ability Score Increase class feature currently always chooses feats. ASIs as a class feature are currently unavailable.
 * Standard humans are currently unavailable.
 * Background skills always follow the background chosen.
 * The generator does not produce name, alignment, or gender.

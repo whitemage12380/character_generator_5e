@@ -37,9 +37,5 @@ class SpellList
       @spells.select { |s| s.level == level }
     end
 
-    #@spells = (0..9).to_a.collect { |l|
-    #  [l, spells_all_levels.select { |s| }]
-    #}
-    #@spells_hash = spells_all_levels
   end
 end

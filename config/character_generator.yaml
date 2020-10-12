@@ -3,4 +3,4 @@ generation_style:
   race: weighted
   class: smart
 feats: sometimes # always, sometimes, or never
-log_level: debug
+log_level: info # debug
