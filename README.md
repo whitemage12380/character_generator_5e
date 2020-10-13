@@ -14,7 +14,7 @@ This application currently has no installation mechanism. Simply clone or downlo
 
 This application has been tested on Linux, but is expected to work on any operating system that runs Ruby. Your mileage may vary when using Windows.
 
-Execute `<path_to_repostiroy>/bin/character_generator` in a terminal emulator. Enter the desired character level as the only argument. If no argument is supplied, a level 1 character is assumed.
+Execute `<path_to_repository>/bin/character_generator` in a terminal emulator. Enter the desired character level as the only argument. If no argument is supplied, a level 1 character is assumed.
 
 ## Caveats
 
