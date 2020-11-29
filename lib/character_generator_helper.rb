@@ -87,7 +87,12 @@ module CharacterGeneratorHelper
   end
 
   def read_yaml_files(type)
-    files = Dir["#{__dir__}/../data/#{type}/*.yaml"]
+    allowed_files = $configuration.data_sources_allowed(type)
+    if allowed_files == 'all'
+      files = Dir["#{__dir__}/../data/#{type}/*.yaml"]
+    else
+      files = allowed_files.collect { |f| "#{__dir__}/../data/#{type}/#{f}.yaml" }
+    end
     key = YAML.load(File.read(files[0])).keys[0]
     files.map { |f| read_yaml_file(f) }.reduce({}, :deep_merge)[key]
   end

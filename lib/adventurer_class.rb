@@ -357,7 +357,7 @@ class AdventurerClass
     # Choose spells
     max_level = max_spell_level(level)
     [@class_data, @subclass_data].each { |character_class|
-      next if character_class.nil? or character_class["spells_prepared"].nil?
+      next if character_class.nil? or character_class["spells_prepared"].nil? or max_spell_level(level).nil?
       spells_prepared_data = character_class["spells_prepared"]
       spells_prepared_ability = spells_prepared_data["ability"].to_sym
       spells_prepared_spellbook = spells_prepared_data.fetch("spellbook", false)

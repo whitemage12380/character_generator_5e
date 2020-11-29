@@ -1,3 +1,6 @@
+data_sources_allowed:
+  default: all
+  race: volos_guide_to_monsters
 generation_style:
   default: smart
   race: weighted

@@ -33,6 +33,18 @@ class Configuration < Hash
     end
   end
 
+  def data_sources_allowed(type)
+    if self['data_sources_allowed'] and self['data_sources_allowed'][type]
+      list = self['data_sources_allowed'][type]
+      return (list == 'all' or list.kind_of? Array) ? list : [list]
+    elsif self['data_sources_allowed'] and self['data_sources_allowed']['default']
+      list = self['data_sources_allowed']['default']
+      return (list == 'all' or list.kind_of? Array) ? list : [list]
+    else
+      return 'all'
+    end
+  end
+
   def self.configuration_path()
     "#{self.project_path}/config/character_generator.yaml"
   end

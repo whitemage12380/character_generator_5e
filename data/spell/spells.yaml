@@ -536,7 +536,6 @@ spells:
   classes:
   - druid
   - ranger
-  - wizard
 - name: Beast Sense
   book: Player's Handbook
   page: '217'
@@ -780,7 +779,6 @@ spells:
   - V
   - S
   classes:
-  - cleric
   - sorcerer
   - warlock
   - wizard

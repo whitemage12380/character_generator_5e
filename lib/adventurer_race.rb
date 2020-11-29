@@ -3,7 +3,7 @@ require_relative 'character_generator_helper'
 
 class AdventurerRace
   include CharacterGeneratorHelper
-  attr_reader :race_name, :subrace_name, :race_abilities, :skills, :tools, :feats, :cantrips, :languages
+  attr_reader :race_name, :subrace_name, :race_abilities, :skills, :tools, :feats, :cantrips, :languages, :choices
 
   def initialize(adventurer_abilities)
     generate_race(adventurer_abilities)
@@ -29,12 +29,16 @@ class AdventurerRace
     # Set race skills
     race_skills = race.fetch("skills", [])
     subrace_skills = subrace ? subrace.fetch("skills", []) : []
-    race_skills = Array.new(race_skills, "any") if race_skills.kind_of? Integer
-    subrace_skills = Array.new(subrace_skills, "any") if subrace_skills.kind_of? Integer
+    race_skills = Array.new(race_skills, race.fetch("skill_list", "any")) if race_skills.kind_of? Integer
+    subrace_skills = Array.new(subrace_skills, subrace.fetch("skill_list", "any")) if subrace_skills.kind_of? Integer
     @skills = (race_skills + subrace_skills).collect { |s| Skill.new(s, source: name) }
     # Set race feats
-    # Cheat: Assuming feats is an integer and not supporting subclass feats, since only humans get a feat and it can be any feat
+    # Cheat: Assuming feats is an integer and not supporting subrace feats, since only humans get a feat and it can be any feat
     @feats = Array.new(race.fetch("feats", 0)) { |f| Feat.new(source: @race_name) }
+    # Set race choices
+    @choices = random_race_choices(race)
+    puts @choices.to_s
+    puts "---"
   end
 
   #def random_race_smart(races)
@@ -64,5 +68,10 @@ class AdventurerRace
     race_abilities = race.fetch("abilities", {}).transform_keys(&:to_sym)
     subrace_abilities = subrace ? subrace.fetch("abilities", {}).transform_keys(&:to_sym) : {}
     return spend_ability_points(race_abilities.merge(subrace_abilities), adventurer_abilities, "race")
+  end
+
+  def random_race_choices(race)
+    # So far, race choices only involve unique option sets, so that is all I will code for
+    race.fetch("choices", {}).to_a.collect { |c| {c[0] => c[1]["options"].sample} }.reduce(&:merge)
   end
 end

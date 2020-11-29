@@ -1,0 +1,163 @@
+races:
+  aasimar:
+    weight: 6
+    abilities:
+      charisma: 2
+    cantrips: [light]
+    languages: [common, celestial]
+    choices:
+      angelic guide name:
+        options: [Tadriel, Myllandra, Seraphina, Galladia, Mykiel, Valandras]
+      angelic guide nature:
+        options:
+          - Bookish and lecturing
+          - Compassionate and hopeful
+          - Practical and lighthearted
+          - Fierce and vengeful
+          - Stern and judgmental
+          - Kind and parental
+    subraces:
+      protector aasimar:
+        abilities:
+          wisdom: 1
+      scourge aasimar:
+        abilities:
+          constitution: 1
+      fallen aasimar:
+        abilities:
+          strength: 1
+  firbolg:
+    weight: 6
+    abilities:
+      wisdom: 2
+      strength: 1
+    languages: [common, elvish, giant]
+    choices:
+      reason for adventuring:
+        options:
+          - Outcast for murder
+          - Outcast for severely damaging home territory
+          - Clan slain by invading humanoids
+          - Clan slain by a dragon or demon
+          - Separated from tribe and lost
+          - Homeland destroyed by natural disaster
+          - Personal quest ordained by omens
+          - Dispatched on a quest by tribe leaders
+  goliath:
+    weight: 6
+    abilities:
+      strength: 2
+      constitution: 1
+    skills: [athletics]
+    languages: [common, giant]
+  kenku:
+    weight: 5
+    abilities:
+      dexterity: 2
+      wisdom: 1
+    skills: 2
+    skill_list: [acrobatics, deception, stealth, sleight of hand]
+    languages: [common, auran]
+  lizardfolk:
+    weight: 6
+    abilities:
+      constitution: 2
+      wisdom: 1
+    skills: 2
+    skill_list: [animal handling, nature, perception, stealth, survival]
+    languages: [common, draconic]
+    choices:
+      lizardfolk quirk:
+        options:
+          - You hate waste and see no reason not to scavenge fallen enemies. Fingers are tasty and portable!
+          - You sleep best while mostly submerged in water.
+          - Money is meaningless to you.
+          - "You think there are only two species of humanoid: lizardfolk and meat."
+          - You have learned to laugh. You use this talent in response to all emotional situations, to better fit in with your comrades.
+          - You still don't understand how metaphors work. That doesn't stop you from using them at every opportunity.
+          - You appreciate the soft humanoids who realize they need chain mail and swords to match the gifts you were both with.
+          - You enjoy eating your food while it's still wriggling.
+  tabaxi:
+    weight: 7
+    abilities:
+      dexterity: 2
+      charisma: 1
+    skills: [perception, stealth]
+    languages: [common, any]
+    choices:
+      tabaxi obsession:
+        options:
+          - A god or planar entity
+          - A monster
+          - A lost civilization
+          - A wizard's secrets
+          - A mundane item
+          - A magic item
+          - A location
+          - A legend or tale
+      tabaxi quirk:
+        options:
+          - You miss your tropical home and complain endlessly about the freezing weather, even in summer.
+          - You never wear the same outfit twice, unless you absolutely must.
+          - You have a minor phobia of water and hate getting wet.
+          - Your tail always betrays your inner thoughts.
+          - You purr loudly when you are happy.
+          - You keep a small ball of yarn in your hand, which you constantly fidget with.
+          - You are always in debt, since you spend your gold on lavish parties and gifts for friends.
+          - When talking about something you're obsessed with, you speak quickly and never pause and others can't understand you.
+          - You are a font of random trivia from the lore and stories you have discovered.
+          - You can't help but pocket interesting objects you come across.
+  triton:
+    weight: 5
+    abilities:
+      strength: 1
+      constitution: 1
+      charisma: 1
+    languages: [common, primordial]
+    choices:
+      triton quirk:
+        options:
+          - You phrase requests as orders that you expect to be obeyed
+          - You are quick to boast of the greatness of your civilization
+          - You learned an antiquated version of Common and drop "thee" and "thou" into your speech.
+          - You assume that people are telling you the truth about local customs and expectations.
+          - The surface world is a wondrous place, and you catalog all its details in a journal.
+          - You mistakenly assume that surface folk know about and are impressed by your people's history.
+  bugbear:
+    weight: 4
+    abilities:
+      strength: 2
+      dexterity: 1
+    skills: [stealth]
+    languages: [common, goblin]
+  goblin:
+    weight: 5
+    abilities:
+      dexterity: 2
+      constitution: 1
+    languages: [common, goblin]
+  hobgoblin:
+    weight: 4
+    abilities:
+      constitution: 2
+      intelligence: 1
+    languages: [common, goblin]
+  kobold:
+    weight: 6
+    abilities:
+      dexterity: 2
+    languages: [common, draconic]
+  orc:
+    weight: 5
+    abilities:
+      strength: 2
+      constitution: 1
+    skills: 2
+    skill_list: [animal handling, insight, intimidation, medicine, nature, perception, survival]
+  yuan-ti pureblood:
+    weight: 5
+    abilities:
+      charisma: 2
+      intelligence: 1
+    cantrips: [poison spray]
+    languages: [common, abyssal, draconic]

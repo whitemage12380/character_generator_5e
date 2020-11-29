@@ -194,6 +194,11 @@ class Adventurer
     puts "#{@race.name.pretty} #{@character_class.name.pretty}"
     puts "Level #{@character_class.level}"
     puts "HP: #{hp}"
+    unless @race.choices.nil? or @race.choices.empty?
+      puts "----------------------------"
+      max_name_length = @race.choices.keys.max_by(&:length).length + 1
+      puts @race.choices.to_a.collect { |c| "#{(c[0] + ":").pretty.ljust(max_name_length)} #{c[1]}" }.join("\n")
+    end
     puts "----------------------------"
     @background.print()
     puts "----------------------------"
