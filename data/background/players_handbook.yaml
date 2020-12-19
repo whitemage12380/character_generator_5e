@@ -22,13 +22,13 @@ backgrounds:
         statement: We must help bring about the changes the gods are constantly working in the world.
         alignment: chaotic
       - ideal:     power
-        statement: I hope to one day rise to the top of my faith’s religious hierarchy.
+        statement: I hope to one day rise to the top of my faith's religious hierarchy.
         alignment: lawful
       - ideal:     faith
         statement: I trust that my deity will guide my actions, I have faith that if I work hard, things will go well.
         alignment: lawful
       - ideal:     aspiration
-        statement: I seek to prove myself worthy of my god’s favor by matching my actions against his or her teachings.
+        statement: I seek to prove myself worthy of my god's favor by matching my actions against his or her teachings.
         alignment: any
     bonds:
       - I would die to recover an ancient relic of my faith that was lost long ago.
@@ -39,7 +39,7 @@ backgrounds:
       - I seek to preserve a sacred text that my enemies consider heretical and seek to destroy.
     flaws:
       - I judge others harshly, and myself even more severely.
-      - I put too much trust in those who wield power within my temple’s hierarchy.
+      - I put too much trust in those who wield power within my temple's hierarchy.
       - My piety sometimes leads me to blindly trust those that profess faith in my god.
       - I am inflexible in my thinking.
       - I am suspicious of strangers and expect the worst of them.
@@ -60,7 +60,7 @@ backgrounds:
       - I have a joke for every occasion, especially occasions where humor is inappropriate.
       - Flattery is my preferred trick for getting what I want.
       - I'm a born gambler who can't resist taking a risk for a potential payoff.
-      - I lie about almost everything, even when there’s no good reason to.
+      - I lie about almost everything, even when there's no good reason to.
       - Sarcasm and insults are my weapons of choice.
       - I keep multiple holy symbols on me and invoke whatever deity might come in useful at any given moment.
       - I pocket anything I see that might have some value.
@@ -69,7 +69,7 @@ backgrounds:
         statement: I am a free spirit— no one tells me what to do.
         alignment: chaotic
       - ideal:     fairness
-        statement: I never target people who can’t afford to lose a few coins.
+        statement: I never target people who can't afford to lose a few coins.
         alignment: lawful
       - ideal:     charity
         statement: I distribute the money I acquire to the people who really need it.
@@ -91,10 +91,10 @@ backgrounds:
       - A powerful person killed someone I love. Some day soon, I'll have my revenge.
       - I swindled and ruined a person who didn't deserve it. I seek to atone for my misdeeds but might never be able to forgive myself.
     flaws:
-      - I can’t resist a pretty face.
+      - I can't resist a pretty face.
       - I'm always in debt. I spend my ill-gotten gains on decadent luxuries faster than I bring them in.
       - I'm convinced that no one could ever fool me the way I fool others.
-      - I'm too greedy for my own good. I can’t resist taking a risk if there’s money involved.
+      - I'm too greedy for my own good. I can't resist taking a risk if there's money involved.
       - I can't resist swindling people who are more powerful than me.
       - I hate to admit it and will hate myself for it, but I'll run and preserve my own hide if the going gets tough.
   criminal:
@@ -149,7 +149,7 @@ backgrounds:
     flaws:
       - When I see something valuable, I can't think about anything but how to steal it.
       - When faced with a choice between money and my friends, I usually choose the money.
-      - If there’s a plan, I'll forget it. If I don’t forget it, I'll ignore it.
+      - If there's a plan, I'll forget it. If I don't forget it, I'll ignore it.
       - I have a "tell" that reveals when I'm lying.
       - I turn tail and run when things look bad.
       - An innocent person is in prison for a crime that I committed. I'm okay with that.
@@ -228,7 +228,7 @@ backgrounds:
         - Recruited into a lord's army, I rose to leadership and was commended for my heroism.
     personality_traits:
       - I judge people by their actions, not their words.
-      - If someone is in trouble, I’m always ready to lend help.
+      - If someone is in trouble, I'm always ready to lend help.
       - When I set my mind to something, I follow through no matter what gets in my way.
       - I have a strong sense of fair play and always try to find the most equitable solution to arguments.
       - I'm confident in my own abilities and do what I can to instill confidence in others.
@@ -296,8 +296,8 @@ backgrounds:
         - Woodcarvers, coopers, and bowyers
     variants: [guild merchant]
     personality_traits:
-      - I believe that anything worth doing is worth doing right. I can’t help it - I'm a perfectionist.
-      - I’m a snob who looks down on those who can't appreciate fine art.
+      - I believe that anything worth doing is worth doing right. I can't help it - I'm a perfectionist.
+      - I'm a snob who looks down on those who can't appreciate fine art.
       - I always want to know how things work and what makes people tick.
       - I'm full of witty aphorisms and have a proverb for every occasion.
       - I'm rude to people who lack my commitment to hard work and fair play.
@@ -429,7 +429,7 @@ backgrounds:
         alignment: good
     bonds:
       - I will face any challenge to win the approval of my family.
-      - My house’s alliance with another noble family must be sustained at all costs.
+      - My house's alliance with another noble family must be sustained at all costs.
       - Nothing is more important than the other members of my family.
       - I am in love with the heir of a family that my family despises.
       - My loyalty to my sovereign is unwavering.
@@ -471,7 +471,7 @@ backgrounds:
         statement: Life is like the seasons, in constant change, and we must change with it.
         alignment: chaotic
       - ideal:     greater good
-        statement: It is each person’s responsibility to make the most happiness for the whole tribe.
+        statement: It is each person's responsibility to make the most happiness for the whole tribe.
         alignment: good
       - ideal:     honor
         statement: If I dishonor myself, I dishonor my whole clan. 
@@ -498,7 +498,7 @@ backgrounds:
       - I remember every insult I've received and nurse a silent resentment toward anyone who's ever wronged me.
       - I am slow to trust members of other races, tribes, and societies.
       - Violence is my answer to almost any challenge.
-      - Don't expect me to save those who can’t save themselves. It is nature's way that the strong thrive and the weak perish.
+      - Don't expect me to save those who can't save themselves. It is nature's way that the strong thrive and the weak perish.
   sage:
     skills: [arcana, history]
     languages: 2
@@ -544,7 +544,7 @@ backgrounds:
       - It is my duty to protect my students.
       - I have an ancient text that holds terrible secrets that must not fall into the wrong hands.
       - I work to preserve a library, university, scriptorium, or monastery.
-      - My life’s work is a series of tomes related to a specific field of lore.
+      - My life's work is a series of tomes related to a specific field of lore.
       - I've been searching my whole life for the answer to a certain question.
       - I sold my soul for knowledge. I hope to do great deeds and win it back.
     flaws:
@@ -578,13 +578,13 @@ backgrounds:
         statement: The sea is freedom— the freedom to go anywhere and do anything. 
         alignment: chaotic
       - ideal:     mastery
-        statement: I’m a predator, and the other ships on the sea are my prey. 
+        statement: I'm a predator, and the other ships on the sea are my prey. 
         alignment: evil
       - ideal:     people
-        statement: I’m committed to my crewmates, not to ideals.
+        statement: I'm committed to my crewmates, not to ideals.
         alignment: neutral
       - ideal:     aspiration
-        statement: Someday I’ll own my own ship and chart my own destiny. 
+        statement: Someday I'll own my own ship and chart my own destiny. 
         alignment: any
     bonds:
       - I'm loyal to my captain first, everything else second.
@@ -594,11 +594,11 @@ backgrounds:
       - I was cheated out of my fair share of the profits, and I want to get my due.
       - Ruthless pirates murdered my captain and crewmates, plundered our ship, and left me to die. Vengeance will be mine.
     flaws:
-      - I follow orders, even if I think they’re wrong.
+      - I follow orders, even if I think they're wrong.
       - I'll say anything to avoid having to do extra work.
       - Once someone questions my courage, I never back down no matter how dangerous the situation.
-      - Once I start drinking, it’s hard for me to stop.
-      - I can’t help but pocket loose coins and other trinkets I come across.
+      - Once I start drinking, it's hard for me to stop.
+      - I can't help but pocket loose coins and other trinkets I come across.
       - My pride will probably lead to my destruction.
   soldier:
     skills: [athletics, intimidation]
@@ -636,7 +636,7 @@ backgrounds:
         statement: In life as in war, the stronger force wins.
         alignment: evil
       - ideal:     live and let live
-        statement: Ideals aren’t worth killing over or going to war for.
+        statement: Ideals aren't worth killing over or going to war for.
         alignment: neutral
       - ideal:     nation
         statement: My city, nation, or people are all that matter.
@@ -691,11 +691,11 @@ backgrounds:
       - I sponsor an orphanage to keep others from enduring what I was forced to endure.
       - I owe my survival to another urchin who taught me to live on the streets.
       - I owe a debt I can never repay to the person who took pity on me.
-      - I escaped my life of poverty by robbing an important person, and I’m wanted for it.
+      - I escaped my life of poverty by robbing an important person, and I'm wanted for it.
       - No one else should have to endure the hardships I've been through.
     flaws:
       - If I'm outnumbered, I will run away from a fight.
-      - Gold seems like a lot of money to me, and I’ll do just about anything for more of it.
+      - Gold seems like a lot of money to me, and I'll do just about anything for more of it.
       - I will never fully trust anyone other than myself.
       - I'd rather kill someone in their sleep then fight fair.
       - It's not stealing if I need it more than someone else.

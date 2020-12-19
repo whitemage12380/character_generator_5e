@@ -3,20 +3,42 @@ require_relative 'adventurer_race'
 require_relative 'adventurer_class'
 require_relative 'adventurer_background'
 require_relative 'skill'
+require_relative 'exporter_pdf'
 
 class Adventurer
   include CharacterGeneratorHelper
-  attr_reader :base_abilities, :race, :character_class, :background
+  attr_reader :character_name, :base_abilities, :race, :character_class, :background
 
   def initialize(level = 1)
     @base_abilities = roll_abilities()
     @race = AdventurerRace.new(@base_abilities)
-    @character_class = AdventurerClass.new(abilities, feat_params)
+    @character_class = AdventurerClass.new(abilities, adventurer_choices)
     @background = AdventurerBackground.new()
     generate_skills(skills, @character_class.expertises)
-    generate_feats(@race.feats, abilities, @character_class.spellcaster?, feat_params)
+    generate_feats(@race.feats, abilities, @character_class.spellcaster?, adventurer_choices)
     level_up(level)
     prepare_spells()
+  end
+
+  def name()
+    @character_name ? @character_name : "Adventurer"
+  end
+
+  def filename()
+    return @filename unless @filename.nil?
+    base_name = @character_name ? @character_name : "#{@race.name}_#{@character_class.name}_lvl#{@character_class.level}".tr(" ", "_").delete('()')
+    directory_path = parse_path($configuration.fetch("saved_character_path", "data/character"))
+    unless File.exist? "#{directory_path}/#{base_name}.yaml"
+      @filename = base_name
+      return @filename
+    end
+    (1..99).each { |n|
+      unless File.exist? "#{directory_path}/#{base_name}_#{n}.yaml"
+        @filename = "#{base_name}_#{n}"
+        return @filename
+      end
+    }
+    raise "Failed to find suitable filename (name used: #{base_name})"
   end
 
   def abilities()
@@ -60,6 +82,37 @@ class Adventurer
     race_skills + class_skills + background_skills + feat_skills
   end
 
+  def has_skill?(skill_name)
+    skills.any? { |s| s.skill_name.downcase == skill_name.downcase }
+  end
+
+  def skill_value(skill_name)
+    ability_value = modifier(all_skills_hash[skill_name.downcase].to_sym) # Should be a better way to do this
+    prof_value = has_skill?(skill_name) ? proficiency_bonus : 0
+    return ability_value + prof_value
+  end
+
+  def saves()
+    @character_class.saves
+  end
+
+  def has_save?(ability)
+    saves.include? ability
+  end
+
+  def save_value(ability)
+    ability_value = modifier(ability)
+    prof_value = has_save?(ability) ? proficiency_bonus : 0
+    return ability_value + prof_value
+  end
+
+  def cantrips()
+    race_cantrips = (race and race.cantrips) ? race.cantrips : []
+    class_cantrips = (character_class and character_class.cantrips) ? character_class.cantrips : []
+    feat_cantrips = (character_class and character_class.feats) ? character_class.feats.collect { |f| f.decisions.fetch("cantrips", []) }.flatten : []
+    race_cantrips + class_cantrips + feat_cantrips
+  end
+
   def feats()
     race_feats = (race and race.feats) ? race.feats : []
     class_feats = (character_class and character_class.feats) ? character_class.feats : []
@@ -70,8 +123,16 @@ class Adventurer
     feats.sort_by { |f| f.name }.collect { |f| f.feat_lines }.flatten
   end
 
-  def feat_params()
-    {skills: skills}
+  def proficiencies()
+    nil # Proficiencies (e.g. tool proficiencies) not yet supported
+  end
+
+  def languages()
+    background.languages
+  end
+
+  def adventurer_choices()
+    {skills: skills(), feats: feats(), cantrips: cantrips(), proficiencies: proficiencies()}
   end
 
   def roll_abilities()
@@ -87,8 +148,8 @@ class Adventurer
   def level_up(level)
     return if level < 2
     for l in 2..level
-      character_class.apply_level(l, abilities, feat_params)
-      generate_skills(skills, character_class.expertises)
+      @character_class.apply_level(l, abilities, adventurer_choices)
+      generate_skills(skills, @character_class.expertises)
     end
   end
 
@@ -129,6 +190,18 @@ class Adventurer
 
   def skill_strings(skills_to_display = skills)
     skills_to_display.map { |skill| skill.to_s }.sort
+  end
+
+  def proficiency_bonus(level = @character_class.level)
+    case level
+    when 1..4; 2
+    when 5..8; 3
+    when 9..12; 4
+    when 13..16; 5
+    when 17..20; 6
+    else
+      raise "Invalid level: #{level}"
+    end
   end
 
   def print_abilities
@@ -190,7 +263,7 @@ class Adventurer
 
   def print_adventurer()
     puts "----------------------------"
-    puts "Adventurer"
+    puts name
     puts "#{@race.name.pretty} #{@character_class.name.pretty}"
     puts "Level #{@character_class.level}"
     puts "HP: #{hp}"
@@ -248,5 +321,23 @@ class Adventurer
       puts @character_class.spell_strings(@character_class.spells_prepared).join("\n")
     end
     puts "----------------------------"
+  end
+
+  def save(filename = filename(), filepath = $configuration['saved_character_path'])
+    if filename =~ /^\/.*\.yaml$/
+      fullpath = filename
+    else
+      #filepath = prase_path(filepath)
+      #filepath = File.expand_path("#{File.dirname(__FILE__)}/../#{filepath}") unless filepath[0] == '/'
+      fullpath = "#{parse_path(filepath)}/#{filename}.yaml"
+    end
+    log "Saving character to file: #{fullpath}"
+    File.open(fullpath, "w") do |f|
+      YAML::dump(self, f)
+    end
+  end
+
+  def export_to_pdf()
+    ExporterPdf.export(self)
   end
 end

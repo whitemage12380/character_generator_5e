@@ -1,9 +1,17 @@
 data_sources_allowed:
   default: all
-  race: volos_guide_to_monsters
 generation_style:
   default: smart
   race: weighted
   class: smart
 feats: sometimes # always, sometimes, or never
 log_level: info # debug
+pdf:
+  blank_path: data/charactersheet
+  #filled_path: Create directory under saved_character_path by default
+  sheet_names:
+    main: main
+    spellcasting: spellcasting
+    details: details
+  pdftk_path: /usr/bin/pdftk
+saved_character_path: data/character

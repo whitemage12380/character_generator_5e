@@ -35,10 +35,10 @@ class AdventurerRace
     # Set race feats
     # Cheat: Assuming feats is an integer and not supporting subrace feats, since only humans get a feat and it can be any feat
     @feats = Array.new(race.fetch("feats", 0)) { |f| Feat.new(source: @race_name) }
+    # Set race cantrips
+    @cantrips = add_cantrips(race, subrace)
     # Set race choices
     @choices = random_race_choices(race)
-    puts @choices.to_s
-    puts "---"
   end
 
   #def random_race_smart(races)
@@ -73,5 +73,33 @@ class AdventurerRace
   def random_race_choices(race)
     # So far, race choices only involve unique option sets, so that is all I will code for
     race.fetch("choices", {}).to_a.collect { |c| {c[0] => c[1]["options"].sample} }.reduce(&:merge)
+  end
+
+  def add_cantrips(race_data, subrace_data)
+    spells = Array.new
+    [race_data, subrace_data].each { |race|
+      next if race.nil? or race['cantrips'].nil?
+      spell_data = race['cantrips']
+      case spell_data
+      when Array
+        spell_data.each { |spell_name|
+          next unless spells.none? { |s| s.name and (s.name.downcase == spell_name.downcase) }
+          log "Adding Cantrip from race: #{spell_name.pretty}"
+          spells << Spell.new(source: name, name: spell_name, is_cantrip: true)
+        }
+      when Hash
+        # Cheat: Assume races will never provide multiple choices of cantrips from different class lists
+        list_name, spell_count = spell_data.first
+        spell_list = SpellList.new(list_name)
+        spell_source = "#{name} (#{list_name})"
+        log "Adding #{spell_count} new #{list_name} spell(s) from race"
+        spell_count.times do
+          spells << Spell.new(source: spell_source, spell_list: spell_list, is_cantrip: true)
+        end
+      else
+        raise "Invalid format for cantrips: #{spell_data}"
+      end
+    }
+    return spells
   end
 end

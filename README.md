@@ -20,7 +20,7 @@ Execute `<path_to_repository>/bin/character_generator` in a terminal emulator. E
 
 The following discrepancies currently exist between the generator and Dungeons & Dragons rules and content:
 
-* Other than spells, only content from the Player's Handbook is available.
+* Other than spells and races, only content from the Player's Handbook is available.
 * Standard humans are currently unavailable.
 * Background skills always follow the background chosen.
 * The generator does not produce name, alignment, or gender.

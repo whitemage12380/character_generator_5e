@@ -9,13 +9,15 @@ require_relative 'spell'
 
 class AdventurerClass
   include CharacterGeneratorHelper
-  attr_reader :class_name, :subclass_name, :level, :hit_die, :hp_rolls, :skills, :expertises, :feats, :ability_score_increases,
+  attr_reader :class_name, :subclass_name, :level, :hit_die, :hp_rolls, :skills, :expertises, :feats, :saves, :ability_score_increases,
               :cantrips, :spells_known, :spells_prepared, :spellbook, :spell_lists, :mystic_arcana, :decision_lists, :class_features,
               :class_data, :subclass_data
 
-  def initialize(adventurer_abilities, level = 1, feat_params = nil)
+  def initialize(adventurer_abilities, adventurer_choices, level = 1)
     @level = level
-    generate_class(adventurer_abilities, feat_params)
+    puts adventurer_choices.to_s
+    puts "--"
+    generate_class(adventurer_abilities, adventurer_choices)
   end
 
   def name()
@@ -26,7 +28,7 @@ class AdventurerClass
   ## LEVELING UP
   ###########
 
-  def apply_level(level, adventurer_abilities, feat_params = nil, character_class = @class_data, subclass = @subclass_data)
+  def apply_level(level, adventurer_abilities, adventurer_choices, character_class = @class_data, subclass = @subclass_data)
     log "Applying level #{level}"
     @level = level
     # Roll HP
@@ -44,9 +46,8 @@ class AdventurerClass
     end
     # Add and Resolve Cantrips (because they can be prerequisites for other abilities)
     add_cantrips()
-    generate_spells(@cantrips)
+    generate_spells(@cantrips, adventurer_choices[:cantrips])
     # Resolve Class Choices
-    @class_features = Array.new if @class_features.nil?
     class_choices = character_class["choices"] ? character_class["choices"].fetch(level, {}) : {}
     subclass_choices = (subclass and subclass["choices"]) ? subclass["choices"].fetch(level, {}) : {}
     choices = class_choices.merge(subclass_choices)
@@ -58,7 +59,7 @@ class AdventurerClass
     # Resolve Ability Score Increases and Feats
     generate_ability_score_increases(character_class.fetch("ability_score_increases", [4, 8, 12, 16, 19]),
                                      adventurer_abilities: adventurer_abilities,
-                                     feat_params: feat_params)
+                                     adventurer_choices: adventurer_choices)
     # Add and Resolve Spells
     add_spells_known()
     add_spellbook_spells()
@@ -73,7 +74,7 @@ class AdventurerClass
 
   # Main Generator
 
-  def generate_class(adventurer_abilities, feat_params = nil)
+  def generate_class(adventurer_abilities, adventurer_choices = nil)
     classes = read_yaml_files("class")
     case $configuration["generation_style"]["class"]
     when "smart"
@@ -96,8 +97,10 @@ class AdventurerClass
     @expertises = Array.new
     @spell_lists = Array.new
     @feats = Array.new
+    @class_features = Array.new
+    @saves = character_class.fetch("saves", []).collect(&:to_sym)
     @ability_score_increases = ABILITIES.to_h { |a| [a, 0] }
-    apply_level(1, adventurer_abilities, feat_params, character_class, subclass)
+    apply_level(1, adventurer_abilities, adventurer_choices, character_class, subclass)
   end
 
   # Random - Class
@@ -246,7 +249,7 @@ class AdventurerClass
   ## ABILITY SCORE INCREASES/FEATS
   ###########
 
-  def generate_ability_score_increases(asi_levels, level: @level, source: @class_name, adventurer_abilities:, feat_params: nil)
+  def generate_ability_score_increases(asi_levels, level: @level, source: @class_name, adventurer_abilities:, adventurer_choices:)
     return unless asi_levels and asi_levels.include? level
     # For now, decide whether to choose an ASI or a feat based on a coin flip
     case $configuration["feats"]
@@ -261,7 +264,7 @@ class AdventurerClass
       is_feat = false
     end
     if is_feat
-      @feats << Feat.new(source: source, feats: @feats, adventurer_abilities: adventurer_abilities, is_spellcaster: spellcaster?, skills: feat_params[:skills], proficiencies: feat_params[:proficiencies])
+      @feats << Feat.new(source: source, feats: @feats, adventurer_abilities: adventurer_abilities, is_spellcaster: spellcaster?, adventurer_choices: adventurer_choices)
       return
     end
     asi_split = spend_ability_points([1, 1], adventurer_abilities, "class")
@@ -329,10 +332,10 @@ class AdventurerClass
 
   # Generating spells
 
-  def generate_spells(spells)
-    return if spells.nil?
-    spells.each { |spell| spell.generate(spells) }
-  end
+  # def generate_spells(spells)
+  #   return if spells.nil?
+  #   spells.each { |spell| spell.generate(spells) }
+  # end
 
   def generate_mystic_arcanum(level, spell_list = "warlock")
     @mystic_arcana = Array.new if @mystic_arcana.nil?
@@ -448,6 +451,10 @@ class AdventurerClass
     else
       raise "Both class and subclass have #{elem}, this is not supported"
     end
+  end
+
+  def hit_dice()
+    "#{@level}d#{@hit_die}"
   end
 
 end

@@ -3,3 +3,5 @@ require_relative '../lib/adventurer'
 level = ARGV[0] ? ARGV[0].to_i : 1
 adventurer = Adventurer.new(level)
 adventurer.print_adventurer()
+adventurer.save()
+adventurer.export_to_pdf()

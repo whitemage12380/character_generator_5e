@@ -86,6 +86,12 @@ module CharacterGeneratorHelper
     $message_log.info(message)
   end
 
+  def parse_path(path_str)
+    # Currently only callable from ruby files directly in lib, no nesting (can be changed later)
+    return nil if path_str.nil?
+    (path_str[0] == "/") ? path_str : "#{Configuration.project_path}/#{path_str}"
+  end
+
   def read_yaml_files(type)
     allowed_files = $configuration.data_sources_allowed(type)
     if allowed_files == 'all'
@@ -147,14 +153,19 @@ module CharacterGeneratorHelper
     $all_skills
   end
 
-  def generate_feats(feats, adventurer_abilities, is_spellcaster, feat_params)
+  def generate_feats(feats, adventurer_abilities, is_spellcaster, adventurer_choices)
     feats.each { |f|
-      f.generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, skills: feat_params[:skills], proficiencies: feat_params[:proficiencies])
+      f.generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, skills: adventurer_choices[:skills], proficiencies: adventurer_choices[:proficiencies])
     }
   end
 
   def random_skills(adventurer_skills, skill_list = all_skills, num = 1)
     skill_list.difference(adventurer_skills).sample(num)
+  end
+
+  def generate_spells(spells, existing_spells = [])
+    return if spells.nil?
+    spells.each { |spell| spell.generate(spells + existing_spells) }
   end
 
   def spend_ability_points(ability_point_data, adventurer_abilities, category = "default")

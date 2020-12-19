@@ -7,11 +7,11 @@ class Feat
   include CharacterGeneratorHelper
   attr_reader :feat_name, :source, :prerequisites, :ability_increase, :decisions
 
-  def initialize(source:, feats: nil, adventurer_abilities: nil, is_spellcaster: nil, skills: nil, proficiencies: nil)
+  def initialize(source:, feats: nil, adventurer_abilities: nil, is_spellcaster: nil, adventurer_choices: {})
     @source = source
     @decisions = Hash.new
     unless feats.nil?
-      generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, skills: skills, proficiencies: proficiencies)
+      generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, adventurer_choices: adventurer_choices)
     end
   end
 
@@ -19,21 +19,21 @@ class Feat
     @feat_name
   end
 
-  def generate(feats:, adventurer_abilities: nil, is_spellcaster: nil, skills: nil, proficiencies: nil)
+  def generate(feats:, adventurer_abilities: nil, is_spellcaster: nil, adventurer_choices: {})
     feat_data = read_yaml_files("feat")
     feat_data.each_pair { |feat_name, feat|
-      feat["weight"] = feat_weight(feat_name, feat, feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, proficiencies: nil)
+      feat["weight"] = feat_weight(feat_name, feat, feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, adventurer_choices: adventurer_choices)
     }
     chosen_feat_name, chosen_feat = weighted_random(feat_data).first
     @feat_name = chosen_feat_name
     log "Chose Feat: #{@feat_name.pretty}"
     make_decisions(ability_choices: chosen_feat["ability_choices"], choices: chosen_feat["choices"],
-                   adventurer_abilities: adventurer_abilities, skills: skills, proficiencies: proficiencies)
+                   adventurer_abilities: adventurer_abilities, adventurer_choices: adventurer_choices)
   end
 
-  def feat_weight(feat_name, feat_data, feats, adventurer_abilities: nil, is_spellcaster: nil, proficiencies: nil)
+  def feat_weight(feat_name, feat_data, feats, adventurer_abilities: nil, is_spellcaster: nil, adventurer_choices: {})
     return 0 unless feats.none? { |f| f.feat_name == feat_name}
-    return 0 unless prerequisites_met?(feat_name: feat_name, prerequisites: feat_data["prerequisites"], adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, proficiencies: proficiencies)
+    return 0 unless prerequisites_met?(feat_name: feat_name, prerequisites: feat_data["prerequisites"], adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, adventurer_choices: adventurer_choices)
     return 0 unless feat_data["proficiencies"].nil? # Proficiencies not yet supported
     unless feat_data["ability_choices"].nil?
       return [feat_data["ability_choices"].collect { |a| ability_increase_weight(a, adventurer_abilities) }.max,
@@ -53,7 +53,7 @@ class Feat
     return 10
   end
 
-  def prerequisites_met?(feat_name: @feat_name, prerequisites: @prerequisites, adventurer_abilities: nil, is_spellcaster: nil, proficiencies: nil)
+  def prerequisites_met?(feat_name: @feat_name, prerequisites: @prerequisites, adventurer_abilities: nil, is_spellcaster: nil, adventurer_choices: {})
     return true if prerequisites.nil?
     prerequisites.each_pair { |p_name, p_requirement|
       case p_name
@@ -83,7 +83,7 @@ class Feat
     return true
   end
 
-  def make_decisions(ability_choices: nil, choices: nil, adventurer_abilities: nil, skills: nil, proficiencies: nil)
+  def make_decisions(ability_choices: nil, choices: nil, adventurer_abilities: nil, adventurer_choices: {})
     unless ability_choices.nil?
       # Using randomness to introduce slight uncertainty and to randomize ties
       # TODO: Resilient does not check for or handle save proficiency yet (saves are not yet handled in adventurer_class)
@@ -97,16 +97,16 @@ class Feat
       choices.each_pair { |choice_name, choice_data|
         case choice_name
         when "skills"
-          unless skills.nil?
-            @decisions["skills"] = Array.new(choice_data) {Skill.new("any", source: @feat_name)}
-          end
+          # This section is currently only intended to support the Skilled feat, which allows any skills.
+          @decisions["skills"] = Array.new(choice_data) {Skill.new("any", source: @feat_name)}
         when "cantrips"
           choose_spell_list(choices["spell_list_choices"])
           @decisions["cantrips"] = Array.new(choice_data) {
             Spell.new(source: @feat_name, is_cantrip: true, spell_list: @decisions["spell list"])
           }
-          @decisions["cantrips"].each { |s| s.generate(@decisions["cantrips"]) }
+          @decisions["cantrips"].each { |s| s.generate(@decisions["cantrips"] + adventurer_choices.fetch(:cantrips, [])) }
         when "spells"
+          # This section does not support specifically named cantrips provided by feats, because there are currently no feats that do that.
           choose_spell_list(choices["spell_list_choices"], restrictions = choices.fetch("spell_restrictions", {}))
           choice_data.each_pair { |spell_level, spell_count|
             @decisions["spells"] = Array.new(spell_count) {
