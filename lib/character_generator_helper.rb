@@ -155,7 +155,7 @@ module CharacterGeneratorHelper
 
   def generate_feats(feats, adventurer_abilities, is_spellcaster, adventurer_choices)
     feats.each { |f|
-      f.generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, skills: adventurer_choices[:skills], proficiencies: adventurer_choices[:proficiencies])
+      f.generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, adventurer_choices: adventurer_choices)
     }
   end
 

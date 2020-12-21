@@ -15,8 +15,6 @@ class AdventurerClass
 
   def initialize(adventurer_abilities, adventurer_choices, level = 1)
     @level = level
-    puts adventurer_choices.to_s
-    puts "--"
     generate_class(adventurer_abilities, adventurer_choices)
   end
 
@@ -332,11 +330,6 @@ class AdventurerClass
 
   # Generating spells
 
-  # def generate_spells(spells)
-  #   return if spells.nil?
-  #   spells.each { |spell| spell.generate(spells) }
-  # end
-
   def generate_mystic_arcanum(level, spell_list = "warlock")
     @mystic_arcana = Array.new if @mystic_arcana.nil?
     spell = Spell.random_spell(level, find_or_create_spell_list(spell_list), @mystic_arcana, min_spell_level: level)
@@ -433,6 +426,13 @@ class AdventurerClass
     (not @spells_known.to_a.empty?) or
     (not @spells_prepared.to_a.empty?) or
     (not @spellbook.to_a.empty?)
+  end
+
+  def spells()
+    return @spells_known unless @spells_known.to_a.empty?
+    return @spellbook unless @spellbook.to_a.empty?
+    return @spells_prepared unless @spells_prepared.to_a.empty?
+    return []
   end
 
   def spell_strings(spells)

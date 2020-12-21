@@ -15,7 +15,7 @@ class ExporterPdf
     end
 
     def export_page(page_name, adventurer)
-      if ['spellcasting', 'details'].include? page_name
+      if ['details'].include? page_name
         log "Filling out #{page_name} sheet not yet implemented"
         return
       end
@@ -154,9 +154,7 @@ class ExporterPdf
           # "Equipment" =>         # Leave blank; Equipment and money not implemented
           "Features and Traits" => features_and_traits_text(adv)
         },
-        # 'spellcasting' => {
-
-        # },
+        'spellcasting' => pdf_spellcasting_field_map(adv)
         # 'details' => {
 
         # }
@@ -179,15 +177,23 @@ class ExporterPdf
       return output.join("\n")
     end
 
-    # def pdf_spellcasting_field_map(adv)
-    #   ([:cantrips] + (1..9).to_a).collect { |level|
-    #     spell_fields[level]
-    #   }
-    # end
+    def pdf_spellcasting_field_map(adv)
+      (["cantrip"] + (1..9).to_a).collect { |level|
+        # Currently, the Prepared checkboxes are not supported (only relevant for Wizards, who prepare a subset of their spellbook spells)
+        spell_labels = adv.spells.select { |s| (s.level == level) }
+          .collect { |s| [adv.character_class.name, adv.character_class.class_name].include?(s.source) ? s.name.pretty : "#{s.name.pretty} (#{s.source.pretty})" }
+          .sort
+        spell_line_map = Hash.new
+        spell_labels.each_index { |i|
+          spell_line_map[spell_fields[level][i]] = spell_labels[i]
+        }
+        spell_line_map
+      }.reduce(&:merge)
+    end
 
     def spell_fields()
       {
-        cantrips: ["Spells 1014", "Spells 1016", "Spells 1017", "Spells 1018", "Spells 1019", "Spells 1020", "Spells 1021", "Spells 1022"],
+        "cantrip" => ["Spells 1014", "Spells 1016", "Spells 1017", "Spells 1018", "Spells 1019", "Spells 1020", "Spells 1021", "Spells 1022"],
         1 => ["Spells 1015", "Spells 1023", "Spells 1024", "Spells 1025", "Spells 1026", "Spells 1027", "Spells 1028", "Spells 1029", "Spells 1030", "Spells 1031", "Spells 1032", "Spells 1033"],
         2 => ["Spells 1046", "Spells 1034", "Spells 1035", "Spells 1036", "Spells 1037", "Spells 1038", "Spells 1039", "Spells 1040", "Spells 1041", "Spells 1042", "Spells 1043", "Spells 1044", "Spells 1045"],
         3 => ["Spells 1048", "Spells 1047", "Spells 1049", "Spells 1050", "Spells 1051", "Spells 1052", "Spells 1053", "Spells 1054", "Spells 1055", "Spells 1056", "Spells 1057", "Spells 1058", "Spells 1059"],

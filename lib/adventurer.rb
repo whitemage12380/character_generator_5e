@@ -108,9 +108,15 @@ class Adventurer
 
   def cantrips()
     race_cantrips = (race and race.cantrips) ? race.cantrips : []
-    class_cantrips = (character_class and character_class.cantrips) ? character_class.cantrips : []
-    feat_cantrips = (character_class and character_class.feats) ? character_class.feats.collect { |f| f.decisions.fetch("cantrips", []) }.flatten : []
+    class_cantrips = (@character_class and @character_class.cantrips) ? @character_class.cantrips : []
+    feat_cantrips = (@character_class and @character_class.feats) ? @character_class.feats.collect { |f| f.decisions.fetch("cantrips", []) }.flatten : []
     race_cantrips + class_cantrips + feat_cantrips
+  end
+
+  def spells()
+    class_spells = @character_class ? @character_class.spells : []
+    feat_spells = (@character_class and @character_class.feats) ? @character_class.feats.collect { |f| f.decisions.fetch("spells", []) }.flatten : []
+    class_spells + feat_spells
   end
 
   def feats()
