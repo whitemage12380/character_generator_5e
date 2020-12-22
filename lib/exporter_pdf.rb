@@ -178,11 +178,16 @@ class ExporterPdf
     end
 
     def pdf_spellcasting_field_map(adv)
+
       (["cantrip"] + (1..9).to_a).collect { |level|
         # Currently, the Prepared checkboxes are not supported (only relevant for Wizards, who prepare a subset of their spellbook spells)
-        spell_labels = adv.spells.select { |s| (s.level == level) }
-          .collect { |s| [adv.character_class.name, adv.character_class.class_name].include?(s.source) ? s.name.pretty : "#{s.name.pretty} (#{s.source.pretty})" }
-          .sort
+        if level == "cantrip"
+          spell_labels = adv.cantrips.collect { |s| s.name.pretty }.sort
+        else
+          spell_labels = adv.spells.select { |s| (s.level == level) }
+            .collect { |s| [adv.character_class.name, adv.character_class.class_name].include?(s.source) ? s.name.pretty : "#{s.name.pretty} (#{s.source.pretty})" }
+            .sort
+        end
         spell_line_map = Hash.new
         spell_labels.each_index { |i|
           spell_line_map[spell_fields[level][i]] = spell_labels[i]
