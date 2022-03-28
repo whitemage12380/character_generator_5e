@@ -8,42 +8,45 @@ class ExporterPdf
   extend CharacterGeneratorHelper
 
   class << self
+
     def export(adventurer)
-      #pages = ['main', 'spellcasting', 'details'].reduce { |memo, p| memo.merge({p => blank_page_path(p)}) }
-      #pages.each_pair { |page_name, page_path| write_page_pdf(page_name, page_path) }
+      raise "Could not find configured pdftk_path" if pdftk_path(adventurer.configuration).nil?
       ['main', 'spellcasting', 'details'].each { |page_name| export_page(page_name, adventurer) }
     end
 
     def export_page(page_name, adventurer)
+      config = adventurer.configuration
       if ['details'].include? page_name
         log "Filling out #{page_name} sheet not yet implemented"
         return
       end
-      blank_path = blank_page_path(page_name)
+      blank_path = blank_page_path(page_name, config)
       filled_path = filled_page_path(page_name, adventurer)
       field_map = pdf_field_map(adventurer)[page_name]
-      pdftk = PdfForms.new($configuration['pdf']['pdftk_path'])
+      pdftk = PdfForms.new(pdftk_path(config))
       log "Filling out form: #{blank_path}"
       log "  and saving to: #{filled_path}"
       pdftk.fill_form(blank_path, filled_path, field_map)
     end
 
-    def blank_page_path(page_name)
-      page_path_base = pdf_configuration['blank_path']
-      sheet_name = pdf_configuration['sheet_names'][page_name]
+    def blank_page_path(page_name, config = configuration)
+      page_path_base = pdf_configuration(config)['blank_path']
+      sheet_name = pdf_configuration(config)['sheet_names'][page_name]
       return "#{parse_path(page_path_base)}/#{sheet_name}.pdf"
     end
 
     def filled_page_path(page_name, adventurer)
+      config = adventurer.configuration
       # If filled_path is set, just use that
       # Otherwise, use name.
       # If name is generic/already exists, append a numeral
-      filled_path = parse_path(pdf_configuration['filled_path'])
+      filled_path = parse_path(pdf_configuration(config)['filled_path'])
+      puts "filled path: #{filled_path}"
       if filled_path.nil?
-        filled_path = parse_path("#{$configuration['saved_character_path']}/#{adventurer.filename}")
+        filled_path = parse_path("#{saved_character_path(config)}/#{adventurer.filename}")
         FileUtils.mkdir_p filled_path
       end
-      return "#{filled_path}/#{pdf_configuration['sheet_names'][page_name]}.pdf"
+      return "#{filled_path}/#{pdf_configuration(config)['sheet_names'][page_name]}.pdf"
     end
 
     def pdf_field_map(adv)
@@ -178,7 +181,6 @@ class ExporterPdf
     end
 
     def pdf_spellcasting_field_map(adv)
-
       (["cantrip"] + (1..9).to_a).collect { |level|
         # Currently, the Prepared checkboxes are not supported (only relevant for Wizards, who prepare a subset of their spellbook spells)
         if level == "cantrip"
@@ -211,7 +213,11 @@ class ExporterPdf
       }
     end
 
-    def pdf_configuration()
+    def pdftk_path(config = configuration)
+      pdf_configuration(config)['pdftk_path']
+    end
+
+    def pdf_configuration(config = configuration)
       # Temporary way to handle this config until I create a defaults config file
       {
         'blank_path' => 'charactersheet/blank',
@@ -221,7 +227,7 @@ class ExporterPdf
           'details' => 'details'
         },
         'pdftk_path' => '/usr/bin/pdftk'
-      }.deep_merge($configuration.fetch('pdf', {}))
+      }.deep_merge(config.fetch('pdf', {}))
     end
   end
 end

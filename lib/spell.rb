@@ -5,7 +5,10 @@ class Spell
   extend CharacterGeneratorHelper
   attr_reader :name, :source, :book, :page, :level, :range, :duration, :casting_time, :school, :ritual, :concentration, :components, :classes, :list
 
-  def initialize(source:, max_spell_level: nil, spell_list: nil, spells: nil, min_spell_level: 1, spell_data: nil, name: nil, is_cantrip: false)
+  def initialize(source:, max_spell_level: nil, spell_list: nil, spells: nil,
+                 min_spell_level: 1, spell_data: nil, name: nil, is_cantrip: false,
+                 config: configuration)
+    @configuration = config
     @source = source
     @list = spell_list
     @max_spell_level = max_spell_level
@@ -37,7 +40,7 @@ class Spell
     end
   end
 
-  def generate(spells, spell_list = @list, max_spell_level = @max_spell_level, min_spell_level: @min_spell_level)
+  def generate(spells, spell_list: @list, max_spell_level: @max_spell_level, min_spell_level: @min_spell_level)
     return unless @name.nil?
     unless @level.nil?
       max_spell_level = @level
@@ -79,12 +82,12 @@ class Spell
       weight += (spell_count == 0) ? 600 : (max_spell_count - spell_count) * weight_multiplier_count
       # RULE 4: If there aren't any available spells in the spell list for the level, the weight is 0
       if spell_list and spell_list.spells_by_level(lvl).none? { |s| spells.none? { |sto| sto.name == s.name } }
-        debug "No available level #{lvl} spells"
+        log_debug "No available level #{lvl} spells"
         weight = 0
       end
       {level: lvl, weight: weight}
     }
-    debug "Spell level weights: (#{min_spell_level}) #{level_weights.collect { |l| l[:weight] }} (#{max_spell_level})"
+    log_debug "Spell level weights: (#{min_spell_level}) #{level_weights.collect { |l| l[:weight] }} (#{max_spell_level})"
     return weighted_random(level_weights)[:level]
   end
 

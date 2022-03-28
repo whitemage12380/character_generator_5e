@@ -12,7 +12,8 @@ class AdventurerBackground
     name.split(/ |\_/).map(&:capitalize).join(" ")
   end
 
-  def initialize()
+  def initialize(config: configuration)
+    @configuration = config
     generate_background()
   end
 
@@ -23,7 +24,7 @@ class AdventurerBackground
     background = background_hash[@background_name]
     @choices = random_choices(background)
     @personality_traits, @ideals, @bonds, @flaws = random_personality(background_hash)
-    @skills = background["skills"].map { |s| Skill.new(s, source: name) }
+    @skills = background["skills"].map { |s| Skill.new(s, source: name, config: configuration) }
     @tools = background["tools"]
   end
 

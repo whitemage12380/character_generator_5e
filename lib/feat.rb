@@ -7,7 +7,8 @@ class Feat
   include CharacterGeneratorHelper
   attr_reader :feat_name, :source, :prerequisites, :ability_increase, :decisions
 
-  def initialize(source:, feats: nil, adventurer_abilities: nil, is_spellcaster: nil, adventurer_choices: {})
+  def initialize(source:, feats: nil, adventurer_abilities: nil, is_spellcaster: nil, adventurer_choices: {}, config: configuration)
+    @configuration = config
     @source = source
     @decisions = Hash.new
     unless feats.nil?
@@ -60,22 +61,22 @@ class Feat
       when "abilities"
         p_requirement.each_pair { |ability, score|
           if adventurer_abilities[ability.to_sym] < score
-            debug "Cannot select #{feat_name.pretty} due to not meeting #{ability} prerequisites: #{score}"
+            log_debug "Cannot select #{feat_name.pretty} due to not meeting #{ability} prerequisites: #{score}"
             return false
           end
         }
       when "proficiencies"
-        debug "Cannot select #{feat_name.pretty} because proficiencies are not currently supported"
+        log_debug "Cannot select #{feat_name.pretty} because proficiencies are not currently supported"
         return false
       when "special"
         case p_requirement
         when "spellcaster"
           unless is_spellcaster
-            debug "Cannot select #{feat_name.pretty} due to not being able to cast at least one spell"
+            log_debug "Cannot select #{feat_name.pretty} due to not being able to cast at least one spell"
             return false
           end
         else
-          debug "Cannot select #{feat_name.pretty} because special prerequisite '#{p_requirement.to_s} is not supported"
+          log_debug "Cannot select #{feat_name.pretty} because special prerequisite '#{p_requirement.to_s} is not supported"
           return false
         end
       end
@@ -87,7 +88,7 @@ class Feat
     unless ability_choices.nil?
       # Using randomness to introduce slight uncertainty and to randomize ties
       # TODO: Resilient does not check for or handle save proficiency yet (saves are not yet handled in adventurer_class)
-      debug "Ability increase base weights: #{ability_choices.collect { |a| ability_increase_weight(a, adventurer_abilities)}.to_s}"
+      log_debug "Ability increase base weights: #{ability_choices.collect { |a| ability_increase_weight(a, adventurer_abilities)}.to_s}"
       @ability_increase = ability_choices.max_by { |a| ability_increase_weight(a, adventurer_abilities) + rand(3) + rand()}.to_sym
       @decisions["ability increase"] = @ability_increase
       asi_statement = (ability_choices.count == 1) ? "Ability Score Increased" : "Chose Ability Score Increase"
@@ -98,11 +99,11 @@ class Feat
         case choice_name
         when "skills"
           # This section is currently only intended to support the Skilled feat, which allows any skills.
-          @decisions["skills"] = Array.new(choice_data) {Skill.new("any", source: @feat_name)}
+          @decisions["skills"] = Array.new(choice_data) {Skill.new("any", source: @feat_name, config: configuration)}
         when "cantrips"
           choose_spell_list(choices["spell_list_choices"])
           @decisions["cantrips"] = Array.new(choice_data) {
-            Spell.new(source: @feat_name, is_cantrip: true, spell_list: @decisions["spell list"])
+            Spell.new(source: @feat_name, is_cantrip: true, spell_list: @decisions["spell list"], config: configuration)
           }
           @decisions["cantrips"].each { |s| s.generate(@decisions["cantrips"] + adventurer_choices.fetch(:cantrips, [])) }
         when "spells"
@@ -110,7 +111,8 @@ class Feat
           choose_spell_list(choices["spell_list_choices"], restrictions = choices.fetch("spell_restrictions", {}))
           choice_data.each_pair { |spell_level, spell_count|
             @decisions["spells"] = Array.new(spell_count) {
-              Spell.new(source: @feat_name, min_spell_level: spell_level, max_spell_level: spell_level, spell_list: @decisions["spell list"])
+              Spell.new(source: @feat_name, min_spell_level: spell_level, max_spell_level: spell_level,
+                        spell_list: @decisions["spell list"], config: configuration)
             }
             @decisions["spells"].each { |s| s.generate(@decisions["spells"]) }
           }
@@ -129,7 +131,7 @@ class Feat
 
   def choose_spell_list(spell_lists, restrictions = {})
     return unless @decisions["spell list"].nil?
-    @decisions["spell list"] = SpellList.new(spell_lists.sample)
+    @decisions["spell list"] = SpellList.new(spell_lists.sample, config: configuration)
     restrictions.each_pair { |field, requirement|
       @decisions["spell list"].spells.select! { |s|
         case field

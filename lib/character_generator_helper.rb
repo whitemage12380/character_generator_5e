@@ -1,11 +1,17 @@
 require 'yaml'
+require_relative 'character_generator_logger'
 require_relative 'configuration'
+
 
 # Stole from https://stackoverflow.com/questions/9381553/ruby-merge-nested-hash
 class ::Hash
     def deep_merge(second)
         merger = proc { |key, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : v2 }
         self.merge(second, &merger)
+    end
+    def deep_merge!(second)
+      merger = proc { |_, v1, v2| Hash === v1 && Hash === v2 ? v1.merge(v2, &merger) : Array === v1 && Array === v2 ? v1 | v2 : [:undefined, nil, :nil].include?(v2) ? v1 : v2 }
+      merge!(second.to_h, &merger)
     end
 end
 
@@ -57,33 +63,45 @@ module CharacterGeneratorHelper
 
   ABILITIES = [:strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma]
 
-  def init_logger()
-    $log = Logger.new(STDOUT) if $log.nil?
-    $log.level = $configuration['log_level'] ? $configuration['log_level'].upcase : Logger::INFO
-    $messages = StringIO.new() if $messages.nil?
-    $message_log = Logger.new($messages) if $message_log.nil?
-    $message_log.level = Logger::INFO
+  def init_data()
+    init_all_skills_hash()
   end
 
-  def debug(message)
-    init_logger()
-    $log.debug(message)
+  def init_configuration(settings, configuration_path = nil)
+    @configuration = Configuration.new(settings, configuration_path)
+  end
+
+  def configuration
+    @configuration ||= Configuration.new()
+  end
+
+  def init_logger(log_level = configuration.fetch('log_level', 'INFO'))
+    CharacterGeneratorLogger.logger(log_level)
+  end
+
+  def logger()
+    CharacterGeneratorLogger.logger
+  end
+
+  def log_debug(message)
+    logger.debug(message)
   end
 
   def log(message)
-    init_logger()
-    $log.info(message)
+    logger.info(message)
   end
 
   def log_error(message)
-    init_logger()
-    $log.error(message)
+    logger.error(message)
   end
 
-  def log_important(message)
-    init_logger()
-    $log.info(message)
-    $message_log.info(message)
+  # def log_important(message)
+  #   logger.info(message)
+  #   $message_log.info(message)
+  # end
+
+  def saved_character_path(config = configuration)
+    config.fetch("saved_character_path", "data/character")
   end
 
   def parse_path(path_str)
@@ -92,8 +110,8 @@ module CharacterGeneratorHelper
     (path_str[0] == "/") ? path_str : "#{Configuration.project_path}/#{path_str}"
   end
 
-  def read_yaml_files(type)
-    allowed_files = $configuration.data_sources_allowed(type)
+  def read_yaml_files(type, config: configuration)
+    allowed_files = config.data_sources_allowed(type)
     if allowed_files == 'all'
       files = Dir["#{__dir__}/../data/#{type}/*.yaml"]
     else
@@ -138,29 +156,35 @@ module CharacterGeneratorHelper
     }
   end
 
+  def init_all_skills_hash()
+    @all_skills_hash = read_yaml_files("skill")
+  end
+
+  # def self.all_skills_hash()
+  #   @all_skills_hash ||= read_yaml_files("skill")
+  # end
+
+  def all_skills_hash()
+    # CharacterGeneratorHelper.all_skills_hash
+    @all_skills_hash ||= read_yaml_files("skill")
+  end
+
   def all_skills()
-    $all_skills = read_yaml_files("skill") unless $all_skills
-    $all_skills.keys
+    all_skills_hash.keys
   end
 
   def all_skills_without_expertise()
-    $all_skills = read_yaml_files("skill") unless $all_skills
-    $all_skills.select { |s| not s.expertise }.keys
+    all_skills_hash.select { |s| not s.expertise }.keys
   end
 
-  def all_skills_hash()
-    all_skills() # Populate $all_skills if it hasn't been populated
-    $all_skills
+  def random_skills(adventurer_skills, skill_list = all_skills, num = 1)
+    skill_list.difference(adventurer_skills).sample(num)
   end
 
   def generate_feats(feats, adventurer_abilities, is_spellcaster, adventurer_choices)
     feats.each { |f|
       f.generate(feats: feats, adventurer_abilities: adventurer_abilities, is_spellcaster: is_spellcaster, adventurer_choices: adventurer_choices)
     }
-  end
-
-  def random_skills(adventurer_skills, skill_list = all_skills, num = 1)
-    skill_list.difference(adventurer_skills).sample(num)
   end
 
   def generate_spells(spells, existing_spells = [])
@@ -190,7 +214,7 @@ module CharacterGeneratorHelper
         if abilities_chosen.include? ability or ability_point_data.include? ability
           [ability, {weight: 0}]
         else
-          [ability, {weight: ability_score_weight(adventurer_abilities[ability] + val, val, category)}]
+          [ability, {weight: ability_score_weight(adventurer_abilities[ability] + val, increase: val, category: category)}]
         end
       }.to_h
       chosen_ability = weighted_random(ability_weights).keys.first
@@ -206,8 +230,8 @@ module CharacterGeneratorHelper
     return abilities
   end
 
-  def ability_score_weight(score, increase = 1, category = "default")
-    weight_chart = $configuration.ability_score_weights(category)
+  def ability_score_weight(score, increase: 1, category: "default", config: configuration)
+    weight_chart = config.ability_score_weights(category)
     raise "score (#{score}) is not an integer" unless score.kind_of? Integer
     weight = weight_chart[score]
     raise "Could not find weight value for score #{score}" if weight.nil?

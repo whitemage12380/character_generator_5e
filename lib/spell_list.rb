@@ -5,20 +5,27 @@ class SpellList
   include CharacterGeneratorHelper
   attr_reader :name, :spells
 
-  def initialize(name, spells = nil)
+  def initialize(name, spells: nil, config: configuration)
+    @configuration = config
     @name = name
     if spells
       if spells.none? { |s| s.kind_of? Spell }
         @spells = read_yaml_files("spell")
                   .select { |s| spells.include? s["name"] }
-                  .collect { |s| Spell.new(source: "#{name.pretty} Spell List", spell_data: s.transform_keys(&:to_sym).merge({list: self})) }
+                  .collect { |s| Spell.new(source: "#{name.pretty} Spell List",
+                                           spell_data: s.transform_keys(&:to_sym).merge({list: self}),
+                                           config: configuration)
+                  }
       else
         @spells = spells
       end
     else
       @spells = read_yaml_files("spell")
                 .select { |s| name == "any" or s["classes"].include? name }
-                .collect { |s| Spell.new(source: "#{name.pretty} Spell List", spell_data: s.transform_keys(&:to_sym).merge({list: self})) }
+                .collect { |s| Spell.new(source: "#{name.pretty} Spell List",
+                                         spell_data: s.transform_keys(&:to_sym).merge({list: self}),
+                                         config: configuration)
+      }
     end
 
     def difference(arr)

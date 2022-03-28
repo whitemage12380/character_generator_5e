@@ -4,7 +4,10 @@ class Skill
   include CharacterGeneratorHelper
   attr_reader :skill_name, :skill_list, :source, :expertise
 
-  def initialize(name, source: nil, ability: nil)
+  def initialize(name, source: nil, ability: nil, config: configuration)
+    @configuration = config
+    # A skill can be initialized as a specific skill, a list of possible skills, or a blank slate ("any").
+    # Unset skills are expected to be set later with the generate() method.
     if name.kind_of? String and name != "any"
       @skill_name = name
     elsif name.kind_of? Array
@@ -17,8 +20,8 @@ class Skill
     return if @skill_name
     final_skill_list = (@skill_list ? @skill_list : all_skills).difference(adventurer_skills.map { |as| as.skill_name })
     if final_skill_list.empty?
-      log "Cannot choose skill (no available options)!"
-      log "From source: #{@source.pretty}" if @source
+      log_warn "Cannot choose skill (no available options)!"
+      log_warn "From source: #{@source.pretty}" if @source
       @skill_name = "<Unavailable Skill Slot>"
       return
     end

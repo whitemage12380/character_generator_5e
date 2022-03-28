@@ -15,16 +15,16 @@ class ClassDecision
     return true if @prerequisites.nil?
     # Level Check
     if @prerequisites["level"] and not level
-      debug "Cannot select #{decision_name.pretty} because level could not be determined"
+      log_debug "Cannot select #{decision_name.pretty} because level could not be determined"
       return false
     end
     if @prerequisites["level"] and (@prerequisites["level"] > level)
-      debug "Cannot select #{decision_name.pretty} due to not meeting level prerequisites: #{@prerequisites["level"]}"
+      log_debug "Cannot select #{decision_name.pretty} due to not meeting level prerequisites: #{@prerequisites["level"]}"
       return false
     end
     # Cantrip Check
     if @prerequisites["cantrips"] and (cantrips.nil? or cantrips.none? { |c| @prerequisites["cantrips"].include? c.name })
-      debug "Cannot select #{decision_name.pretty} due to not meeting cantrip prerequisites: #{@prerequisites["cantrips"].to_s}"
+      log_debug "Cannot select #{decision_name.pretty} due to not meeting cantrip prerequisites: #{@prerequisites["cantrips"].to_s}"
       return false
     end
     # Each key under prerequisites other than those with specific meaning above are assumed to be class feature requirements
@@ -37,7 +37,7 @@ class ClassDecision
       # that has the same name as the prerequisite and contains a decision with a name that matches the stated requirement
       p_requirement_list.each { |p_requirement|
         if class_features.none? { |cf| cf.feature_name == p_name and not cf.decisions.none? { |d| d.decision_name == p_requirement } }
-          debug "Cannot select #{decision_name.pretty} due to not meeting class feature prerequisites: #{p_name.pretty} - #{p_requirement.pretty}"
+          log_debug "Cannot select #{decision_name.pretty} due to not meeting class feature prerequisites: #{p_name.pretty} - #{p_requirement.pretty}"
           return false
         end
       }

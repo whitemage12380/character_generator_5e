@@ -9,13 +9,17 @@ class Adventurer
   include CharacterGeneratorHelper
   attr_reader :character_name, :base_abilities, :race, :character_class, :background
 
-  def initialize(level = 1)
+  def initialize(level: 1, settings: {}, configuration_path: nil)
+    init_configuration(settings, configuration_path)
+    init_logger()
+    init_data()
     @base_abilities = roll_abilities()
-    @race = AdventurerRace.new(@base_abilities)
-    @character_class = AdventurerClass.new(abilities, adventurer_choices)
-    @background = AdventurerBackground.new()
+    @race = AdventurerRace.new(@base_abilities, config: configuration)
+    @character_class = AdventurerClass.new(abilities, adventurer_choices, config: configuration)
+    @background = AdventurerBackground.new(config: configuration)
     generate_skills(skills, @character_class.expertises)
     generate_feats(@race.feats, abilities, @character_class.spellcaster?, adventurer_choices)
+    generate_spells(@race.cantrips, cantrips)
     level_up(level)
     prepare_spells()
   end
@@ -27,7 +31,7 @@ class Adventurer
   def filename()
     return @filename unless @filename.nil?
     base_name = @character_name ? @character_name : "#{@race.name}_#{@character_class.name}_lvl#{@character_class.level}".tr(" ", "_").delete('()')
-    directory_path = parse_path($configuration.fetch("saved_character_path", "data/character"))
+    directory_path = parse_path(saved_character_path)
     unless File.exist? "#{directory_path}/#{base_name}.yaml"
       @filename = base_name
       return @filename
@@ -154,7 +158,7 @@ class Adventurer
   def level_up(level)
     return if level < 2
     for l in 2..level
-      @character_class.apply_level(l, abilities, adventurer_choices)
+      @character_class.apply_level(level: l, adventurer_abilities: abilities, adventurer_choices: adventurer_choices)
       generate_skills(skills, @character_class.expertises)
     end
   end
@@ -329,7 +333,7 @@ class Adventurer
     puts "----------------------------"
   end
 
-  def save(filename = filename(), filepath = $configuration['saved_character_path'])
+  def save(filename = filename(), filepath = saved_character_path)
     if filename =~ /^\/.*\.yaml$/
       fullpath = filename
     else

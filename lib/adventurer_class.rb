@@ -13,9 +13,11 @@ class AdventurerClass
               :cantrips, :spells_known, :spells_prepared, :spellbook, :spell_lists, :mystic_arcana, :decision_lists, :class_features,
               :class_data, :subclass_data
 
-  def initialize(adventurer_abilities, adventurer_choices, level = 1)
+  def initialize(adventurer_abilities, adventurer_choices, level: 1, config: configuration)
+    @configuration = config
     @level = level
-    generate_class(adventurer_abilities, adventurer_choices)
+    generation_style = configuration.fetch("generation_style", {"race"=>"smart"})["race"]
+    generate_class(adventurer_abilities, adventurer_choices, generation_style)
   end
 
   def name()
@@ -26,7 +28,8 @@ class AdventurerClass
   ## LEVELING UP
   ###########
 
-  def apply_level(level, adventurer_abilities, adventurer_choices, character_class = @class_data, subclass = @subclass_data)
+  def apply_level(level:, adventurer_abilities:, adventurer_choices:, character_class: @class_data, subclass: @subclass_data,
+                  use_feats: configuration.fetch('feats', 'never'))
     log "Applying level #{level}"
     @level = level
     # Roll HP
@@ -57,7 +60,8 @@ class AdventurerClass
     # Resolve Ability Score Increases and Feats
     generate_ability_score_increases(character_class.fetch("ability_score_increases", [4, 8, 12, 16, 19]),
                                      adventurer_abilities: adventurer_abilities,
-                                     adventurer_choices: adventurer_choices)
+                                     adventurer_choices: adventurer_choices,
+                                     use_feats: use_feats)
     # Add and Resolve Spells
     add_spells_known()
     add_spellbook_spells()
@@ -72,15 +76,15 @@ class AdventurerClass
 
   # Main Generator
 
-  def generate_class(adventurer_abilities, adventurer_choices = nil)
+  def generate_class(adventurer_abilities, adventurer_choices = nil, generation_style = "smart")
     classes = read_yaml_files("class")
-    case $configuration["generation_style"]["class"]
+    case generation_style
     when "smart"
       @class_name, character_class, @subclass_name, subclass = random_class_smart(classes, adventurer_abilities)
     when "weighted", "random"
-      @class_name, character_class, @subclass_name, subclass = random_class(classes)
+      @class_name, character_class, @subclass_name, subclass = random_class(classes, generation_style)
     else
-      raise "Unrecognized generation style: #{$configuration['generation_style']['class']}"
+      raise "Unrecognized generation style: #{generation_style}"
     end
     log "Chose Class: #{@class_name.pretty}"
     log "Chose Subclass: #{@subclass_name.pretty}" if @subclass_name
@@ -91,23 +95,24 @@ class AdventurerClass
     @hp_rolls = [@hit_die.clone]
     class_skills = character_class.fetch("skills", [])
     class_skills = Array.new(class_skills, character_class.fetch("skill_list", "any")) if class_skills.kind_of? Integer
-    @skills = class_skills.collect { |s| Skill.new(s, source: @class_name) }
+    @skills = class_skills.collect { |s| Skill.new(s, source: @class_name, config: configuration) }
     @expertises = Array.new
     @spell_lists = Array.new
     @feats = Array.new
     @class_features = Array.new
     @saves = character_class.fetch("saves", []).collect(&:to_sym)
     @ability_score_increases = ABILITIES.to_h { |a| [a, 0] }
-    apply_level(1, adventurer_abilities, adventurer_choices, character_class, subclass)
+    apply_level(level: 1, adventurer_abilities: adventurer_abilities, adventurer_choices: adventurer_choices,
+                character_class: character_class, subclass: subclass)
   end
 
   # Random - Class
 
   def random_class_smart(classes, adventurer_abilities)
-    debug "Class probabilities:"
+    log_debug "Class probabilities:"
     classes.each_pair { |class_name, character_class|
       character_class["weight"] = class_weight(adventurer_abilities, character_class["ability_weights"])
-      debug "#{class_name}: #{classes[class_name]["weight"]}"
+      log_debug "#{class_name}: #{classes[class_name]["weight"]}"
     }
     if classes.values.select { |c| c["weight"] > 0}.count == 0
       log "There is no recommended class based on ability scores! Allowing class to be entirely random."
@@ -123,8 +128,8 @@ class AdventurerClass
     end
   end
 
-  def random_class(classes)
-    weighted = $configuration["generation_style"]["class"] == "weighted"
+  def random_class(classes, generation_style = "smart")
+    weighted = generation_style == "weighted"
     character_class_hash = weighted ? weighted_random(classes) : classes.to_a.sample(1).to_h
     class_name, character_class = character_class_hash.first
     if character_class["subclass_level"] == 1
@@ -224,10 +229,10 @@ class AdventurerClass
     case skills
     when Integer
       skills.times do
-        @skills << Skill.new(skill_list, source: source)
+        @skills << Skill.new(skill_list, source: source, config: configuration)
       end
     when Array
-      @skills.concat(skills.map { |s| Skill.new(s, source: source) })
+      @skills.concat(skills.map { |s| Skill.new(s, source: source, config: configuration) })
     else
       raise "Unsupported type of value for skills: #{choice_content}"
     end
@@ -247,29 +252,34 @@ class AdventurerClass
   ## ABILITY SCORE INCREASES/FEATS
   ###########
 
-  def generate_ability_score_increases(asi_levels, level: @level, source: @class_name, adventurer_abilities:, adventurer_choices:)
+  def generate_ability_score_increases(asi_levels, level: @level, source: @class_name,
+                                       adventurer_abilities:, adventurer_choices:,
+                                       use_feats: "never")
     return unless asi_levels and asi_levels.include? level
-    # For now, decide whether to choose an ASI or a feat based on a coin flip
-    case $configuration["feats"]
+    # Handle feats based on user-friendly text settings, or decimal between 0 and 1 for fine-grained percentage chance.
+    is_feat = case use_feats
     when "always"
-      is_feat = true
+      true
     when "sometimes"
-      is_feat = [true, false].sample
+      [true, false].sample
     when "never"
-      is_feat = false
+      false
+    when Float
+      rand() < use_feats
     else
-      log_warn "feats configuration not set; assuming never"
-      is_feat = false
+      log_warn "Invalid feats setting: '#{use_feats}'. Setting to 'never.'"
+      false
     end
     if is_feat
-      @feats << Feat.new(source: source, feats: @feats, adventurer_abilities: adventurer_abilities, is_spellcaster: spellcaster?, adventurer_choices: adventurer_choices)
+      @feats << Feat.new(source: source, feats: @feats, adventurer_abilities: adventurer_abilities,
+                         is_spellcaster: spellcaster?, adventurer_choices: adventurer_choices, config: configuration)
       return
     end
     asi_split = spend_ability_points([1, 1], adventurer_abilities, "class")
-    asi_split_weight = asi_split.to_a.sum { |asi| ability_score_weight(adventurer_abilities[asi[0]] + 1, 1, "class") }
+    asi_split_weight = asi_split.to_a.sum { |asi| ability_score_weight(adventurer_abilities[asi[0]] + 1, increase: 1, category: "class") }
     asi_unsplit = spend_ability_points([2], adventurer_abilities, "class")
-    asi_unsplit_weight = ability_score_weight(adventurer_abilities[asi_unsplit.keys[0]] + 2, 2, "class")
-    debug "Ability Score Increase: Choosing between #{asi_split.to_s} (wt: #{asi_split_weight}) and #{asi_unsplit.to_s} (wt: #{asi_unsplit_weight})"
+    asi_unsplit_weight = ability_score_weight(adventurer_abilities[asi_unsplit.keys[0]] + 2, increase: 2, category: "class")
+    log_debug "Ability Score Increase: Choosing between #{asi_split.to_s} (wt: #{asi_split_weight}) and #{asi_unsplit.to_s} (wt: #{asi_unsplit_weight})"
     chosen_ability_score_increases = weighted_random([asi_split.merge({weight: asi_split_weight}), asi_unsplit.merge({weight: asi_unsplit_weight})])
     chosen_ability_score_increases.each_pair { |ability, increase|
       next if ability == :weight
@@ -309,20 +319,21 @@ class AdventurerClass
           list_data.each { |spell_name|
             next unless spells.none? { |s| s.name and (s.name.downcase == spell_name.downcase) }
             log "Adding Spell: #{spell_name.pretty}"
-            spells << Spell.new(source: source, spell_list: find_or_create_spell_list(list_name), name: spell_name)
+            spells << Spell.new(source: source, spell_list: find_or_create_spell_list(list_name), name: spell_name, config: configuration)
           }
           next
         end
         spell_count = spell_count_for_level(list_data, level)
         next if spell_count == 0
         spell_source = source == list_name ? source : "#{source} (#{list_name})" # Makes it clear when a spell uses an unusual list
-        debug "Adding #{spell_count} new spells (#{spell_field}, #{list_name})"
+        log_debug "Adding #{spell_count} new spells (#{spell_field}, #{list_name})"
         max_level = max_spell_level(level)
         spell_count_for_level(list_data, level).times do
           spells << Spell.new(source: spell_source,
                               spell_list: find_or_create_spell_list(list_name),
                               max_spell_level: max_level,
-                              is_cantrip: (spell_field == "cantrips"))
+                              is_cantrip: (spell_field == "cantrips"),
+                              config: configuration)
         end
       }
     }
@@ -362,14 +373,15 @@ class AdventurerClass
       spell_count_ability = (adventurer_abilities[spells_prepared_ability]  - 10) / 2
       spell_count_level = (level * spells_prepared_level_multiplier).floor
       spell_count = spell_count_ability + spell_count_level
-      spell_list = spells_prepared_spellbook ? SpellList.new("spellbook", @spellbook) : find_or_create_spell_list(spells_prepared_class)
+      spell_list = spells_prepared_spellbook ? SpellList.new("spellbook", @spellbook, config: configuration) : find_or_create_spell_list(spells_prepared_class)
       log "Preparing #{spell_count} #{spells_prepared_class} spells"
-      debug "Preparing #{spell_count_ability} spells from ability"
-      debug "Preparing #{spell_count_level} spells from level"
+      log_debug "Preparing #{spell_count_ability} spells from ability"
+      log_debug "Preparing #{spell_count_level} spells from level"
       spell_count.times do
         @spells_prepared << Spell.new(source: character_class["name"],
                             spell_list: spell_list,
-                            max_spell_level: max_level)
+                            max_spell_level: max_level,
+                            config: configuration)
       end
       generate_spells(@spells_prepared)
     }
@@ -380,7 +392,7 @@ class AdventurerClass
       if spell_level <= level
         spells.each { |spell_name|
           if @spells_prepared.none? { |s| s.name == spell_name }
-            @spells_prepared << Spell.new(name: spell_name, source: source, spell_list: nil)
+            @spells_prepared << Spell.new(name: spell_name, source: source, spell_list: nil, config: configuration)
           else
             log_warn "Tried to prepare #{source} spell #{spell_name.pretty} but it is already prepared!"
           end
@@ -396,7 +408,7 @@ class AdventurerClass
     if @spell_lists.one? { |sl| sl.name == list_name }
       spell_list = @spell_lists.select { |sl| sl.name == list_name }.first
     else
-      spell_list = SpellList.new(list_name)
+      spell_list = SpellList.new(list_name, config: configuration)
       @spell_lists << spell_list
     end
     return spell_list
