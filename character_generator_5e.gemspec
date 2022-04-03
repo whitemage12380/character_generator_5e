@@ -1,6 +1,6 @@
 require 'rake'
 Gem::Specification.new do |s|
-  s.name        = 'character_generator'
+  s.name        = 'character_generator_5e'
   s.version     = '0.1.0'
   s.summary     = "Generate Dungeons & Dragons 5E Characters"
   s.description = "A tool that randomly produces characters for Dungeons & Dragons 5th Edition"
