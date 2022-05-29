@@ -42,9 +42,8 @@ module CharacterGenerator
         # Otherwise, use name.
         # If name is generic/already exists, append a numeral
         filled_path = parse_path(pdf_configuration(config)['filled_path'])
-        puts "filled path: #{filled_path}"
         if filled_path.nil?
-          filled_path = parse_path("#{saved_character_path(config)}/#{adventurer.filename}")
+          filled_path = parse_path("#{adventurer.filepath}/#{adventurer.filename}")
           FileUtils.mkdir_p filled_path
         end
         return "#{filled_path}/#{pdf_configuration(config)['sheet_names'][page_name]}.pdf"

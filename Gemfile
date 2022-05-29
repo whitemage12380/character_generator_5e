@@ -1,2 +1,4 @@
-ruby '2.6'
-gem 'pdf-forms'
+source 'https://rubygems.org'
+
+ruby "3.1.2"
+gem "pdf-forms"

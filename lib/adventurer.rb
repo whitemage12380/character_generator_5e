@@ -32,18 +32,25 @@ module CharacterGenerator
     def filename()
       return @filename unless @filename.nil?
       base_name = @character_name ? @character_name : "#{@race.name}_#{@character_class.name}_lvl#{@character_class.level}".tr(" ", "_").delete('()')
-      directory_path = parse_path(saved_character_path)
-      unless File.exist? "#{directory_path}/#{base_name}.yaml"
+      unless File.exist? "#{filepath}/#{base_name}.yaml"
         @filename = base_name
         return @filename
       end
       (1..99).each { |n|
-        unless File.exist? "#{directory_path}/#{base_name}_#{n}.yaml"
+        unless File.exist? "#{filepath}/#{base_name}_#{n}.yaml"
           @filename = "#{base_name}_#{n}"
           return @filename
         end
       }
       raise "Failed to find suitable filename (name used: #{base_name})"
+    end
+
+    def filepath()
+      @filepath ||= saved_character_path()
+    end
+
+    def full_filepath(filename = filename(), filepath = filepath())
+      Adventurer.full_filepath(filename, filepath)
     end
 
     def abilities()
@@ -334,22 +341,79 @@ module CharacterGenerator
       puts "----------------------------"
     end
 
-    def save(filename = filename(), filepath = saved_character_path)
+    def self.full_filepath(filename, filepath = Configuration.new['save_directory'])
+      filename += ".yaml" unless filename =~ /\.yaml$/
       if filename =~ /^\/.*\.yaml$/
         fullpath = filename
       else
-        #filepath = prase_path(filepath)
-        #filepath = File.expand_path("#{File.dirname(__FILE__)}/../#{filepath}") unless filepath[0] == '/'
-        fullpath = "#{parse_path(filepath)}/#{filename}.yaml"
+        filepath = File.expand_path("#{File.dirname(__FILE__)}/../#{filepath}") unless filepath[0] == '/'
+        fullpath = "#{filepath}/#{filename}"
       end
+      return fullpath
+    end
+
+    # def save(filename = filename(), filepath = saved_character_path)
+    #   fullpath = full_filepath(filename, filepath)
+    #   if filename =~ /^\/.*\.yaml$/
+    #     fullpath = filename
+    #   else
+    #     fullpath = "#{parse_path(filepath)}/#{filename}.yaml"
+    #   end
+    #   log "Saving character to file: #{fullpath}"
+    #   File.open(fullpath, "w") do |f|
+    #     YAML::dump(self, f)
+    #   end
+    # end
+
+    def save(filename = filename(), filepath = filepath())
+      fullpath = full_filepath(filename, filepath)
       log "Saving character to file: #{fullpath}"
-      File.open(fullpath, "w") do |f|
-        YAML::dump(self, f)
+      begin
+        while File.file?(fullpath) # Add a number in the case of a filename conflict
+          if filename =~ /_([0-9]+)\.yaml$/
+            next_number = ($1.to_i + 1).to_s
+            filename.sub!(/_([0-9]+)\.yaml/, "_#{next_number}.yaml")
+          elsif filename =~ /\.yaml$/
+            filename.sub!(/\.yaml$/, "_1.yaml")
+          else
+            raise "Filename expected to have .yaml suffix: #{filename}"
+          end
+          fullpath = full_filepath(filename, filepath)
+          log "Filename conflict detected, saving instead to: #{fullpath}"
+        end
+        @character_name = File.basename(filename, '.yaml').pretty
+        File.open(fullpath, "w") do |f|
+          YAML::dump(self, f)
+        end
+      rescue SystemCallError => e
+        log_error "Failed to save character:"
+        log_error e.message
+        return false
       end
+      return true
     end
 
     def export_to_pdf()
       ExporterPdf.export(self)
+    end
+
+    def self.load(filename, filepath: nil, settings: {})
+      filepath ||= settings['save_directory']
+      if filepath.nil? or settings['log_level'].nil?
+        config = Configuration.new({'show_configuration' => false})
+        # TODO: If saved_character_path or log_level aren't set in the config file,
+        # it'll lead to confusing error messages.
+        filepath ||= config['saved_character_path']
+        settings['log_level'] ||= config['log_level']
+      end
+      fullpath = full_filepath(filename, filepath)
+      CharacterGeneratorLogger.logger.info "Loading character from file: #{fullpath}"
+      character = nil
+      File.open(fullpath, "r") do |f|
+        character = YAML::unsafe_load(f)
+      end
+      character.log "Loaded character #{character.name}"
+      return character
     end
   end
 end

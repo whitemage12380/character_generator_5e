@@ -1,0 +1,20 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cliver (0.3.2)
+    pdf-forms (1.4.0)
+      cliver (~> 0.3.2)
+      safe_shell (>= 1.0.3, < 2.0)
+    safe_shell (1.1.0)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  pdf-forms
+
+RUBY VERSION
+   ruby 3.1.2p20
+
+BUNDLED WITH
+   2.3.7

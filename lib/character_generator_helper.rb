@@ -102,7 +102,7 @@ module CharacterGenerator
     # end
 
     def saved_character_path(config = configuration)
-      config.fetch("saved_character_path", "data/character")
+      parse_path(config.fetch("saved_character_path", "data/character"))
     end
 
     def parse_path(path_str)
