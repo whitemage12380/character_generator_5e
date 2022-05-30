@@ -398,9 +398,9 @@ module CharacterGenerator
     end
 
     def self.load(filename, filepath: nil, settings: {})
-      filepath ||= settings['save_directory']
+      filepath ||= settings['saved_character_path']
       if filepath.nil? or settings['log_level'].nil?
-        config = Configuration.new({'show_configuration' => false})
+        config = Configuration.new({'show_configuration' => false}.merge(settings))
         # TODO: If saved_character_path or log_level aren't set in the config file,
         # it'll lead to confusing error messages.
         filepath ||= config['saved_character_path']
