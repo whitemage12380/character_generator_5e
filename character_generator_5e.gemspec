@@ -17,5 +17,7 @@ Gem::Specification.new do |s|
                            "lib/*.rb"].to_a
   s.homepage    =
     'https://github.com/whitemage12380/character_generator_5e'
-  s.license       = 'MPL-2.0'
+  s.license     = 'MPL-2.0'
+
+  s.add_runtime_dependency "pdf-forms"
 end
